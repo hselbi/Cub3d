@@ -39,12 +39,15 @@
 // define π value
 # define PI 3.141592653589793238
 
-
 # define FOV PI/2.0
+
+# define ROW 11
+# define COL 15
 
 
 # include <stdio.h>
 # include <stdlib.h>
+# include <string.h>
 # include <mlx.h>
 # include <unistd.h>
 # include <math.h>
@@ -56,9 +59,12 @@ typedef struct s_cub
 	void	*win;
 	void	*img;
 	char	*addr;
+	int		*data;
+	char	*relative_path;
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
+	int		map[ROW][COL];
 
 	int		win_x;
 	int		win_y;
@@ -67,9 +73,16 @@ typedef struct s_cub
 	int		mid_x;
 	int		mid_y;
 
+	int		x;
+	int		y;
 	int		pos_x;
 	int		pos_y;
+	double	degree;
 
+	int		down_y;
+	int		up_y;
+	// int		down_x;
+	// int		up_x;
 
 }			t_cub;
 
