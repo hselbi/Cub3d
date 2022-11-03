@@ -58,7 +58,7 @@ typedef struct s_cub
 	void	*mlx;
 	void	*win;
 	void	*img;
-	char	*addr;
+	int		*addr;
 	int		*data;
 	char	*relative_path;
 	int		bits_per_pixel;
@@ -86,6 +86,42 @@ typedef struct s_cub
 
 }			t_cub;
 
+void mlx_windows(t_cub *cub);
+void my_mlx_pixel(t_cub *data, int x, int y, int color);
+
+/*		keys		*/
+
+int		ft_keys(int key, t_cub *cub);
+void	rotation_matrix(t_cub *cub, double angle);
+int		ft_close(t_cub *cub);
+
+/*		square		*/
+
+void    draw_sq(t_cub *cub, int x, int y, int color);
+void	draw_sqs(t_cub *cub);
+
+/*			borders			*/
+
+void	draw_line_h(t_cub *cub, int i, int j);
+void	draw_line_v(t_cub *cub, int i, int j);
+void    draw_borders(t_cub *cub);
+
+
+void dda_line(int start_x, int end_x, int start_y, int end_y, t_cub *cub);
+void my_mlx_pixel(t_cub *data, int x, int y, int color);
+
+/*******************************/
+void draw_ver(t_cub *cub, int x, int y);
+void draw_hori(t_cub *cub, int x, int y);
+void drawing_palyer(t_cub *cub);
+void angle_fov(t_cub *cub);
+void fov_angle(t_cub *cub);
+void maps_barriers(t_cub *cub);
+void	draw_dir_ray(t_cub *cub, double angle);
+void	draw_ray(t_cub *cub);
+void new_point(t_cub *cub);
+void drawing(t_cub *cub);
+int sq_draw(t_cub *cub);
 
 #endif
 

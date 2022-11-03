@@ -1,6 +1,6 @@
 .PHONY = all clean fclean re
 
-SRC = main.c
+SRC = main.c keys_mlx.c squares_borders.c my_mlx_px.c DDA.c
 
 NAME = cub3d
 

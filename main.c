@@ -1,13 +1,5 @@
 #include "cub3d.h"
 
-void my_mlx_pixel(t_cub *data, int x, int y, int color)
-{
-	char *dst;
-	// printf("@@@ %d\n", x * (data->bits_per_pixel / 8));
-	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
-	*(unsigned int *)dst = color;
-}
-
 void draw_ver(t_cub *cub, int x, int y)
 {
 	int i = x;
@@ -78,19 +70,19 @@ void drawing_palyer(t_cub *cub)
 		while (cub->pos_y <= end_y)
 		{
 			if (end_y >= cub->win_y)
-				my_mlx_pixel(cub, cub->pos_x, cub->win_y, 0xEC7063);
+				my_mlx_pixel(cub, cub->pos_x, cub->win_y, 0xFFFFFF);
 			else if (end_x >= cub->win_x)
-				my_mlx_pixel(cub, cub->win_x, cub->pos_y, 0xEC7063);
+				my_mlx_pixel(cub, cub->win_x, cub->pos_y, 0xFFFFFF);
 			else if (end_x >= cub->win_x && end_y >= cub->win_y)
-				my_mlx_pixel(cub, cub->win_x, cub->win_y, 0xEC7063);
+				my_mlx_pixel(cub, cub->win_x, cub->win_y, 0xFFFFFF);
 			else if (end_x <= 0)
-				my_mlx_pixel(cub, 0, cub->pos_y, 0xEC7063);
+				my_mlx_pixel(cub, 0, cub->pos_y, 0xFFFFFF);
 			else if (end_y <= 0)
-				my_mlx_pixel(cub, cub->pos_x, 0, 0xEC7063);
+				my_mlx_pixel(cub, cub->pos_x, 0, 0xFFFFFF);
 			else if (end_y <= 0 && end_x <= 0)
-				my_mlx_pixel(cub, 0, 0, 0xEC7063);
+				my_mlx_pixel(cub, 0, 0, 0xFFFFFF);
 			else
-				my_mlx_pixel(cub, cub->pos_x, cub->pos_y, 0xEC7063);
+				my_mlx_pixel(cub, cub->pos_x, cub->pos_y, 0xFFFFFF);
 			cub->pos_y++;
 		}
 		cub->pos_x++;
@@ -120,32 +112,6 @@ void angle_fov(t_cub *cub)
 	}
 }
 
-void dda_line(int start_x, int end_x, int start_y, int end_y, t_cub *cub)
-{
-	int dx = end_x - start_x;
-	int dy = end_y - start_y;
-	int step = 0;
-	int x = start_x;
-	int y = start_y;
-	int i = 0;
-	if (start_x != end_x && start_y != end_y)
-	{
-		if (dx >= dy)
-			step = dx;
-		else
-			step = dy;
-		dx = dx / step;
-		dy = dy / step;
-		while (i < step)
-		{
-			my_mlx_pixel(cub, x, y, 0x000000);
-			// my_mlx_pixel(cub, x, y, 0xEC7063);
-			x += dx;
-			y += dy;
-			i++;
-		}
-	}
-}
 
 // void    line_player(t_cub *cub)
 // {
@@ -195,6 +161,53 @@ void maps_barriers(t_cub *cub)
 	i = eas + 1;
 	while (--i > wes)
 		my_mlx_pixel(cub, i, nor, 0xE10606);
+}
+
+void	draw_dir_ray(t_cub *cub, double angle)
+{
+	double	ray_x;
+	double	ray_y;
+	double	dx = 0.0;
+	double	dy = 0.0;
+	double	max_vulue;
+
+	ray_x = cub->pos_x;
+	ray_y = cub->pos_y;
+
+	dx = cos(angle) * cub->x - sin(angle) * cub->y;
+	printf("dx => %lf\n", dx);
+	dy = sin(angle) * cub->x + cos(angle) * cub->y;
+	printf("dy => %lf\n", dy);
+	max_vulue = fmax(fabs(dx), fabs(dy));
+	dx /= max_vulue;
+	dy /= max_vulue;
+	printf("4 ==> %d\n", cub->addr[(COL * 64) *  ( int )floor(ray_y) +  ( int )floor(ray_x)]);
+	while (1)
+	{
+            // cub->addr[(COL * 64) *  ( int )floor(ray_y) +  ( int )floor(ray_x)] =  0xFF0000 ;
+		if  (cub->addr[(COL * 64) * (int)floor(ray_y) + (int)floor(ray_x)] != 16304479)
+			my_mlx_pixel(cub, (int)floor(ray_x), (int)floor(ray_y), 0xFFFFFF);
+        else
+            break ;
+		ray_x += dx;
+		ray_y += dy;
+	}
+	
+}
+
+/************	keys check	**********/
+
+void	draw_ray(t_cub *cub)
+{
+	double angle = 0.0;
+
+	while (angle < PI / 6)
+	{
+		draw_dir_ray(cub, angle);
+		draw_dir_ray(cub, -angle);
+		angle += PI / 72;
+	}
+	// mlx_put_image_to_window(cub->mlx, cub->win, cub->img, 0, 0);
 }
 
 void new_point(t_cub *cub)
@@ -260,157 +273,23 @@ void drawing(t_cub *cub)
 void mlx_windows(t_cub *cub)
 {
 	cub->img = mlx_new_image(cub->mlx, cub->win_x, cub->win_y);
-	cub->addr = mlx_get_data_addr(cub->img, &cub->bits_per_pixel, &cub->line_length, &cub->endian);
+	cub->addr = (int *)mlx_get_data_addr(cub->img, &cub->bits_per_pixel, &cub->line_length, &cub->endian);
 	cub->flag_x = 0;
 	cub->flag_y = 0;
 	drawing(cub);
 	mlx_put_image_to_window(cub->mlx, cub->win, cub->img, 0, 0);
 }
 
-/*
-! crose closing function
-*/
-
-int ft_close(t_cub *cub)
-{
-	mlx_destroy_window(cub->mlx, cub->win);
-	exit(0);
-	return (0);
-}
-
-void	rotation_matrix(t_cub *cub, double angle)
-{
-	double tmp;
-
-	tmp = cub->x * cos(angle) - cub->y * sin(angle);
-	cub->y = cub->x * sin(angle) + cub->y * cos(angle);
-	cub->x = tmp;
-}
-
-/*
-! keys function
-*/
-
-int ft_keys(int key, t_cub *cub)
-{
-	if (key == ESC)
-		ft_close(cub);
-	else if (key == W)
-	{
-		cub->mid_y -= 10;
-	}
-	else if (key == S)
-	{
-		cub->mid_y += 10;
-	}
-	else if (key == A)
-	{
-		cub->mid_x -= 10;
-	}
-	else if (key == D)
-	{
-		cub->mid_x += 10;
-	}
-	if (key == LEFT)
-		rotation_matrix(cub, PI/36);
-	if (key == RIGHT)
-		rotation_matrix(cub, -PI/36);
-	
-	mlx_windows(cub);
-	return (0);
-}
-
-void	draw_line_h(t_cub *cub, int i, int j)
-{
-	j = j * 64;
-	while (i < COL * 64)
-	{
-		my_mlx_pixel(cub, i, j, 0x000000);
-		i++;
-	}
-}
-
-void	draw_line_v(t_cub *cub, int i, int j)
-{
-	i = 64 * i;
-	while (j < ROW * 64)
-	{
-		my_mlx_pixel(cub, i, j, 0x000000);
-		j++;
-	}
-}
-
-void    draw_borders(t_cub *cub)
-{
-    int i;
-    int j;
-
-	i = 0;
-	j = 0;
-    while (j <= ROW)
-    {
-		draw_line_h(cub, i, j);
-        j++;
-    }
-	j = 0;
-	while (i <= COL)
-    {
-		draw_line_v(cub, i, j);
-        i++;
-    }
-}
-
-void    draw_sq(t_cub *cub, int x, int y, int color)
-{
-	int i;
-	int j;
-	int imax;
-	int jmax;
-
-	j = 64 * y;
-	i = 64 * x;
-	jmax = j + 64;
-	imax = i + 64;
-	while (i < imax)
-	{
-		j = 64 * y;
-		while (j < jmax)
-		{
-			my_mlx_pixel(cub, i, j, color);
-			j++;
-		}
-		i++;
-	}
-}
-
-void	draw_sqs(t_cub *cub)
-{
-	int i;
-	int j;
-
-	j = 0;
-	while (j < ROW)
-	{
-		i = 0;
-		while (i < COL)
-		{
-			if (cub->map[j][i] == 1)
-				draw_sq(cub, i, j, 16304479);
-			else
-				draw_sq(cub, i, j, 0xEC7063);
-			i++;
-		}
-		j++;
-	}
-}
-
 int sq_draw(t_cub *cub)
 {
 	draw_sqs(cub);
 	draw_borders(cub);
+	draw_ray(cub);
 	mlx_put_image_to_window(cub->mlx, cub->win, cub->img, 0, 0);
 	return (0);
 }
+
+/************	main	**********/
 
 int main(int ac, char **av)
 {
@@ -436,12 +315,16 @@ int main(int ac, char **av)
 	cub.win_y = 512;
 	cub.mid_x = 0;
 	cub.mid_y = 0;
+	cub.pos_x = 300;
+	cub.pos_y = 456;
+	cub.x = 300;
+	cub.x = 456;
 	cub.relative_path = av[1];
 	cub.mlx = mlx_init();
 	cub.win = mlx_new_window(cub.mlx, COL * 64, ROW * 64, "CUB3D");
 	memcpy(cub.map, map, sizeof(int) * ROW * COL);
 	cub.img = mlx_new_image(cub.mlx, COL * 64, ROW * 64);
-	cub.addr = mlx_get_data_addr(cub.img, &cub.bits_per_pixel, &cub.line_length, &cub.endian);
+	cub.addr = (int *)mlx_get_data_addr(cub.img, &cub.bits_per_pixel, &cub.line_length, &cub.endian);
 	// cub.img = mlx_new_image(cub.mlx, cub.win_x, cub.win_y);
 	// cub.img = mlx_xpm_file_to_image(cub.mlx, cub.relative_path, &cub.win_x, &cub.win_y);
 	if (!cub.img)
@@ -449,10 +332,13 @@ int main(int ac, char **av)
 	// mlx_windows(&cub);
 	mlx_key_hook(cub.win, ft_keys, &cub);
 	mlx_hook(cub.win, 17, 0, ft_close, &cub);
+	// drawing_palyer(&cub);
+	// my_mlx_pixel(&cub, cub.pos_x, cub.pos_y, 0xFFFFFF);
 	mlx_loop_hook(cub.mlx, sq_draw, &cub);
 	mlx_loop(cub.mlx);
 	return 0;
 }
+
 
 
 /*
