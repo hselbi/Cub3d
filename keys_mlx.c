@@ -15,6 +15,10 @@ void	rotation_matrix(t_cub *cub, double angle)
 {
 	double tmp;
 
+	// if (cub->degree < 0)
+	// 	cub->degree += 2 * PI;
+	// else if (cub->degree > 2 * PI)
+	// 	cub->degree -= 2 * PI;
 	tmp = cub->x * cos(angle) - cub->y * sin(angle);
 	cub->y = cub->x * sin(angle) + cub->y * cos(angle);
 	cub->x = tmp;
@@ -22,6 +26,7 @@ void	rotation_matrix(t_cub *cub, double angle)
 
 int ft_keys(int key, t_cub *cub)
 {
+	// printf("%d\n", key);
 	if (key == ESC)
 		ft_close(cub);
 	else if (key == W)
@@ -44,7 +49,6 @@ int ft_keys(int key, t_cub *cub)
 		rotation_matrix(cub, PI/36);
 	if (key == RIGHT)
 		rotation_matrix(cub, -PI/36);
-	
-	sq_draw(cub);
+	// sq_draw(cub);
 	return (0);
 }

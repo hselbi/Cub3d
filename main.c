@@ -175,18 +175,19 @@ void	draw_dir_ray(t_cub *cub, double angle)
 	ray_y = cub->pos_y;
 
 	dx = cos(angle) * cub->x - sin(angle) * cub->y;
-	printf("dx => %lf\n", dx);
+	// printf("dx => %lf\n", dx);
 	dy = sin(angle) * cub->x + cos(angle) * cub->y;
-	printf("dy => %lf\n", dy);
+	// printf("dy => %lf\n", dy);
 	max_vulue = fmax(fabs(dx), fabs(dy));
 	dx /= max_vulue;
 	dy /= max_vulue;
-	printf("4 ==> %d\n", cub->addr[(COL * 64) *  ( int )floor(ray_y) +  ( int )floor(ray_x)]);
+	// printf("4 ==> %d\n", cub->addr[(COL * 64) *  ( int )floor(ray_y) +  ( int )floor(ray_x)]);
 	while (1)
 	{
-            // cub->addr[(COL * 64) *  ( int )floor(ray_y) +  ( int )floor(ray_x)] =  0xFF0000 ;
+			// my_mlx_pixel(cub, (int)floor(ray_x), (int)floor(ray_y), 0xFFFFFF);
+		// printf("==>%d/%d\n", cub->line_length, cub->bits_per_pixel);
 		if  (cub->addr[(COL * 64) * (int)floor(ray_y) + (int)floor(ray_x)] != 16304479)
-			my_mlx_pixel(cub, (int)floor(ray_x), (int)floor(ray_y), 0xFFFFFF);
+            cub->addr[(COL * 64) *  ( int )floor(ray_y) +  ( int )floor(ray_x)] =  0xFFFFFF;
         else
             break ;
 		ray_x += dx;
@@ -205,7 +206,7 @@ void	draw_ray(t_cub *cub)
 	{
 		draw_dir_ray(cub, angle);
 		draw_dir_ray(cub, -angle);
-		angle += PI / 72;
+		angle += PI / 976;
 	}
 	// mlx_put_image_to_window(cub->mlx, cub->win, cub->img, 0, 0);
 }
@@ -221,6 +222,7 @@ void new_point(t_cub *cub)
 	int next_x;
 	int next_y;
 
+	// check_if(cub);
 	// 136 is difference between y0 and y1
 	if (cub->up_y)
 	{
@@ -269,15 +271,32 @@ void drawing(t_cub *cub)
 	// maps_barriers(cub);
 	// angle_fov(cub);
 }
-
+/*
 void mlx_windows(t_cub *cub)
 {
 	cub->img = mlx_new_image(cub->mlx, cub->win_x, cub->win_y);
-	cub->addr = (int *)mlx_get_data_addr(cub->img, &cub->bits_per_pixel, &cub->line_length, &cub->endian);
+	cub->addr = ()mlx_get_data_addr(cub->img, &cub->bits_per_pixel, &cub->line_length, &cub->endian);
 	cub->flag_x = 0;
 	cub->flag_y = 0;
 	drawing(cub);
 	mlx_put_image_to_window(cub->mlx, cub->win, cub->img, 0, 0);
+}
+*/
+
+void	draw_player(t_cub *cub)
+{
+	int x = cub->pos_x - 2;
+	int y = cub->pos_y - 2;
+	while (y < cub->pos_y + 2)
+	{
+		x = cub->pos_x - 2;
+		while (x < cub->pos_x + 2)
+		{
+			pix_mlx(cub, x, y, 0x00FF00);
+			x++;
+		}
+		y++;
+	}
 }
 
 int sq_draw(t_cub *cub)
@@ -285,9 +304,13 @@ int sq_draw(t_cub *cub)
 	draw_sqs(cub);
 	draw_borders(cub);
 	draw_ray(cub);
+	draw_player(cub);
+	// fprintf(stderr, "==> %p\n", cub->mlx);
 	mlx_put_image_to_window(cub->mlx, cub->win, cub->img, 0, 0);
 	return (0);
 }
+
+// void	draw_rays_3d()
 
 /************	main	**********/
 
@@ -319,6 +342,7 @@ int main(int ac, char **av)
 	cub.pos_y = 456;
 	cub.x = 300;
 	cub.x = 456;
+	cub.degree = 0.1;
 	cub.relative_path = av[1];
 	cub.mlx = mlx_init();
 	cub.win = mlx_new_window(cub.mlx, COL * 64, ROW * 64, "CUB3D");
@@ -335,6 +359,7 @@ int main(int ac, char **av)
 	// drawing_palyer(&cub);
 	// my_mlx_pixel(&cub, cub.pos_x, cub.pos_y, 0xFFFFFF);
 	mlx_loop_hook(cub.mlx, sq_draw, &cub);
+	fprintf(stderr, "@@@%p\n", cub.mlx);
 	mlx_loop(cub.mlx);
 	return 0;
 }

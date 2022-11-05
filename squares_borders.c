@@ -18,7 +18,9 @@ void    draw_sq(t_cub *cub, int x, int y, int color)
 		j = 64 * y;
 		while (j < jmax)
 		{
-			my_mlx_pixel(cub, i, j, color);
+			// printf("======> %d/%d", j, jmax);
+			// my_mlx_pixel(cub, i, j, color);
+			cub->addr[(COL * 64) * j + i] = color;
 			j++;
 		}
 		i++;
@@ -31,6 +33,7 @@ void	draw_sqs(t_cub *cub)
 {
 	int i;
 	int j;
+	// int k = 0;
 
 	j = 0;
 	while (j < ROW)
@@ -38,6 +41,7 @@ void	draw_sqs(t_cub *cub)
 		i = 0;
 		while (i < COL)
 		{
+			// printf("==> %d\n", k++);
 			if (cub->map[j][i] == 1)
 				draw_sq(cub, i, j, 16304479);
 			else
@@ -56,7 +60,8 @@ void	draw_line_h(t_cub *cub, int i, int j)
 	j = j * 64;
 	while (i < COL * 64)
 	{
-		my_mlx_pixel(cub, i, j, 0x000000);
+		cub->addr[(COL * 64) * j + i] = 0x000000;
+		// my_mlx_pixel(cub, i, j, 0x000000);
 		i++;
 	}
 }
@@ -66,7 +71,8 @@ void	draw_line_v(t_cub *cub, int i, int j)
 	i = 64 * i;
 	while (j < ROW * 64)
 	{
-		my_mlx_pixel(cub, i, j, 0x000000);
+		cub->addr[(COL * 64) * j + i] = 0x000000;
+		// my_mlx_pixel(cub, i, j, 0x000000);
 		j++;
 	}
 }

@@ -6,7 +6,7 @@ NAME = cub3d
 
 OBJ = $(SRC:.c=.o)
 
-CC = gcc -Wall -Wextra -Werror
+CC = gcc -g -Wall -Wextra -Werror
 
 all: ${NAME}
 

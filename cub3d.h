@@ -59,7 +59,6 @@ typedef struct s_cub
 	void	*win;
 	void	*img;
 	int		*addr;
-	int		*data;
 	char	*relative_path;
 	int		bits_per_pixel;
 	int		line_length;
@@ -78,6 +77,7 @@ typedef struct s_cub
 	int		pos_x;
 	int		pos_y;
 	double	degree;
+	double	angl;
 
 	int		down_y;
 	int		up_y;
@@ -88,6 +88,7 @@ typedef struct s_cub
 
 void mlx_windows(t_cub *cub);
 void my_mlx_pixel(t_cub *data, int x, int y, int color);
+void	pix_mlx(t_cub *cub, int x, int y, int color);
 
 /*		keys		*/
 
