@@ -18,9 +18,9 @@ void dda_line(int start_x, int end_x, int start_y, int end_y, t_cub *cub)
 		dy = dy / step;
 		while (i < step)
 		{
-			if (cub->addr[(COL * 64) * y + x] == 0xEC7063)
-				return ;
-			cub->addr[(COL * 64) *  y +  x] = 0xFFFFF;
+			// if (cub->addr[(COL * 64) * y + x] == 0xEC7063)
+			// 	return ;
+			cub->addr[(COL * 64) *  y +  x] = 0x00FF00;
 			// my_mlx_pixel(cub, x, y, 0xFFFFFF);
 			x += dx;
 			y += dy;

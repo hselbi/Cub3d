@@ -113,14 +113,6 @@ void angle_fov(t_cub *cub)
 }
 
 
-// void    line_player(t_cub *cub)
-// {
-//     int x = cub->pos_x - 4;
-//     int y = cub->pos_y - 5;
-//     while (++x < cub->pos_x + 100)
-//         my_mlx_pixel(cub, x, y, 0xEC7063);
-
-// }
 
 void fov_angle(t_cub *cub)
 {
@@ -177,7 +169,7 @@ void	draw_dir_ray(t_cub *cub, double angle)
 	dx = cos(angle) * cub->x - sin(angle) * cub->y;
 	// printf("dx => %lf\n", dx);
 	dy = sin(angle) * cub->x + cos(angle) * cub->y;
-	// printf("dy => %lf\n", dy);
+
 	max_vulue = fmax(fabs(dx), fabs(dy));
 	dx /= max_vulue;
 	dy /= max_vulue;
@@ -204,11 +196,25 @@ void	draw_ray(t_cub *cub)
 
 	while (angle < PI / 6)
 	{
+		// printf("angle => %lf\n", angle);
 		draw_dir_ray(cub, angle);
 		draw_dir_ray(cub, -angle);
 		angle += PI / 976;
 	}
-	// mlx_put_image_to_window(cub->mlx, cub->win, cub->img, 0, 0);
+}
+
+void	check_if(t_cub *cub)
+{
+	if (cub->degree > PI)
+	{
+		cub->up_y = 0;
+		cub->down_y = 1;
+	}
+	else 
+	{
+		cub->up_y = 1;
+		cub->down_y = 0;
+	}
 }
 
 void new_point(t_cub *cub)
@@ -222,47 +228,53 @@ void new_point(t_cub *cub)
 	int next_x;
 	int next_y;
 
-	// check_if(cub);
-	// 136 is difference between y0 and y1
+	check_if(cub);
+	
+	/*
+	* 136 is difference between y0 and y1 
+	*/
+	
 	if (cub->up_y)
 	{
-		block_y = -135; 
-		new_y = floor(cub->pos_y / 135) * 135 - 1;
+		block_y = -64; 
+		new_y = floor(cub->pos_y / 64) * 64 - 1;
 	}
 	else if (cub->down_y)
 	{
-		block_y = 135; 
-		new_y = floor(cub->pos_y / 135) * 135;
+		block_y = 64; 
+		new_y = floor(cub->pos_y / 64) * 64;
 	}
-	// if u want to check which block is this new_y
-	// u can easily do new_y/135 which will give us the y_block
-	y = new_y/135;
+	
+	/* 
+	* if u want to check which block is this new_y
+	* u can easily do new_y/135 which will give us the y_block 
+	*/
+	
+	y = new_y/64;
 	new_x = cub->pos_x + (cub->pos_y - new_y) / tan(cub->degree);
-	x = new_x/135;
-	printf("==> init block(%d, %d)\n", x, y);
-	// the same thing for x if u want to check the block of new_x
-	printf("==> new (%d, %d)\n", new_x, new_y);
-	block_x = 135/tan(cub->degree);
+	x = new_x/64;
+	
+	/*
+	* the same thing for x if u want to check the block of new_x
+	*/
+	
+	block_x = 64/tan(cub->degree);
 	while (x && y)
 	{
 		next_x = new_x + block_x;
 		next_y = new_y + block_y;
-		x = next_x/136;
-		y = next_y/136;
+		x = next_x/64;
+		y = next_y/64;
 	}
-	printf("==> next(%d, %d)\n", next_x, next_y);
-	printf("==> final block(%d, %d)\n", x, y);
-	printf("==> next(%d, %d)\n", next_x, next_y);
 }
 
 void drawing(t_cub *cub)
 {
-	draw_ver(cub, cub->win_x, 0);
-	draw_hori(cub, 0, cub->win_y);
+	draw_sqs(cub);
+	// draw_ver(cub, cub->win_x, 0);
+	// draw_hori(cub, 0, cub->win_y);
 	// drawing_palyer(cub);
 	// dda_line(cub->pos_x, cub->pos_x + 116, cub->pos_y, cub->pos_y - 116, cub);
-	cub->up_y = 1;
-	cub->down_y = 0;
 	// fov_angle(cub);
 	// new_point(cub);
 	// line_player(cub);
@@ -271,17 +283,33 @@ void drawing(t_cub *cub)
 	// maps_barriers(cub);
 	// angle_fov(cub);
 }
-/*
-void mlx_windows(t_cub *cub)
+
+void    dplayer(t_cub *cub)
 {
-	cub->img = mlx_new_image(cub->mlx, cub->win_x, cub->win_y);
-	cub->addr = ()mlx_get_data_addr(cub->img, &cub->bits_per_pixel, &cub->line_length, &cub->endian);
+    int x = -1;
+    int y = 0;
+	while (++x < 5)
+	{
+		y = -1;
+		while (++y < 5)
+			cub->addr[(COL * 64) * ((int)cub->p.y + y) + ((int)cub->p.x + x)] = 0x00FF00;
+	}
+	// cub->p.x += x;
+	// cub->p.y += y;
+}
+
+int mlx_windows(t_cub *cub)
+{
+	// cub->img = mlx_new_image(cub->mlx, cub->win_x, cub->win_y);
+	// cub->addr = (int *)mlx_get_data_addr(cub->img, &cub->bits_per_pixel, &cub->line_length, &cub->endian);
 	cub->flag_x = 0;
 	cub->flag_y = 0;
 	drawing(cub);
+	draw_borders(cub);
+	dplayer(cub);
 	mlx_put_image_to_window(cub->mlx, cub->win, cub->img, 0, 0);
+	return (0);
 }
-*/
 
 void	draw_player(t_cub *cub)
 {
@@ -299,18 +327,46 @@ void	draw_player(t_cub *cub)
 	}
 }
 
+void	direct_line(t_cub *cub)
+{
+	double x = cub->p.x;
+	double y = cub->p.y;
+	while (x < cub->p.x + cub->p.dem_x * 5)
+	{
+		y = cub->p.y;
+		while (y < cub->p.y + cub->p.dem_y * 5)
+		{
+			cub->addr[(COL * 64) * (int)y + (int)x] = 0x00FF00;
+			y += cub->p.dem_y;
+		}
+		
+		x += cub->p.dem_x;
+	}
+	
+}
+
 int sq_draw(t_cub *cub)
 {
 	draw_sqs(cub);
 	draw_borders(cub);
 	draw_ray(cub);
 	draw_player(cub);
+	// direct_line(cub);
+	// dda_line(cub->p.x, cub->p.x + cub->p.dem_x * 5, cub->p.y, cub->p.y + cub->p.dem_y * 5, cub);
 	// fprintf(stderr, "==> %p\n", cub->mlx);
 	mlx_put_image_to_window(cub->mlx, cub->win, cub->img, 0, 0);
 	return (0);
 }
 
-// void	draw_rays_3d()
+void	init_player(t_player *p)
+{
+	p->x = 300;
+	p->y = 300;
+	p->dem_x = cos(p->p_angle) * 5;
+	p->dem_y = sin(p->p_angle) * 5;
+}
+
+
 
 /************	main	**********/
 
@@ -339,7 +395,7 @@ int main(int ac, char **av)
 	cub.mid_x = 0;
 	cub.mid_y = 0;
 	cub.pos_x = 300;
-	cub.pos_y = 456;
+	cub.pos_y = 300;
 	cub.x = 300;
 	cub.x = 456;
 	cub.degree = 0.1;
@@ -348,18 +404,18 @@ int main(int ac, char **av)
 	cub.win = mlx_new_window(cub.mlx, COL * 64, ROW * 64, "CUB3D");
 	memcpy(cub.map, map, sizeof(int) * ROW * COL);
 	cub.img = mlx_new_image(cub.mlx, COL * 64, ROW * 64);
-	cub.addr = (int *)mlx_get_data_addr(cub.img, &cub.bits_per_pixel, &cub.line_length, &cub.endian);
-	// cub.img = mlx_new_image(cub.mlx, cub.win_x, cub.win_y);
-	// cub.img = mlx_xpm_file_to_image(cub.mlx, cub.relative_path, &cub.win_x, &cub.win_y);
 	if (!cub.img)
 		printf("Failed!!\n");
+	cub.addr = (int *)mlx_get_data_addr(cub.img, &cub.bits_per_pixel, &cub.line_length, &cub.endian);
 	// mlx_windows(&cub);
-	mlx_key_hook(cub.win, ft_keys, &cub);
-	mlx_hook(cub.win, 17, 0, ft_close, &cub);
+	// mlx_key_hook(cub.win, ft_keys, &cub);
 	// drawing_palyer(&cub);
 	// my_mlx_pixel(&cub, cub.pos_x, cub.pos_y, 0xFFFFFF);
-	mlx_loop_hook(cub.mlx, sq_draw, &cub);
-	fprintf(stderr, "@@@%p\n", cub.mlx);
+	// mlx_loop_hook(cub.mlx, sq_draw, &cub);
+	init_player(&cub.p);
+	mlx_loop_hook(cub.mlx, mlx_windows, &cub);
+	mlx_key_hook(cub.win, advance_keys, &cub);
+	mlx_hook(cub.win, 17, 0, ft_close, &cub);
 	mlx_loop(cub.mlx);
 	return 0;
 }

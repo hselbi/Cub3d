@@ -53,8 +53,18 @@
 # include <math.h>
 # include <limits.h>
 
+typedef struct s_player
+{
+	double	x;
+	double	y;
+	double	dem_x;
+	double	dem_y;
+	double	p_angle;
+}	t_player;
+
 typedef struct s_cub
 {
+	t_player	p;
 	void	*mlx;
 	void	*win;
 	void	*img;
@@ -86,11 +96,13 @@ typedef struct s_cub
 
 }			t_cub;
 
-void mlx_windows(t_cub *cub);
+int mlx_windows(t_cub *cub);
 void my_mlx_pixel(t_cub *data, int x, int y, int color);
 void	pix_mlx(t_cub *cub, int x, int y, int color);
 
 /*		keys		*/
+
+int advance_keys(int key, t_cub *cub);
 
 int		ft_keys(int key, t_cub *cub);
 void	rotation_matrix(t_cub *cub, double angle);
