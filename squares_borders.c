@@ -17,7 +17,7 @@ void    draw_sq(t_cub *cub, int x, int y, int color)
 	{
 		j = 64 * y;
 		while (j < jmax)
-		{
+		{	
 			cub->addr[(COL * 64) * j + i] = color;
 			j++;
 		}

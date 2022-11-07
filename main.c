@@ -217,6 +217,11 @@ void	check_if(t_cub *cub)
 	}
 }
 
+// int	check(int x, int y, t_cub *cub)
+// {
+// 	if ()
+// }
+
 void new_point(t_cub *cub)
 {
 	int new_x = 0;
@@ -225,47 +230,56 @@ void new_point(t_cub *cub)
 	int block_x = 0;
 	int x = 0;
 	int y;
-	int next_x;
-	int next_y;
+	// int next_x = 0;
+	// int next_y = 0;
 
-	check_if(cub);
+	// check_if(cub);
 	
 	/*
 	* 136 is difference between y0 and y1 
 	*/
 	
-	if (cub->up_y)
+	if (cub->p.p_angle > PI)
 	{
-		block_y = -64; 
-		new_y = floor(cub->pos_y / 64) * 64 - 1;
+		block_y = -64;
+		new_y = (int)(floor(cub->p.y / 64) * 64);
 	}
-	else if (cub->down_y)
+	else
 	{
 		block_y = 64; 
-		new_y = floor(cub->pos_y / 64) * 64;
+		new_y = (int)(floor(cub->p.y / 64) * 64);
 	}
-	
+	// printf("==> %d\n", block_x);
 	/* 
 	* if u want to check which block is this new_y
 	* u can easily do new_y/135 which will give us the y_block 
 	*/
-	
 	y = new_y/64;
-	new_x = cub->pos_x + (cub->pos_y - new_y) / tan(cub->degree);
+	// printf("y = %d\n", y);
+	// printf("new_y = %d\n", new_y);
+	// printf("pos_p y = %d\n", (int)cub->p.y - new_y);
+	// printf("pos_p x = %d\n", (int)cub->p.x);
+	new_x = (int)(cub->p.x + (new_y - (int)cub->p.y)/tan(cub->p.p_angle));
 	x = new_x/64;
-	
+
 	/*
 	* the same thing for x if u want to check the block of new_x
 	*/
-	
+	cub->degree = cub->p.p_angle * 180 / PI;
 	block_x = 64/tan(cub->degree);
-	while (x && y)
-	{
-		next_x = new_x + block_x;
-		next_y = new_y + block_y;
-		x = next_x/64;
-		y = next_y/64;
-	}
+	dda_line((int)cub->p.x, (int)cub->p.x + 10, (int)cub->p.y, (int)cub->p.y + 10, cub);
+	// while (cub->map[y][x] != 1)
+	// {
+	// 	printf("map[%d][%d] = %d\n", y, x, cub->map[y][x]);
+	// 	printf("block_x = %d/block_y = %d\n", block_x, block_y);
+	// 	// printf("x ==> %d\ny ==> %d", x, y);
+	// 	next_x = new_x + block_x;
+	// 	next_y = new_y + block_y;
+	// 	x = next_x/64;
+	// 	y = next_y/64;
+	// 	// printf("yeys\n");
+	// }
+	// dda_line((int)cub->p.x, next_x, (int)cub->p.y, next_y, cub);
 }
 
 void drawing(t_cub *cub)
@@ -294,19 +308,37 @@ void    dplayer(t_cub *cub)
 		while (++y < 5)
 			cub->addr[(COL * 64) * ((int)cub->p.y + y) + ((int)cub->p.x + x)] = 0x00FF00;
 	}
-	// cub->p.x += x;
-	// cub->p.y += y;
+}
+
+void	bisector(t_cub *cub)
+{
+	int x = (int)floor(cub->p.x);
+	int y = (int)floor(cub->p.y);
+	while (x < 50)
+	{
+		cub->addr[(COL * 64) *  y +  x] = 0x00FF00;
+		x++;
+	}
+	x = (int)floor(cub->p.x);
+	while (y < 50)
+	{
+		cub->addr[(COL * 64) *  y +  x] = 0x00FF00;
+		y++;
+	}
+	// dda_line((int)floor(cub->p.x), (int)floor(cub->p.x + cub->p.dem_x * 100), (int)floor(cub->p.y), (int)floor(cub->p.y + cub->p.dem_y * 100), cub);
 }
 
 int mlx_windows(t_cub *cub)
 {
-	// cub->img = mlx_new_image(cub->mlx, cub->win_x, cub->win_y);
-	// cub->addr = (int *)mlx_get_data_addr(cub->img, &cub->bits_per_pixel, &cub->line_length, &cub->endian);
 	cub->flag_x = 0;
 	cub->flag_y = 0;
 	drawing(cub);
 	draw_borders(cub);
 	dplayer(cub);
+	// hor_ray(cub);
+	// bisector(cub);
+	if ((int)cub->p.p_angle > 0)
+		new_point(cub);
 	mlx_put_image_to_window(cub->mlx, cub->win, cub->img, 0, 0);
 	return (0);
 }
@@ -408,13 +440,13 @@ int main(int ac, char **av)
 		printf("Failed!!\n");
 	cub.addr = (int *)mlx_get_data_addr(cub.img, &cub.bits_per_pixel, &cub.line_length, &cub.endian);
 	// mlx_windows(&cub);
-	// mlx_key_hook(cub.win, ft_keys, &cub);
 	// drawing_palyer(&cub);
 	// my_mlx_pixel(&cub, cub.pos_x, cub.pos_y, 0xFFFFFF);
 	// mlx_loop_hook(cub.mlx, sq_draw, &cub);
 	init_player(&cub.p);
 	mlx_loop_hook(cub.mlx, mlx_windows, &cub);
 	mlx_key_hook(cub.win, advance_keys, &cub);
+	// mlx_key_hook(cub.win, ft_keys, &cub);
 	mlx_hook(cub.win, 17, 0, ft_close, &cub);
 	mlx_loop(cub.mlx);
 	return 0;
