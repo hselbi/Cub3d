@@ -1,6 +1,6 @@
 #include "cub3d.h"
 
-void    hor_ray(t_cub *cub)
+void    ver_ray(t_cub *cub)
 {
     float   rx, ry, ra, xo, yo;
     int mx, my, mp, dof;
@@ -8,38 +8,40 @@ void    hor_ray(t_cub *cub)
     ra = cub->p.p_angle;
     dof = 0;
     // printf("angle %f/%f\n", ra, cub->p.p_angle);
-    float atan = -1/tan(ra);
-    if (ra > PI)
+    double P1 = PI/2;
+    double P2 = (3 * PI)/2;
+    float ntan = -tan(ra);
+    if (ra > P1 || ra < P2)
     {
         // ry = (((int)cub->p.y>>6)<<6) - 0.0001;
-        ry = (int)(cub->p.y/64) * 64 -0.0001;
-        rx = (cub->p.y - ry) * atan + cub->p.x;
+        rx = (int)(cub->p.x/64) * 64 -0.0001;
+        ry = (cub->p.x - rx) * ntan + cub->p.x;
         // printf("x %d\ny %d\n", mx, my);
-        yo = -64;
-        xo = -yo * atan;
+        xo = -64;
+        yo = -xo * ntan;
     }
-    if (ra < PI)
+    if (ra < P1 || ra > P2)
     {
         // ry = (((int)cub->p.y>>6)<<6) + 64;
-        ry = (int)(cub->p.y/64) * 64 + 64;
-        rx = (cub->p.y - ry) * atan + cub->p.x;
+        rx = (int)(cub->p.x/64) * 64 + 64;
+        ry = (cub->p.x - rx) * ntan + cub->p.x;
         // printf("r : %f\n", rx);
-        yo = 64;
-        xo = -yo * atan;
+        xo = 64;
+        yo = -xo * ntan;
     }
-    if (ra == 0.0 || ra == PI)
+    if (ra == P1 || ra == P2)
     {
         ry = cub->p.y;
         rx = cub->p.x;
         dof = 8;
     }
-    while (dof<8)
+    while (dof < 8)
     {
         mx = (int)(rx)/64 - 2;
         my = (int)(ry)/64;
         mp = my * ROW + mx;
         // printf("x %d\ny %d ==> %d\n", mx, my, mp);
-        if ( mp > 0 && mp < ROW * COL && cub->map[my][mx] == 1)
+        if (mp > 0 && mp < ROW * COL && cub->map[my][mx] == 1)
             dof = 8;
         else
         {

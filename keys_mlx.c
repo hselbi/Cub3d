@@ -83,29 +83,39 @@ int advance_keys(int key, t_cub *cub)
 	}
 	else if (key == A)
 	{
-		cub->p.x -= cub->p.dem_x;
-		cub->p.y += cub->p.dem_y;
-	}
-	else if (key == D)
-	{
-		cub->p.x += cub->p.dem_x;
-		cub->p.y -= cub->p.dem_y;
-	}
-	if (key == LEFT)
-	{
 		cub->p.p_angle -= 0.1;
-		if (cub->p.p_angle < 0)
+		if (cub->p.p_angle <= 0)
 			cub->p.p_angle += 2 * PI;
 		cub->p.dem_x = cos(cub->p.p_angle) * 5;
 		cub->p.dem_y = sin(cub->p.p_angle) * 5;
+		// cub->p.x -= cub->p.dem_x;
+		// cub->p.y += cub->p.dem_y;
 	}
-	if (key == RIGHT)
+	else if (key == D)
 	{
 		cub->p.p_angle += 0.1;
-		if (cub->p.p_angle > 2 * PI)
+		if (cub->p.p_angle >= 2 * PI)
 			cub->p.p_angle -= 2 * PI;
 		cub->p.dem_x = cos(cub->p.p_angle) * 5;
 		cub->p.dem_y = sin(cub->p.p_angle) * 5;
+		// cub->p.x += cub->p.dem_x;
+		// cub->p.y -= cub->p.dem_y;
 	}
+	// if (key == LEFT)
+	// {
+	// 	cub->p.p_angle -= 0.1;
+	// 	if (cub->p.p_angle < 0)
+	// 		cub->p.p_angle += 2 * PI;
+	// 	cub->p.dem_x = cos(cub->p.p_angle) * 5;
+	// 	cub->p.dem_y = sin(cub->p.p_angle) * 5;
+	// }
+	// if (key == RIGHT)
+	// {
+	// 	cub->p.p_angle += 0.1;
+	// 	if (cub->p.p_angle > 2 * PI)
+	// 		cub->p.p_angle -= 2 * PI;
+	// 	cub->p.dem_x = cos(cub->p.p_angle) * 5;
+	// 	cub->p.dem_y = sin(cub->p.p_angle) * 5;
+	// }
 	return (0);
 }
