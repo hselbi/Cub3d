@@ -43,7 +43,7 @@ void dda_line2(int start_x, int end_x, int start_y, int end_y, t_cub *cub)
 	float x = (float)start_x;
 	float y = (float)start_y;
 	int i = 0;
-	while (i <= step && x < end_x && y < end_y)
+	while (i <= step)
 	{
 		cub->addr[(COL * 64) *  (int)y +  (int)x] = 0x00FF00;
 		x += xinc;

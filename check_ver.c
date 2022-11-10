@@ -22,10 +22,8 @@ void    ver_ray(t_cub *cub)
     }
     if (ra < P1 || ra > P2)
     {
-        // ry = (((int)cub->p.y>>6)<<6) + 64;
         rx = (int)(cub->p.x/64) * 64 + 64;
         ry = (cub->p.x - rx) * ntan + cub->p.x;
-        // printf("r : %f\n", rx);
         xo = 64;
         yo = -xo * ntan;
     }

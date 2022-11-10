@@ -1,9 +1,5 @@
 #include "cub3d.h"
 
-
-
-
-
 void new_point(t_cub *cub)
 {
 	double new_x = 0;
@@ -66,20 +62,22 @@ void    dplayer(t_cub *cub)
 
 void	bisector(t_cub *cub)
 {
-	int x = (int)floor(cub->p.x);
-	int y = (int)floor(cub->p.y);
-	while (x < 50)
-	{
-		cub->addr[(COL * 64) *  y +  x] = 0x00FF00;
-		x++;
-	}
-	x = (int)floor(cub->p.x);
-	while (y < 50)
-	{
-		cub->addr[(COL * 64) *  y +  x] = 0x00FF00;
-		y++;
-	}
-	// dda_line((int)floor(cub->p.x), (int)floor(cub->p.x + cub->p.dem_x * 100), (int)floor(cub->p.y), (int)floor(cub->p.y + cub->p.dem_y * 100), cub);
+	// int x = (int)cub->p.x;
+	// int y = (int)cub->p.y;
+	
+	// while (x < 50)
+	// {
+	// 	cub->addr[(COL * 64) *  y +  x] = 0x00FF00;
+	// 	x++;
+	// }
+	// x = (int)cub->p.x;
+	// while (y < 50)
+	// {
+	// 	cub->addr[(COL * 64) *  y +  x] = 0x00FF00;
+	// 	y++;
+	// }
+	// fprintf(stderr, "%d/%d\n", (make fint)cub->p.x, (int)(cub->p.x + cub->p.dem_x * 10));
+	dda_line2((int)cub->p.x + 2, (int)(cub->p.x + cub->p.dem_x * 10), (int)cub->p.y + 2, (int)(cub->p.y + cub->p.dem_y * 10), cub);
 }
 
 int mlx_windows(t_cub *cub)
@@ -89,10 +87,9 @@ int mlx_windows(t_cub *cub)
 	draw_sqs(cub);
 	draw_borders(cub);
 	dplayer(cub);
+	bisector(cub);
 	// hor_ray(cub);
-	// bisector(cub);
-	hor_ray(cub);
-	ver_ray(cub);
+	// ver_ray(cub);
 	mlx_put_image_to_window(cub->mlx, cub->win, cub->img, 0, 0);
 	return (0);
 }
@@ -106,8 +103,6 @@ void	init_player(t_player *p)
 	p->dem_x = cos(p->p_angle) * 5;
 	p->dem_y = sin(p->p_angle) * 5;
 }
-
-
 
 /************	main	**********/
 
