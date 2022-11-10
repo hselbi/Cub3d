@@ -7,39 +7,43 @@ void    ver_ray(t_cub *cub)
 
     ra = cub->p.p_angle;
     dof = 0;
-    // printf("angle %f/%f\n", ra, cub->p.p_angle);
     double P1 = PI/2;
     double P2 = (3 * PI)/2;
     float ntan = -tan(ra);
-    if (ra > P1 || ra < P2)
+    xo = 0.0;
+    yo = 0.0;
+    if (ra > P1 && ra < P2)
     {
-        // ry = (((int)cub->p.y>>6)<<6) - 0.0001;
-        rx = (int)(cub->p.x/64) * 64 -0.0001;
-        ry = (cub->p.x - rx) * ntan + cub->p.x;
-        // printf("x %d\ny %d\n", mx, my);
+        rx = (int)(cub->p.x)/64 * 64 - 0.0001;
+        ry = (cub->p.x - rx) * ntan + cub->p.y;
         xo = -64;
         yo = -xo * ntan;
     }
-    if (ra < P1 || ra > P2)
+    else if (ra < P1 || ra > P2)
     {
         rx = (int)(cub->p.x/64) * 64 + 64;
-        ry = (cub->p.x - rx) * ntan + cub->p.x;
+        ry = (cub->p.x - rx) * ntan + cub->p.y;
         xo = 64;
         yo = -xo * ntan;
     }
-    if (ra == P1 || ra == P2)
+    else if (ra == P1 || ra == P2)
     {
+        printf("==> %f\n", ra);
         ry = cub->p.y;
         rx = cub->p.x;
+        if(ra == P1)
+            yo = -64;
+        else
+            yo = 64;
+        xo = 0.0;
         dof = 8;
     }
     while (dof < 8)
     {
-        mx = (int)(rx)/64 - 2;
+        mx = (int)(rx)/64;
         my = (int)(ry)/64;
         mp = my * ROW + mx;
-        // printf("x %d\ny %d ==> %d\n", mx, my, mp);
-        if (mp > 0 && mp < ROW * COL && cub->map[my][mx] == 1)
+        if (mp > 0 && cub->map[my][mx] == 1)
             dof = 8;
         else
         {
@@ -48,8 +52,8 @@ void    ver_ray(t_cub *cub)
             dof += 1;
         }
     }
-    // printf("rx : %f\n", rx);
-    // printf("ry : %f\n", ry);
-    // dda_line((int)cub->p.x, (int)rx, (int)cub->p.y, (int)ry, cub);
-    dda_line2((int)cub->p.x, (int)rx, (int)cub->p.y, (int)ry, cub);
+    // if (cub->p.rx > rx)
+    cub->p.vx = rx;
+    // if (cub->p.ry > ry)
+    cub->p.vy = ry;
 }

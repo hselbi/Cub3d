@@ -7,39 +7,40 @@ void    hor_ray(t_cub *cub)
 
     ra = cub->p.p_angle;
     dof = 0;
-    // printf("angle %f/%f\n", ra, cub->p.p_angle);
     float atan = -1/tan(ra);
+    xo = 0.0;
+    yo = 0.0;
     if (ra > PI)
     {
-        // ry = (((int)cub->p.y>>6)<<6) - 0.0001;
-        ry = (int)(cub->p.y/64) * 64 -0.0001;
+        ry = (int)(cub->p.y/64) * 64;
         rx = (cub->p.y - ry) * atan + cub->p.x;
-        // printf("x %d\ny %d\n", mx, my);
         yo = -64;
         xo = -yo * atan;
     }
-    if (ra < PI)
+    else if (ra < PI)
     {
-        // ry = (((int)cub->p.y>>6)<<6) + 64;
         ry = (int)(cub->p.y/64) * 64 + 64;
         rx = (cub->p.y - ry) * atan + cub->p.x;
-        // printf("r : %f\n", rx);
         yo = 64;
         xo = -yo * atan;
     }
-    if (ra == 0.0 || ra == PI)
+    else if (ra == 0.0 || ra == PI)
     {
         ry = cub->p.y;
         rx = cub->p.x;
+        if(ra == PI)
+            xo = 64;
+        else
+            xo = -64;
+        yo = 0.0;
         dof = 8;
     }
     while (dof<8)
     {
-        mx = (int)(rx)/64 - 2;
+        mx = (int)(rx)/64;
         my = (int)(ry)/64;
         mp = my * ROW + mx;
-        // printf("x %d\ny %d ==> %d\n", mx, my, mp);
-        if ( mp > 0 && mp < ROW * COL && cub->map[my][mx] == 1)
+        if (mp > 0 && cub->map[my][mx] == 1)
             dof = 8;
         else
         {
@@ -48,8 +49,8 @@ void    hor_ray(t_cub *cub)
             dof += 1;
         }
     }
-    // printf("rx : %f\n", rx);
-    // printf("ry : %f\n", ry);
     // dda_line((int)cub->p.x, (int)rx, (int)cub->p.y, (int)ry, cub);
-    dda_line2((int)cub->p.x, (int)rx, (int)cub->p.y, (int)ry, cub);
+    cub->p.hx = rx;
+    cub->p.hy = ry;
+    // dda_line2((int)cub->p.x, (int)rx, (int)cub->p.y, (int)ry, cub);
 }

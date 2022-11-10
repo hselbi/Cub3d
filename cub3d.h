@@ -59,6 +59,12 @@ typedef struct s_player
 	double	y;
 	double	dem_x;
 	double	dem_y;
+	float	hx;
+	float	vx;
+	float	hy;
+	float	vy;
+	float	rx;
+	float	ry;
 	double	p_angle;
 }	t_player;
 
@@ -74,6 +80,7 @@ typedef struct s_cub
 	int		line_length;
 	int		endian;
 	int		map[ROW][COL];
+	int		mp;
 
 	int		win_x;
 	int		win_y;
@@ -120,8 +127,12 @@ void	draw_line_v(t_cub *cub, int i, int j);
 void    draw_borders(t_cub *cub);
 
 
+/* first version ==> sucks	*/
 void dda_line(int start_x, int end_x, int start_y, int end_y, t_cub *cub);
+/* second version ==> ok */
 void dda_line2(int start_x, int end_x, int start_y, int end_y, t_cub *cub);
+/* bisector version ==> works	*/
+void dda_linebi(int start_x, int end_x, int start_y, int end_y, t_cub *cub);
 void my_mlx_pixel(t_cub *data, int x, int y, int color);
 
 void    hor_ray(t_cub *cub);

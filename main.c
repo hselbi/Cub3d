@@ -62,23 +62,41 @@ void    dplayer(t_cub *cub)
 
 void	bisector(t_cub *cub)
 {
-	// int x = (int)cub->p.x;
-	// int y = (int)cub->p.y;
-	
-	// while (x < 50)
-	// {
-	// 	cub->addr[(COL * 64) *  y +  x] = 0x00FF00;
-	// 	x++;
-	// }
-	// x = (int)cub->p.x;
-	// while (y < 50)
-	// {
-	// 	cub->addr[(COL * 64) *  y +  x] = 0x00FF00;
-	// 	y++;
-	// }
-	// fprintf(stderr, "%d/%d\n", (make fint)cub->p.x, (int)(cub->p.x + cub->p.dem_x * 10));
 	dda_line2((int)cub->p.x + 2, (int)(cub->p.x + cub->p.dem_x * 10), (int)cub->p.y + 2, (int)(cub->p.y + cub->p.dem_y * 10), cub);
 }
+
+void	shortest(t_player *pl)
+{
+	// for horizental
+	float h = sqrt(pow((pl->x - pl->hx), 2.0) + pow((pl->y - pl->hy), 2.0));
+	float v = sqrt(pow((pl->x - pl->vx), 2.0) + pow((pl->vy - pl->y), 2.0));
+	printf("%f/%f\n", h, v);
+	if (v < h)
+	{
+		pl->rx = pl->vx;
+		pl->ry = pl->vy;
+	}
+	else
+	{
+		pl->rx = pl->hx;
+		pl->ry = pl->hy;
+	}
+}
+
+// int	vector_check(t_cub *cub)
+// {
+// 	//check for the if angle is 0 or is PI
+// 	if (cub->p.p_angle == PI || cub->p.p_angle == 0.0)
+// 	{
+// 		/* code */
+// 	}
+// 	//check angle is pi/2 or 3*pi/2
+// 	if (cub->p.p_angle == (3 * PI)/2 || cub->p.p_angle == PI/2)
+// 	{
+
+// 	}
+
+// }
 
 int mlx_windows(t_cub *cub)
 {
@@ -86,10 +104,17 @@ int mlx_windows(t_cub *cub)
 	cub->flag_y = 0;
 	draw_sqs(cub);
 	draw_borders(cub);
-	dplayer(cub);
 	bisector(cub);
-	// hor_ray(cub);
-	// ver_ray(cub);
+	dplayer(cub);
+	// if (!vector_check(cub))
+	// {
+		hor_ray(cub);
+		ver_ray(cub);
+		shortest(&cub->p);
+		//printf("==> %d/%d\n", (int)cub->p.rx, (int)cub->p.ry);
+		dda_line2((int)cub->p.x, (int)cub->p.rx, (int)cub->p.y, (int)cub->p.ry, cub);	
+	// }
+	
 	mlx_put_image_to_window(cub->mlx, cub->win, cub->img, 0, 0);
 	return (0);
 }
@@ -103,6 +128,25 @@ void	init_player(t_player *p)
 	p->dem_x = cos(p->p_angle) * 5;
 	p->dem_y = sin(p->p_angle) * 5;
 }
+
+// void	ft_cpytoarray(t_cub *cub)
+// {
+// 	int i = 0;
+// 	int j = 0;
+// 	int k = 0;
+// 	cub->mp = malloc(sizeof(int) * (ROW * COL));
+// 	while (cub->map[i])
+// 	{
+// 		j = 0;
+// 		while (cub->map[i][j])
+// 		{
+// 			cub->mp[k] = cub->map[i][j];
+// 			k++;
+// 			j++;
+// 		}
+// 		i++;
+// 	}
+// }
 
 /************	main	**********/
 
@@ -139,6 +183,7 @@ int main(int ac, char **av)
 	cub.mlx = mlx_init();
 	cub.win = mlx_new_window(cub.mlx, COL * 64, ROW * 64, "CUB3D");
 	memcpy(cub.map, map, sizeof(int) * ROW * COL);
+	// ft_cpytoarray÷(&cub);
 	cub.img = mlx_new_image(cub.mlx, COL * 64, ROW * 64);
 	if (!cub.img)
 		printf("Failed!!\n");
