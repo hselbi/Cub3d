@@ -1,6 +1,6 @@
 .PHONY = all clean fclean re
 
-SRC = main.c keys_mlx.c squares_borders.c my_mlx_px.c DDA.c check_hor.c check_ver.c
+SRC = main.c keys_mlx.c squares_borders.c my_mlx_px.c DDA.c check_hor.c check_ver.c tools.c
 NAME = cub3d
 
 OBJ = $(SRC:.c=.o)

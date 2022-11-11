@@ -70,17 +70,19 @@ void	shortest(t_player *pl)
 	// for horizental
 	float h = sqrt(pow((pl->x - pl->hx), 2.0) + pow((pl->y - pl->hy), 2.0));
 	float v = sqrt(pow((pl->x - pl->vx), 2.0) + pow((pl->vy - pl->y), 2.0));
-	printf("%f/%f\n", h, v);
-	if (v < h)
+	if (v < h || pl->p_angle == 0.0)
 	{
 		pl->rx = pl->vx;
 		pl->ry = pl->vy;
 	}
-	else
+	else if (v > h || pl->p_angle == (3 * PI) / 2)
 	{
 		pl->rx = pl->hx;
 		pl->ry = pl->hy;
 	}
+	// float d = sqrt(pow((pl->x - pl->vx), 2.0) + pow((pl->vy - pl->y), 2.0));
+	// printf("%f\n", d);
+	// printf("==> %d/%d\n", (int)pl->rx, (int)pl->ry);
 }
 
 // int	vector_check(t_cub *cub)
@@ -106,14 +108,10 @@ int mlx_windows(t_cub *cub)
 	draw_borders(cub);
 	bisector(cub);
 	dplayer(cub);
-	// if (!vector_check(cub))
-	// {
-		hor_ray(cub);
-		ver_ray(cub);
-		shortest(&cub->p);
-		//printf("==> %d/%d\n", (int)cub->p.rx, (int)cub->p.ry);
-		dda_line2((int)cub->p.x, (int)cub->p.rx, (int)cub->p.y, (int)cub->p.ry, cub);	
-	// }
+	hor_ray(cub);
+	ver_ray(cub);
+	shortest(&cub->p);
+	dda_line2((int)cub->p.x, (int)cub->p.rx, (int)cub->p.y, (int)cub->p.ry, cub);	
 	
 	mlx_put_image_to_window(cub->mlx, cub->win, cub->img, 0, 0);
 	return (0);

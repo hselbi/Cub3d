@@ -10,25 +10,27 @@ void    hor_ray(t_cub *cub)
     float atan = -1/tan(ra);
     xo = 0.0;
     yo = 0.0;
+    rx = 0.0;
+    ry = 0.0;
     if (ra > PI)
     {
-        ry = (int)(cub->p.y/64) * 64;
+        ry = (int)(cub->p.y/64) * 64 - 0.0001;
         rx = (cub->p.y - ry) * atan + cub->p.x;
         yo = -64;
         xo = -yo * atan;
     }
-    else if (ra < PI)
+    else if (ra && ra < PI)
     {
         ry = (int)(cub->p.y/64) * 64 + 64;
         rx = (cub->p.y - ry) * atan + cub->p.x;
         yo = 64;
         xo = -yo * atan;
     }
-    else if (ra == 0.0 || ra == PI)
+    if (ra == 0.0 || ra == PI)
     {
         ry = cub->p.y;
         rx = cub->p.x;
-        if(ra == PI)
+        if(ra == 0.0)
             xo = 64;
         else
             xo = -64;
@@ -40,7 +42,8 @@ void    hor_ray(t_cub *cub)
         mx = (int)(rx)/64;
         my = (int)(ry)/64;
         mp = my * ROW + mx;
-        if (mp > 0 && cub->map[my][mx] == 1)
+        printf("%d/%d\n", mx, my);
+        if (check_cor(mx, my) && cub->map[my][mx] == 1)
             dof = 8;
         else
         {
@@ -49,8 +52,7 @@ void    hor_ray(t_cub *cub)
             dof += 1;
         }
     }
-    // dda_line((int)cub->p.x, (int)rx, (int)cub->p.y, (int)ry, cub);
     cub->p.hx = rx;
     cub->p.hy = ry;
-    // dda_line2((int)cub->p.x, (int)rx, (int)cub->p.y, (int)ry, cub);
 }
+

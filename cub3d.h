@@ -132,6 +132,7 @@ void dda_line(int start_x, int end_x, int start_y, int end_y, t_cub *cub);
 /* second version ==> ok */
 void dda_line2(int start_x, int end_x, int start_y, int end_y, t_cub *cub);
 /* bisector version ==> works	*/
+void dda_line_c(int start_x, int end_x, int start_y, int end_y, t_cub *cub, int color);
 void dda_linebi(int start_x, int end_x, int start_y, int end_y, t_cub *cub);
 void my_mlx_pixel(t_cub *data, int x, int y, int color);
 
@@ -139,7 +140,7 @@ void    hor_ray(t_cub *cub);
 void    ver_ray(t_cub *cub);
 
 /*******************************/
-
+int check_cor(int mx, int my);
 void    hor_ray(t_cub *cub);
 
 
