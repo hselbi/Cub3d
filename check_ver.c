@@ -1,11 +1,16 @@
 #include "cub3d.h"
 
-void    ver_ray(t_cub *cub)
+void    ver_ray(t_cub *cub, float ra)
 {
-    float   rx, ry, ra, xo, yo;
+    float   rx, ry, xo, yo;
     int mx, my, mp, dof;
 
-    ra = cub->p.p_angle;
+    ra = ra + cub->p.p_angle;
+    if (ra >= PI * 2)
+        ra -= PI * 2;
+     if (ra <= 0)
+        ra += PI * 2;
+    printf("ra in ver ==> %lf\n", ra);
     dof = 0;
     double P1 = PI/2;
     double P2 = (3 * PI)/2;
@@ -42,7 +47,8 @@ void    ver_ray(t_cub *cub)
         mx = (int)(rx)/64;
         my = (int)(ry)/64;
         mp = my * ROW + mx;
-        if (check_cor(mx, my) && cub->map[my][mx] == 1)
+        printf("ver ==> (%d, %d) ==> %d\n",  mx, my, mp);
+        if (mp > 0 && mp < ROW * COL && cub->map[my][mx] == 1)
             dof = 8;
         else
         {

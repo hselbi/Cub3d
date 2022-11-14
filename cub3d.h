@@ -136,12 +136,12 @@ void dda_line_c(int start_x, int end_x, int start_y, int end_y, t_cub *cub, int 
 void dda_linebi(int start_x, int end_x, int start_y, int end_y, t_cub *cub);
 void my_mlx_pixel(t_cub *data, int x, int y, int color);
 
-void    hor_ray(t_cub *cub);
-void    ver_ray(t_cub *cub);
+void    hor_ray(t_cub *cub, float ra);
+void    ver_ray(t_cub *cub, float ra);
 
 /*******************************/
 int check_cor(int mx, int my);
-void    hor_ray(t_cub *cub);
+// void    hor_ray(t_cub *cub);
 
 
 void draw_ver(t_cub *cub, int x, int y);

@@ -106,12 +106,18 @@ int mlx_windows(t_cub *cub)
 	cub->flag_y = 0;
 	draw_sqs(cub);
 	draw_borders(cub);
-	bisector(cub);
-	dplayer(cub);
-	hor_ray(cub);
-	ver_ray(cub);
-	shortest(&cub->p);
-	dda_line2((int)cub->p.x, (int)cub->p.rx, (int)cub->p.y, (int)cub->p.ry, cub);	
+	float ra = 0.0;
+	// bisector(cub);
+	// printf("%lf\n", cub->p.p_angle);
+	while (ra < PI / 6)
+	{
+		dplayer(cub);
+		hor_ray(cub, ra);
+		ver_ray(cub, ra);
+		shortest(&cub->p);
+		dda_line2((int)cub->p.x, (int)cub->p.rx, (int)cub->p.y, (int)cub->p.ry, cub);	
+		ra += PI / 96;
+	}
 	
 	mlx_put_image_to_window(cub->mlx, cub->win, cub->img, 0, 0);
 	return (0);

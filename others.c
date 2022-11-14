@@ -195,7 +195,7 @@ void	draw_ray(t_cub *cub)
 
 	while (angle < PI / 6)
 	{
-		// printf("angle => %lf\n", angle);
+		// printf("angle => %lf\n", angle);---
 		draw_dir_ray(cub, angle);
 		draw_dir_ray(cub, -angle);
 		angle += PI / 976;
