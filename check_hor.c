@@ -10,7 +10,6 @@ void    hor_ray(t_cub *cub, float ra)
         ra -= PI * 2;
     if (ra <= 0)
         ra += PI * 2;
-    printf("ra in hor ==> %lf\n", ra);
     dof = 0;
     float atan = -1/tan(ra);
     xo = 0.0;
@@ -19,7 +18,7 @@ void    hor_ray(t_cub *cub, float ra)
     ry = 0.0;
     if (ra > PI && ra <= PI * 2)
     {
-        ry = (int)(cub->p.y/64) * 64 - 0.0001;
+        ry = (int)(cub->p.y/64) * 64 - 0.001;
         rx = (cub->p.y - ry) * atan + cub->p.x;
         yo = -64;
         xo = -yo * atan;
@@ -47,7 +46,6 @@ void    hor_ray(t_cub *cub, float ra)
         mx = (int)(rx)/64;
         my = (int)(ry)/64;
         mp = my * ROW + mx;
-        printf("hor ==> (%d, %d) ==> %d\n",  mx, my, mp);
         if (mp > 0 && mp < ROW * COL && cub->map[my][mx] == 1)
             dof = 8;
         else

@@ -10,7 +10,6 @@ void    ver_ray(t_cub *cub, float ra)
         ra -= PI * 2;
      if (ra <= 0)
         ra += PI * 2;
-    printf("ra in ver ==> %lf\n", ra);
     dof = 0;
     double P1 = PI/2;
     double P2 = (3 * PI)/2;
@@ -30,7 +29,7 @@ void    ver_ray(t_cub *cub, float ra)
     }
     else if (ra > P1 && ra < P2)
     {
-        rx = (int)(cub->p.x)/64 * 64 - 0.0001;
+        rx = (int)(cub->p.x)/64 * 64 - 0.001;
         ry = (cub->p.x - rx) * ntan + cub->p.y;
         xo = -64;
         yo = -xo * ntan;
@@ -47,7 +46,6 @@ void    ver_ray(t_cub *cub, float ra)
         mx = (int)(rx)/64;
         my = (int)(ry)/64;
         mp = my * ROW + mx;
-        printf("ver ==> (%d, %d) ==> %d\n",  mx, my, mp);
         if (mp > 0 && mp < ROW * COL && cub->map[my][mx] == 1)
             dof = 8;
         else

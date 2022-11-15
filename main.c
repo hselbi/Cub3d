@@ -1,53 +1,5 @@
 #include "cub3d.h"
 
-void new_point(t_cub *cub)
-{
-	double new_x = 0;
-	double new_y = 0;
-	double block_y = 0;
-	double block_x = 0;
-	int x = 0;
-	int y = 0;
-	double next_x = 0;
-	double next_y = 0;
-	
-	if (cub->p.p_angle > PI)
-	{
-		block_y = -64;
-		new_y = ((int)cub->p.y / 64) * 64 - 0.0001;
-	}
-	else
-	{
-		block_y = 64; 
-		new_y = ((int)cub->p.y / 64) * 64;
-	}
-	// printf("y = %d\n", y);
-	// printf("new_y = %d\n", new_y);
-	// printf("pos_p y = %d\n", (int)cub->p.y - new_y);
-	// printf("pos_p x = %d\n", (int)cub->p.x);
-	new_x = cub->p.x + ((cub->p.y - new_y)/-tanf(cub->p.p_angle));
-
-	y = (int)new_y/64;
-	x = (int)new_x/64;
-	cub->degree = cub->p.p_angle * 180 / PI;
-	block_x = -block_y/-tanf(cub->p.p_angle);
-	// dda_line((int)cub->p.x, (int)cub->p.x + 10, (int)cub->p.y, (int)cub->p.y + 10, cub);
-	printf("%f , %f\n", new_x, new_y);
-	dda_line2((int)cub->p.x, new_x, (int)cub->p.y + 4, new_y, cub);
-	while (((x > 0 && x < COL ) && (y > 0 && y < ROW)) && cub->map[y][x] != 1)
-	{
-		// printf("map[%d][%d] = %d\n", y, x, cub->map[y][x]);
-		// printf("block_x = %d/block_y = %d\n", block_x, block_y);
-		// printf("x ==> %dy ==> %d\n", x,÷ y);
-		next_x = new_x + block_x;
-		next_y = new_y + block_y;
-		x = (int)next_x/64;
-		y = (int)next_y/64;
-	}
-	// printf("%f , %f\n", new_x, new_y);
-	dda_line2((int)cub->p.x, next_x, (int)cub->p.y + 4, next_y, cub);
-}
-
 void    dplayer(t_cub *cub)
 {
     int x = -1;
@@ -67,7 +19,6 @@ void	bisector(t_cub *cub)
 
 void	shortest(t_player *pl)
 {
-	// for horizental
 	float h = sqrt(pow((pl->x - pl->hx), 2.0) + pow((pl->y - pl->hy), 2.0));
 	float v = sqrt(pow((pl->x - pl->vx), 2.0) + pow((pl->vy - pl->y), 2.0));
 	if (v < h || pl->p_angle == 0.0)
@@ -80,35 +31,15 @@ void	shortest(t_player *pl)
 		pl->rx = pl->hx;
 		pl->ry = pl->hy;
 	}
-	// float d = sqrt(pow((pl->x - pl->vx), 2.0) + pow((pl->vy - pl->y), 2.0));
-	// printf("%f\n", d);
-	// printf("==> %d/%d\n", (int)pl->rx, (int)pl->ry);
 }
-
-// int	vector_check(t_cub *cub)
-// {
-// 	//check for the if angle is 0 or is PI
-// 	if (cub->p.p_angle == PI || cub->p.p_angle == 0.0)
-// 	{
-// 		/* code */
-// 	}
-// 	//check angle is pi/2 or 3*pi/2
-// 	if (cub->p.p_angle == (3 * PI)/2 || cub->p.p_angle == PI/2)
-// 	{
-
-// 	}
-
-// }
 
 int mlx_windows(t_cub *cub)
 {
 	cub->flag_x = 0;
 	cub->flag_y = 0;
 	draw_sqs(cub);
-	draw_borders(cub);
 	float ra = 0.0;
 	// bisector(cub);
-	// printf("%lf\n", cub->p.p_angle);
 	while (ra < PI / 6)
 	{
 		dplayer(cub);
@@ -123,8 +54,6 @@ int mlx_windows(t_cub *cub)
 	return (0);
 }
 
-
-
 void	init_player(t_player *p)
 {
 	p->x = 300;
@@ -132,25 +61,6 @@ void	init_player(t_player *p)
 	p->dem_x = cos(p->p_angle) * 5;
 	p->dem_y = sin(p->p_angle) * 5;
 }
-
-// void	ft_cpytoarray(t_cub *cub)
-// {
-// 	int i = 0;
-// 	int j = 0;
-// 	int k = 0;
-// 	cub->mp = malloc(sizeof(int) * (ROW * COL));
-// 	while (cub->map[i])
-// 	{
-// 		j = 0;
-// 		while (cub->map[i][j])
-// 		{
-// 			cub->mp[k] = cub->map[i][j];
-// 			k++;
-// 			j++;
-// 		}
-// 		i++;
-// 	}
-// }
 
 /************	main	**********/
 
@@ -187,68 +97,14 @@ int main(int ac, char **av)
 	cub.mlx = mlx_init();
 	cub.win = mlx_new_window(cub.mlx, COL * 64, ROW * 64, "CUB3D");
 	memcpy(cub.map, map, sizeof(int) * ROW * COL);
-	// ft_cpytoarray÷(&cub);
 	cub.img = mlx_new_image(cub.mlx, COL * 64, ROW * 64);
 	if (!cub.img)
 		printf("Failed!!\n");
 	cub.addr = (int *)mlx_get_data_addr(cub.img, &cub.bits_per_pixel, &cub.line_length, &cub.endian);
-	// mlx_windows(&cub);
-	// drawing_palyer(&cub);
-	// my_mlx_pixel(&cub, cub.pos_x, cub.pos_y, 0xFFFFFF);
-	// mlx_loop_hook(cub.mlx, sq_draw, &cub);
 	init_player(&cub.p);
 	mlx_loop_hook(cub.mlx, mlx_windows, &cub);
 	mlx_key_hook(cub.win, advance_keys, &cub);
-	// mlx_key_hook(cub.win, ft_keys, &cub);
 	mlx_hook(cub.win, 17, 0, ft_close, &cub);
 	mlx_loop(cub.mlx);
 	return 0;
 }
-
-
-
-/*
-
-void     draw_dir_ray(t_game * game,  double  angle)
-{
-    double     ray_x;
-    double     ray_y;
-    double     dx;
-    double     dy;
-    double     max_value;
- 
-    ray_x =  game-> pos.x;
-    ray_y =  game-> pos.y;
- 
-    dx =  cos(angle) *  game-> dir_vec.x -  sin(angle) *  game-> dir_vec.y;
-    dy =  sin(angle) *  game-> dir_vec.x +  cos(angle) *  game-> dir_vec.y;
- 
-    max_value =  fmax(fabs(dx), fabs(dy));
-    dx /=  max_value;
-    dy /=  max_value;
-    while  ( 1 )
-    {
-        if  (game-> map_img.data[WIDTH *  ( int )floor(ray_y) +  ( int )floor(ray_x)] !=  0x0000FF )
-            game-> map_img.data[WIDTH *  ( int )floor(ray_y) +  ( int )floor(ray_x)] =  0xFF0000 ;
-        else
-            break ;
-        ray_x +=  dx;
-        ray_y +=  dy;
-    }
-}
- 
-void     draw_ray(t_game * game)
-{
-    double  angle;
- 
-    angle =  0 ;
-    while  (angle <  PI/ 6 )
-    {
-        draw_dir_ray(game, angle);
-        draw_dir_ray(game, - angle);
-        angle +=  PI/ 72 ;
-    }
-    mlx_put_image_to_window(game-> mlx, game-> win, game-> map_img.img,  0 ,  0 );
-}
-
-*/

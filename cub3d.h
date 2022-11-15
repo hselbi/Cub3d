@@ -96,11 +96,6 @@ typedef struct s_cub
 	double	degree;
 	double	angl;
 
-	int		down_y;
-	int		up_y;
-	// int		down_x;
-	// int		up_x;
-
 }			t_cub;
 
 int mlx_windows(t_cub *cub);
@@ -120,20 +115,11 @@ int		ft_close(t_cub *cub);
 void    draw_sq(t_cub *cub, int x, int y, int color);
 void	draw_sqs(t_cub *cub);
 
-/*			borders			*/
-
-void	draw_line_h(t_cub *cub, int i, int j);
-void	draw_line_v(t_cub *cub, int i, int j);
-void    draw_borders(t_cub *cub);
-
-
 /* first version ==> sucks	*/
 void dda_line(int start_x, int end_x, int start_y, int end_y, t_cub *cub);
 /* second version ==> ok */
 void dda_line2(int start_x, int end_x, int start_y, int end_y, t_cub *cub);
-/* bisector version ==> works	*/
-void dda_line_c(int start_x, int end_x, int start_y, int end_y, t_cub *cub, int color);
-void dda_linebi(int start_x, int end_x, int start_y, int end_y, t_cub *cub);
+
 void my_mlx_pixel(t_cub *data, int x, int y, int color);
 
 void    hor_ray(t_cub *cub, float ra);
@@ -141,7 +127,6 @@ void    ver_ray(t_cub *cub, float ra);
 
 /*******************************/
 int check_cor(int mx, int my);
-// void    hor_ray(t_cub *cub);
 
 
 void draw_ver(t_cub *cub, int x, int y);
@@ -157,7 +142,3 @@ void drawing(t_cub *cub);
 int sq_draw(t_cub *cub);
 
 #endif
-
-/*
-3.3	1280 × 720 (HD)
-*/

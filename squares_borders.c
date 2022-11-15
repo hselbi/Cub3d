@@ -13,10 +13,10 @@ void    draw_sq(t_cub *cub, int x, int y, int color)
 	i = 64 * x;
 	jmax = j + 64;
 	imax = i + 64;
-	while (i < imax)
+	while (i < imax - 1)
 	{
 		j = 64 * y;
-		while (j < jmax)
+		while (j < jmax - 1)
 		{	
 			cub->addr[(COL * 64) * j + i] = color;
 			j++;
@@ -46,47 +46,4 @@ void	draw_sqs(t_cub *cub)
 		}
 		j++;
 	}
-}
-
-
-/************	drawing orader		**********/
-
-void	draw_line_h(t_cub *cub, int i, int j)
-{
-	j = j * 64;
-	while (i < COL * 64)
-	{
-		cub->addr[(COL * 64) * j + i] = 0x000000;
-		i++;
-	}
-}
-
-void	draw_line_v(t_cub *cub, int i, int j)
-{
-	i = 64 * i;
-	while (j < ROW * 64)
-	{
-		cub->addr[(COL * 64) * j + i] = 0x000000;
-		j++;
-	}
-}
-
-void    draw_borders(t_cub *cub)
-{
-    int i;
-    int j;
-
-	i = 0;
-	j = 0;
-    while (j <= ROW)
-    {
-		draw_line_h(cub, i, j);
-        j++;
-    }
-	j = 0;
-	while (i <= COL)
-    {
-		draw_line_v(cub, i, j);
-        i++;
-    }
 }
