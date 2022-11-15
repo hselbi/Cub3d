@@ -1,16 +1,11 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: adbaich <adbaich@student.42.fr>            +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/10/30 20:17:07 by adbaich           #+#    #+#              #
-#    Updated: 2022/11/04 17:56:26 by adbaich          ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
+.PHONY = all clean fclean re
 
-SRCS = libft/ft_strlen.c \
+SRC = 	main.c keys_mlx.c\
+		squares_borders.c\
+		my_mlx_px.c DDA.c\
+		check_hor.c check_ver.c\
+		tools.c background.c
+PARSING = libft/ft_strlen.c \
         libft/ft_atoi.c \
         libft/ft_strchr.c \
         libft/ft_strrchr.c \
@@ -46,25 +41,28 @@ SRCS = libft/ft_strlen.c \
 		libft/ft_putnbr_fd.c \
         get_next_line/get_next_line.c \
         cub3d_pars.c \
+
+PARSE = $(addprefix parsing/, $(PARSING))
         
+NAME = cub3d
 
-OBJS = ${SRCS:.c=.o}
-NAME = parse
+OBJ = $(SRC:.c=.o)
+PRS = $(PARSE:.c=.o)
 
-CC = gcc
-RM = rm -f
-
-CFLAGS = -Wall -Wextra -Werror 
+CC = gcc -g -Wall -Wextra -Werror
 
 all: ${NAME}
 
-${NAME}: ${OBJS}
-	${CC} ${CFLAGS} ${OBJS} -o ${NAME}
+%.o: %.c
+	$(CC) -c -g $< -o $@
+
+$(NAME): $(SRC)  $(PARSE) $(OBJ) $(PRS)
+	$(CC) $(OBJ) $(PRS) -lmlx -framework OpenGL -fsanitize=address -framework AppKit -o $(NAME) 
 
 clean:
-	${RM} ${OBJS}
+	rm -rf $(OBJ)
 
 fclean: clean
-	${RM} ${NAME}
+	rm -rf $(NAME)
 
 re: fclean all

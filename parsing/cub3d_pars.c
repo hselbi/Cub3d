@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_pars.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adbaich <adbaich@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hselbi <hselbi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/30 19:45:28 by adbaich           #+#    #+#             */
-/*   Updated: 2022/11/07 18:49:06 by adbaich          ###   ########.fr       */
+/*   Updated: 2022/11/15 15:16:09 by hselbi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,10 +126,10 @@ int	check_id(char *str, int **txt_index)
 	char	id[3];
 
 	i = 0;
-	printf("str to test \'  %s  \'\n", str);
+	// printf("str to test \'  %s  \'\n", str);
 	while (str[i] && str[i] != ' ' && str[i] != '\t')
 		i++;
-	printf("i ==  %d\n", i);
+	// printf("i ==  %d\n", i);
 	if (i == 1)
 		return (check_id_helper1(txt_index, id, str));
 	else if (i == 2)
@@ -403,7 +403,7 @@ void	valid_map(char **map)
 		{
 			if (included("NSWE0", map[i][j]))
 			{
-				printf("i am here\n");
+				// printf("i am here\n");
 				if (j)
 				{
 					if (map[i][j + 1] == ' ' || map[i][j + 1] == '\t')
@@ -501,19 +501,19 @@ void	print_infos(t_txt toto)
 	}
 	i = -1;
 	while (toto.map[++i])
-		printf("mini map ==> %s\n", toto.map[i]);
+		printf("map ==> %s\n", toto.map[i]);
 }
 
-int	main(int ac, char **av)
-{
-	if (ac == 2)
-	{
-		int		fd;
-		t_txt	toto;
+// int	main(int ac, char **av)
+// {
+// 	if (ac == 2)
+// 	{
+// 		int		fd;
+// 		t_txt	toto;
 
-		fd = open_fd(av[1]);
-		toto = fill_struct(fd);
-		print_infos(toto);
-	}
-	return (0);
-}
+// 		fd = open_fd(av[1]);
+// 		toto = fill_struct(fd);
+// 		print_infos(toto);
+// 	}
+// 	return (0);
+// }

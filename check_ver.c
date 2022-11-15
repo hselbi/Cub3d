@@ -45,8 +45,8 @@ void    ver_ray(t_cub *cub, float ra)
     {
         mx = (int)(rx)/64;
         my = (int)(ry)/64;
-        mp = my * ROW + mx;
-        if (mp > 0 && mp < ROW * COL && cub->map[my][mx] == 1)
+        mp = my * cub->max_row + mx;
+        if (mp > 0 && mp < cub->max_row * cub->col && cub->par.map[my][mx] == '1')
             dof = 8;
         else
         {

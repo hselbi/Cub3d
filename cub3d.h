@@ -21,20 +21,6 @@
 # define RIGHT 123
 # define A 0
 
-// ==> add iteration
-# define E 14
-
-// ==> substracte iteration
-# define R 15
-
-// ==> changing the iteration
-# define Z 6
-
-// ==> default of the iteration for julia
-# define X 7
-
-// ==> default of the iteration for mandelbrot
-# define C 8
 
 // define π value
 # define PI 3.141592653589793238
@@ -52,6 +38,8 @@
 # include <unistd.h>
 # include <math.h>
 # include <limits.h>
+# include "parsing/cub3d_pars.h"
+#include "parsing/libft/libft.h"
 
 typedef struct s_player
 {
@@ -71,6 +59,7 @@ typedef struct s_player
 typedef struct s_cub
 {
 	t_player	p;
+	t_txt		par;
 	void	*mlx;
 	void	*win;
 	void	*img;
@@ -81,9 +70,14 @@ typedef struct s_cub
 	int		endian;
 	int		map[ROW][COL];
 	int		mp;
+	int		len;
+	int		max_row;
+	int		col;
 
 	int		win_x;
 	int		win_y;
+	int		width;
+	int		height;
 	int		flag_x;
 	int		flag_y;
 	int		mid_x;
@@ -109,6 +103,7 @@ int advance_keys(int key, t_cub *cub);
 int		ft_keys(int key, t_cub *cub);
 void	rotation_matrix(t_cub *cub, double angle);
 int		ft_close(t_cub *cub);
+void    background(t_cub *cub);
 
 /*		square		*/
 

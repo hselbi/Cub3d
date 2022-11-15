@@ -4,11 +4,11 @@ void    dplayer(t_cub *cub)
 {
     int x = -1;
     int y = 0;
-	while (++x < 5)
+	while (++x < 4)
 	{
 		y = -1;
-		while (++y < 5)
-			cub->addr[(COL * 64) * ((int)cub->p.y + y) + ((int)cub->p.x + x)] = 0x00FF00;
+		while (++y < 4)
+			cub->addr[(cub->width) * ((int)cub->p.y + y) + ((int)cub->p.x + x)] = 0x00FF00;
 	}
 }
 
@@ -37,9 +37,12 @@ int mlx_windows(t_cub *cub)
 {
 	cub->flag_x = 0;
 	cub->flag_y = 0;
+	background(cub);
 	draw_sqs(cub);
+	// dplayer(cub);
 	float ra = 0.0;
 	// bisector(cub);
+	
 	while (ra < PI / 6)
 	{
 		dplayer(cub);
@@ -47,19 +50,42 @@ int mlx_windows(t_cub *cub)
 		ver_ray(cub, ra);
 		shortest(&cub->p);
 		dda_line2((int)cub->p.x, (int)cub->p.rx, (int)cub->p.y, (int)cub->p.ry, cub);	
-		ra += PI / 96;
+		ra += PI / 18;
 	}
 	
 	mlx_put_image_to_window(cub->mlx, cub->win, cub->img, 0, 0);
 	return (0);
 }
 
-void	init_player(t_player *p)
+int	check_player(char c)
 {
-	p->x = 300;
-	p->y = 300;
-	p->dem_x = cos(p->p_angle) * 5;
-	p->dem_y = sin(p->p_angle) * 5;
+	if (c == 'N' || c == 'S' || c == 'W' || c == 'E')
+		return (1);
+	else
+		return (0);
+}
+
+void	init_player(t_cub *cub)
+{
+	cub->p.p_angle = 0.0;
+	cub->p.dem_x = cos(cub->p.p_angle) * 5;
+	cub->p.dem_y = sin(cub->p.p_angle) * 5;
+	int i = 0;
+	int j = 0;
+	while ((j < cub->col) && cub->par.map[j])
+	{
+		i = 0;
+		while (i < cub->max_row && cub->par.map[j][i])
+		{
+			if (check_player(cub->par.map[j][i]))
+			{
+				cub->p.x = i * 64 + (64 / 2);
+				cub->p.y = j * 64 + (64 / 2);
+			}
+			i++;
+		}
+		j++;
+	}
 }
 
 /************	main	**********/
@@ -68,43 +94,68 @@ int main(int ac, char **av)
 {
 	t_cub cub;
 
-	(void)ac;
-	(void)av;
-	int  map[ROW][COL] =  {
-	{ 1 ,  1 ,  1 ,  1 ,  1 ,  1 ,  1 ,  1 ,  1 ,  1 ,  1 ,  1 ,  1 ,  1 ,  1 },
-	{ 1 ,  0 ,  0 ,  0 ,  0 ,  0 ,  0 ,  0 ,  0 ,  0 ,  0 ,  0 ,  1 ,  0 ,  1 },
-	{ 1 ,  0 ,  0 ,  0 ,  0 ,  1 ,  0 ,  0 ,  0 ,  0 ,  0 ,  0 ,  1 ,  0 ,  1 },
-	{ 1 ,  1 ,  1 ,  1 ,  0 ,  0 ,  0 ,  0 ,  0 ,  0 ,  1 ,  0 ,  1 ,  0 ,  1 },
-	{ 1 ,  0 ,  0 ,  0 ,  0 ,  0 ,  0 ,  0 ,  0 ,  0 ,  1 ,  0 ,  1 ,  0 ,  1 },
-	{ 1 ,  0 ,  0 ,  0 ,  0 ,  0 ,  0 ,  0 ,  1 ,  1 ,  1 ,  1 ,  1 ,  0 ,  1 },
-	{ 1 ,  0 ,  0 ,  0 ,  0 ,  0 ,  0 ,  0 ,  0 ,  0 ,  0 ,  0 ,  0 ,  0 ,  1 },
-	{ 1 ,  0 ,  0 ,  0 ,  0 ,  0 ,  0 ,  0 ,  0 ,  0 ,  0 ,  0 ,  0 ,  0 ,  1 },
-	{ 1 ,  1 ,  1 ,  1 ,  1 ,  1 ,  0 ,  0 ,  0 ,  1 ,  1 ,  1 ,  1 ,  0 ,  1 },
-	{ 1 ,  0 ,  0 ,  0 ,  0 ,  0 ,  0 ,  0 ,  0 ,  0 ,  0 ,  0 ,  0 ,  0 ,  1 },
-	{ 1 ,  1 ,  1 ,  1 ,  1 ,  1 ,  1 ,  1 ,  1 ,  1 ,  1 ,  1 ,  1 ,  1 ,  1 }
-	};
+	// (void)ac;
+	// (void)av;
+	// int  map[ROW][COL] =  {
+	// { 1 ,  1 ,  1 ,  1 ,  1 ,  1 ,  1 ,  1 ,  1 ,  1 ,  1 ,  1 ,  1 ,  1 ,  1 },
+	// { 1 ,  0 ,  0 ,  0 ,  0 ,  0 ,  0 ,  0 ,  0 ,  0 ,  0 ,  0 ,  1 ,  0 ,  1 },
+	// { 1 ,  0 ,  0 ,  0 ,  0 ,  1 ,  0 ,  0 ,  0 ,  0 ,  0 ,  0 ,  1 ,  0 ,  1 },
+	// { 1 ,  1 ,  1 ,  1 ,  0 ,  0 ,  0 ,  0 ,  0 ,  0 ,  1 ,  0 ,  1 ,  0 ,  1 },
+	// { 1 ,  0 ,  0 ,  0 ,  0 ,  0 ,  0 ,  0 ,  0 ,  0 ,  1 ,  0 ,  1 ,  0 ,  1 },
+	// { 1 ,  0 ,  0 ,  0 ,  0 ,  0 ,  0 ,  0 ,  1 ,  1 ,  1 ,  1 ,  1 ,  0 ,  1 },
+	// { 1 ,  0 ,  0 ,  0 ,  0 ,  0 ,  0 ,  0 ,  0 ,  0 ,  0 ,  0 ,  0 ,  0 ,  1 },
+	// { 1 ,  0 ,  0 ,  0 ,  0 ,  0 ,  0 ,  0 ,  0 ,  0 ,  0 ,  0 ,  0 ,  0 ,  1 },
+	// { 1 ,  1 ,  1 ,  1 ,  1 ,  1 ,  0 ,  0 ,  0 ,  1 ,  1 ,  1 ,  1 ,  0 ,  1 },
+	// { 1 ,  0 ,  0 ,  0 ,  0 ,  0 ,  0 ,  0 ,  0 ,  0 ,  0 ,  0 ,  0 ,  0 ,  1 },
+	// { 1 ,  1 ,  1 ,  1 ,  1 ,  1 ,  1 ,  1 ,  1 ,  1 ,  1 ,  1 ,  1 ,  1 ,  1 }
+	// };
 
 	cub.win_x = 1024;
 	cub.win_y = 512;
 	cub.mid_x = 0;
 	cub.mid_y = 0;
-	cub.pos_x = 300;
-	cub.pos_y = 300;
+	cub.pos_x = 30;
+	cub.pos_y = 30;
 	cub.x = 300;
 	cub.x = 456;
 	cub.degree = 0.1;
-	cub.relative_path = av[1];
-	cub.mlx = mlx_init();
-	cub.win = mlx_new_window(cub.mlx, COL * 64, ROW * 64, "CUB3D");
-	memcpy(cub.map, map, sizeof(int) * ROW * COL);
-	cub.img = mlx_new_image(cub.mlx, COL * 64, ROW * 64);
-	if (!cub.img)
-		printf("Failed!!\n");
-	cub.addr = (int *)mlx_get_data_addr(cub.img, &cub.bits_per_pixel, &cub.line_length, &cub.endian);
-	init_player(&cub.p);
-	mlx_loop_hook(cub.mlx, mlx_windows, &cub);
-	mlx_key_hook(cub.win, advance_keys, &cub);
-	mlx_hook(cub.win, 17, 0, ft_close, &cub);
-	mlx_loop(cub.mlx);
+	if (ac > 1)
+	{
+		cub.mlx = mlx_init();
+		cub.relative_path = av[1];
+		int fd = open_fd(av[1]);
+		cub.par = fill_struct(fd);
+		// print_infos(cub.par);
+		// memcpy(cub.map, map, sizeof(int) * ROW * COL);
+		int i = 0;
+		cub.max_row = 0;
+		// cub.len = 0;
+		cub.win = mlx_new_window(cub.mlx, 1920, 1080, "CUB3D");
+		if (!cub.win)
+			printf("failed!!!\n");
+		while (cub.par.map[i])
+		{
+			cub.len = (int)ft_strlen(cub.par.map[i]);
+			// fprintf(stderr, "%d\n", cub.max_row);
+			if (cub.max_row < cub.len)
+				cub.max_row = cub.len;
+			printf("%d -> %d ==> %s\n", i, cub.len, cub.par.map[i]);
+			i++;
+		}
+		cub.col = i;
+		// cub.win = mlx_new_window(cub.mlx, (int)(cub.col * 64 * 2.5), (int)(cub.max_row * 64 * 1.5), "CUB3D");
+		cub.width = cub.max_row * 64 * 1.5;
+		cub.height = cub.col * 64 * 2;
+		cub.img = mlx_new_image(cub.mlx, cub.width, cub.height);
+
+		if (!cub.img)
+			printf("Failed!!\n");
+		cub.addr = (int *)mlx_get_data_addr(cub.img, &cub.bits_per_pixel, &cub.line_length, &cub.endian);
+		init_player(&cub);
+		mlx_loop_hook(cub.mlx, mlx_windows, &cub);
+		mlx_key_hook(cub.win, advance_keys, &cub);
+		mlx_hook(cub.win, 17, 0, ft_close, &cub);
+		mlx_loop(cub.mlx);
+	}
 	return 0;
 }

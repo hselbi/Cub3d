@@ -18,7 +18,7 @@ void dda_line(int start_x, int end_x, int start_y, int end_y, t_cub *cub)
 		dy = dy / step;
 		while (i < step)
 		{
-			cub->addr[(COL * 64) *  y +  x] = 0x00FF00;
+			cub->addr[cub->width * y + x] = 0x00FF00;
 			x += dx;
 			y += dy;
 			i++;
@@ -40,7 +40,7 @@ void dda_line2(int start_x, int end_x, int start_y, int end_y, t_cub *cub)
 	int i = 0;
 	while (i <= step)
 	{
-		cub->addr[(COL * 64) *  (int)y +  (int)x] = 0x000000;
+		cub->addr[cub->width *  (int)y +  (int)x] = 0x000000;
 		x += xinc;
 		y += yinc;
 		i++;

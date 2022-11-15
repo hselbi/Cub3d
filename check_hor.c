@@ -6,6 +6,8 @@ void    hor_ray(t_cub *cub, float ra)
     int mx, my, mp, dof;
 
     ra = ra + cub->p.p_angle;
+    // printf("p(%f, %f)\n", cub->p.x, cub->p.y);
+    // printf("angle %lf\n", cub->p.p_angle);
     if (ra >= PI * 2)
         ra -= PI * 2;
     if (ra <= 0)
@@ -45,8 +47,11 @@ void    hor_ray(t_cub *cub, float ra)
     {
         mx = (int)(rx)/64;
         my = (int)(ry)/64;
-        mp = my * ROW + mx;
-        if (mp > 0 && mp < ROW * COL && cub->map[my][mx] == 1)
+        mp = my * cub->col + mx;
+        printf(" %d ==> %c\n",  dof, cub->par.map[my][mx]);
+        printf(" %d/%d==> %d/%d\n", (int)rx, (int)ry, cub->width, cub->height);
+        // printf("%d :=> %f/%f => (%d, %d) ==> %d\n", dof, xo, yo, mx, my, mp);
+        if (mp > 0 && mp < cub->col * cub->max_row && cub->par.map[my][mx] == '1')
             dof = 8;
         else
         {
