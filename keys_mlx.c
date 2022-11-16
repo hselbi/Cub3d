@@ -1,6 +1,8 @@
 #include "cub3d.h"
 
-/************ crose closing function *************/
+/*
+*	this is for escape (esc)
+*/
 
 int ft_close(t_cub *cub)
 {
@@ -9,7 +11,9 @@ int ft_close(t_cub *cub)
 	return (0);
 }
 
-/************	keys check	**********/
+/*
+* this is key function 
+*/
 
 int advance_keys(int key, t_cub *cub)
 {

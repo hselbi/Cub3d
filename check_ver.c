@@ -4,7 +4,6 @@ void    ver_ray(t_cub *cub, float ra)
 {
     float   rx, ry, xo, yo;
     int mx, my, mp, dof;
-    // int mcol, mrow;
 
     ra = ra + cub->p.p_angle;
     if (ra >= PI * 2)
@@ -47,13 +46,7 @@ void    ver_ray(t_cub *cub, float ra)
         mx = (floor)(rx)/64;
         my = (floor)(ry)/64;
         mp = my * cub->col + mx;
-        // printf("%d **after %d : => (%d)\n", dof, mp, cub->max_row * cub->col);
-        // fprintf(stderr, "%d/%d ==> (%d, %d\n", my, mx, cub->col, cub->max_row);
-        // printf(" row %d\n", cub->max_row);
-        // printf(" column %d\n", cub->col);
-        // printf(" y %d \n", my);
-        // printf(" x %d\n", mx);
-        if (my >= cub->col || mx >= cub->max_row)
+        if (my < 0 || my >= cub->col || mx < 0 || mx >= cub->max_row)
             dof = 18;
         else if (mp > 0 && mp < cub->max_row * cub->col && cub->par.map[my][mx] == '1')
             dof = 18;

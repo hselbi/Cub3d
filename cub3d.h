@@ -121,10 +121,6 @@ void	draw_sqs(t_cub *cub);
 int	player_pos(char c);
 int	pl_pos(char c);
 
-
-
-/* first version ==> sucks	*/
-void dda_line(int start_x, int end_x, int start_y, int end_y, t_cub *cub);
 /* second version ==> ok */
 void dda_line2(int start_x, int end_x, int start_y, int end_y, t_cub *cub);
 

@@ -1,13 +1,16 @@
 #include "cub3d.h"
 
+/*
+*	function that draw a player in exist map
+*/
+
 void    dplayer(t_cub *cub)
 {
     int x = -1;
     int y = 0;
 	int	i = cub->p.x / 64;
 	int	j = cub->p.y / 64;
-	// printf(:)
-	
+
 	while (++x < 4)
 	{
 		y = -1;
@@ -23,10 +26,18 @@ void    dplayer(t_cub *cub)
 	}
 }
 
+/*
+*	function that create a bisector
+*/
+
 void	bisector(t_cub *cub)
 {
 	dda_line2((int)cub->p.x + 2, (int)(cub->p.x + cub->p.dem_x * 10), (int)cub->p.y + 2, (int)(cub->p.y + cub->p.dem_y * 10), cub);
 }
+
+/*
+*	function that gives the shortest line to the wall
+*/
 
 void	shortest(t_player *pl)
 {
@@ -43,6 +54,18 @@ void	shortest(t_player *pl)
 		pl->ry = pl->hy;
 	}
 }
+
+/*
+*	function that we loop for every change
+		^	draw background
+		^	draw squares
+		^	a loop for rays
+			&	draw player
+			&	check horizontale lines
+			&	check vertical lines
+			&	choose the shortest to the wall
+			&	draw the shortest line
+*/
 
 int mlx_windows(t_cub *cub)
 {
@@ -68,6 +91,10 @@ int mlx_windows(t_cub *cub)
 	return (0);
 }
 
+/*
+*	check player if it's exist or not
+*/
+
 int	check_player(char c)
 {
 	if (c == 'N' || c == 'S' || c == 'W' || c == 'E')
@@ -75,6 +102,13 @@ int	check_player(char c)
 	else
 		return (0);
 }
+
+/*
+*	function that initiale the values of every data for a player
+		^ position of player
+		^ angle of player
+		^ demension that change everytime 
+*/
 
 void	init_player(t_cub *cub)
 {
@@ -110,7 +144,14 @@ void	init_player(t_cub *cub)
 	cub->p.dem_y = sin(cub->p.p_angle) * 5;
 }
 
-/************	main	**********/
+/*
+*	main function that
+	^ calculate the column and the row for the map
+	^ create a window that is multiply by 64 * x(1.5 or 2)
+	^ create an image for the drawing
+	^ initial the player infos
+	^ make a loop for every change
+*/
 
 int main(int ac, char **av)
 {
@@ -128,11 +169,8 @@ int main(int ac, char **av)
 	if (ac > 1)
 	{
 		cub.mlx = mlx_init();
-		cub.relative_path = av[1];
 		int fd = open_fd(av[1]);
 		cub.par = fill_struct(fd);
-		// print_infos(cub.par);
-		// memcpy(cub.map, map, sizeof(int) * ROW * COL);
 		int i = 0;
 		cub.max_row = 0;
 		// cub.len = 0;
@@ -142,14 +180,12 @@ int main(int ac, char **av)
 		while (cub.par.map[i])
 		{
 			cub.len = (int)ft_strlen(cub.par.map[i]);
-			// fprintf(stderr, "%d\n", cub.max_row);
 			if (cub.max_row < cub.len)
 				cub.max_row = cub.len;
 			printf("%d -> %d ==> %s\n", i, cub.len, cub.par.map[i]);
 			i++;
 		}
 		cub.col = i;
-		// cub.win = mlx_new_window(cub.mlx, (int)(cub.col * 64 * 2.5), (int)(cub.max_row * 64 * 1.5), "CUB3D");
 		cub.width = cub.max_row * 64 * 1.5;
 		cub.height = cub.col * 64 * 2;
 		cub.img = mlx_new_image(cub.mlx, cub.width, cub.height);
