@@ -13,7 +13,7 @@ void    background(t_cub *cub)
 		while (i < cub->width)
 		{
 			// printf("==> %d\n", i);
-			cub->addr[(cub->width) * j + i] = 0xFFFFFF;
+			cub->addr[(cub->width) * j + i] = 0x6e6259;
 			i++;
 		}
 		j++;

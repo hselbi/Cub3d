@@ -1,9 +1,18 @@
 #include "cub3d.h"
 
+int	pl_pos(char c)
+{
+    // printf("$$ ==> %d\n", c);
+	if (c == 'N' || c == 'S' || c == 'W' || c == 'E' || c == '0')
+		return (1);
+	return (0);
+}
+
 void    hor_ray(t_cub *cub, float ra)
 {
     float   rx, ry, xo, yo;
     int mx, my, mp, dof;
+    int mcol, mrow;
 
     ra = ra + cub->p.p_angle;
     // printf("p(%f, %f)\n", cub->p.x, cub->p.y);
@@ -41,18 +50,20 @@ void    hor_ray(t_cub *cub, float ra)
         else
             xo = -64;
         yo = 0.0;
-        dof = 8;
+        dof = 18;
     }
-    while (dof<8)
+    while (dof < 18)
     {
+        // printf("before %d : => (%d, %d) ==> %d\n", dof, mx, my, mp);
         mx = (int)(rx)/64;
         my = (int)(ry)/64;
         mp = my * cub->col + mx;
-        printf(" %d ==> %c\n",  dof, cub->par.map[my][mx]);
-        printf(" %d/%d==> %d/%d\n", (int)rx, (int)ry, cub->width, cub->height);
-        // printf("%d :=> %f/%f => (%d, %d) ==> %d\n", dof, xo, yo, mx, my, mp);
-        if (mp > 0 && mp < cub->col * cub->max_row && cub->par.map[my][mx] == '1')
-            dof = 8;
+        mcol = my * cub->col;
+        mrow = mx * cub->max_row;
+      if (my >= cub->col || mx >= cub->max_row)
+            dof = 18;
+        if (mp > 0 && mp < cub->max_row * cub->col && !pl_pos(cub->par.map[my][mx]))
+            dof = 18;
         else
         {
             rx += xo;
@@ -60,6 +71,7 @@ void    hor_ray(t_cub *cub, float ra)
             dof += 1;
         }
     }
+    // printf("** (%f, %f) --> [%d][%d]\n", rx, ry, mx, my);
     cub->p.hx = rx;
     cub->p.hy = ry;
 }

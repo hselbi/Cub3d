@@ -11,3 +11,11 @@ int check_cor(int mx, int my)
     else
         return (0);
 }
+
+
+int	player_pos(char c)
+{
+	if (c == 'N' || c == 'S' || c == 'W' || c == 'E')
+		return (1);
+	return (0);
+}

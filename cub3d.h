@@ -30,7 +30,7 @@
 # define ROW 11
 # define COL 15
 
-
+#include<stdbool.h>  
 # include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
@@ -45,14 +45,20 @@ typedef struct s_player
 {
 	double	x;
 	double	y;
+
+	double	prev_x;
+	double	prev_y;
+	
 	double	dem_x;
 	double	dem_y;
+
 	float	hx;
 	float	vx;
 	float	hy;
 	float	vy;
 	float	rx;
 	float	ry;
+	
 	double	p_angle;
 }	t_player;
 
@@ -109,6 +115,13 @@ void    background(t_cub *cub);
 
 void    draw_sq(t_cub *cub, int x, int y, int color);
 void	draw_sqs(t_cub *cub);
+
+
+
+int	player_pos(char c);
+int	pl_pos(char c);
+
+
 
 /* first version ==> sucks	*/
 void dda_line(int start_x, int end_x, int start_y, int end_y, t_cub *cub);
