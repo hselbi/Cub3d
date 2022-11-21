@@ -45,6 +45,8 @@ typedef struct s_player
 {
 	double	x;
 	double	y;
+	double	mini_x;
+	double	mini_y;
 
 	double	prev_x;
 	double	prev_y;
@@ -58,14 +60,31 @@ typedef struct s_player
 	float	vy;
 	float	rx;
 	float	ry;
+	float	dist;
+	int		dist_plan;
 	
 	double	p_angle;
+	unsigned int		colors;
 }	t_player;
+
+typedef struct s_minimap
+{
+	float	x;
+	float	y;
+	int		width;
+	int		height;
+	float	rays;
+	float	rx;
+	float	ry;
+	
+}	t_minimap;
+
 
 typedef struct s_cub
 {
 	t_player	p;
 	t_txt		par;
+	t_minimap	mini;
 	void	*mlx;
 	void	*win;
 	void	*img;
@@ -96,6 +115,10 @@ typedef struct s_cub
 	double	degree;
 	double	angl;
 
+	float	t_wall;
+	float	b_wall;
+	float	c_plan;
+
 }			t_cub;
 
 int mlx_windows(t_cub *cub);
@@ -104,19 +127,24 @@ void	pix_mlx(t_cub *cub, int x, int y, int color);
 
 /*		keys		*/
 
+void	mini_bisector(t_cub *cub);
 int advance_keys(int key, t_cub *cub);
 
 int		ft_keys(int key, t_cub *cub);
 void	rotation_matrix(t_cub *cub, double angle);
 int		ft_close(t_cub *cub);
 void    background(t_cub *cub);
+void	bi_shortest(t_cub *cub);
 
 /*		square		*/
 
 void    draw_sq(t_cub *cub, int x, int y, int color);
 void	draw_sqs(t_cub *cub);
+void    mini_draw_sq(t_cub *cub, int x, int y, int color);
+void	mini_draw_sqs(t_cub *cub);
+void    ceilling_floor(t_cub *cub);
 
-
+void    mini_dplayer(t_cub *cub);
 
 int	player_pos(char c);
 int	pl_pos(char c);
@@ -128,13 +156,15 @@ void my_mlx_pixel(t_cub *data, int x, int y, int color);
 
 void    hor_ray(t_cub *cub, float ra);
 void    ver_ray(t_cub *cub, float ra);
+void    bi_ver_ray(t_cub *cub, float ra);
+void    bi_hor_ray(t_cub *cub, float ra);
 
 /*******************************/
 int check_cor(int mx, int my);
 
+void	shortest(t_player *pl);
 
-void draw_ver(t_cub *cub, int x, int y);
-void draw_hori(t_cub *cub, int x, int y);
+
 void drawing_palyer(t_cub *cub);
 void angle_fov(t_cub *cub);
 void fov_angle(t_cub *cub);
@@ -144,5 +174,13 @@ void	draw_ray(t_cub *cub);
 void new_point(t_cub *cub);
 void drawing(t_cub *cub);
 int sq_draw(t_cub *cub);
+
+
+/*
+* raycasting
+*/
+void    ceilling_floor_min(t_cub *cub);
+void    ceilling_floor_max(t_cub *cub);
+void    v_field(t_cub *cub, int x, float ra);
 
 #endif

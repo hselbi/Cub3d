@@ -30,30 +30,22 @@ void    dplayer(t_cub *cub)
 *	function that create a bisector
 */
 
-void	bisector(t_cub *cub)
-{
-	dda_line2((int)cub->p.x + 2, (int)(cub->p.x + cub->p.dem_x * 10), (int)cub->p.y + 2, (int)(cub->p.y + cub->p.dem_y * 10), cub);
-}
+
+
 
 /*
 *	function that gives the shortest line to the wall
 */
 
-void	shortest(t_player *pl)
-{
-	float h = sqrt(pow((pl->x - pl->hx), 2.0) + pow((pl->y - pl->hy), 2.0));
-	float v = sqrt(pow((pl->x - pl->vx), 2.0) + pow((pl->vy - pl->y), 2.0));
-	if (v < h || pl->p_angle == 0.0)
-	{
-		pl->rx = pl->vx;
-		pl->ry = pl->vy;
-	}
-	else if (v > h || pl->p_angle == (3 * PI) / 2)
-	{
-		pl->rx = pl->hx;
-		pl->ry = pl->hy;
-	}
-}
+
+
+// void	ft_minimap(t_cub *cub)
+// {
+// 	dplayer(cub);
+// 	dda_line2((int)cub->p.x + 2, (int)cub->p.rx, (int)cub->p.y + 2, (int)cub->p.ry, cub);
+
+	
+// }
 
 /*
 *	function that we loop for every change
@@ -72,21 +64,29 @@ int mlx_windows(t_cub *cub)
 	cub->flag_x = 0;
 	cub->flag_y = 0;
 	background(cub);
-	draw_sqs(cub);
-	// dplayer(cub);
-	float ra = - PI / 12;
+	// ceilling_floor_min(cub);
+	// ceilling_floor_max(cub);
+	// draw_sqs(cub);
+	// mini_dplayer(cub);
 	// bisector(cub);
-	
-	while (ra < PI / 6)
+	// float height_line = 0.0;
+
+	float ra = - PI / 6; // -30
+	int x = 0;
+	while (ra < PI / 6) // +30
 	{
-		dplayer(cub);
+		// dplayer(cub);
 		hor_ray(cub, ra);
 		ver_ray(cub, ra);
 		shortest(&cub->p);
-		dda_line2((int)cub->p.x + 2, (int)cub->p.rx, (int)cub->p.y + 2, (int)cub->p.ry, cub);	
-		ra += PI / 180;
+		v_field(cub, x, ra);
+		// mini_draw_sqs(cub);
+		// mini_dplayer(cub);
+		// mini_bisector(cub);
+		// dda_line2((int)cub->p.x + 2, (int)cub->p.rx, (int)cub->p.y + 2, (int)cub->p.ry, cub);
+		x += 1;
+		ra += ((PI / 6) / cub->width);
 	}
-	
 	mlx_put_image_to_window(cub->mlx, cub->win, cub->img, 0, 0);
 	return (0);
 }
@@ -136,12 +136,13 @@ void	init_player(t_cub *cub)
 		cub->p.p_angle = (3 * PI) / 2;
 	else if (stop && cub->par.map[j - 1][i] == 'S')
 		cub->p.p_angle = PI / 2;
-	else if (stop && cub->par.map[j - 1][i] == 'E')
-		cub->p.p_angle = PI;
 	else if (stop && cub->par.map[j - 1][i] == 'W')
+		cub->p.p_angle = PI;
+	else if (stop && cub->par.map[j - 1][i] == 'E')
 		cub->p.p_angle = 0.0;
 	cub->p.dem_x = cos(cub->p.p_angle) * 5;
 	cub->p.dem_y = sin(cub->p.p_angle) * 5;
+	cub->p.dist_plan = 277;
 }
 
 /*
@@ -157,8 +158,8 @@ int main(int ac, char **av)
 {
 	t_cub cub;
 
-	cub.win_x = 1024;
-	cub.win_y = 512;
+	cub.win_x = 1920;
+	cub.win_y = 1080;
 	cub.mid_x = 0;
 	cub.mid_y = 0;
 	cub.pos_x = 30;
@@ -182,20 +183,22 @@ int main(int ac, char **av)
 			cub.len = (int)ft_strlen(cub.par.map[i]);
 			if (cub.max_row < cub.len)
 				cub.max_row = cub.len;
-			printf("%d -> %d ==> %s\n", i, cub.len, cub.par.map[i]);
+			// printf("%d -> %d ==> %s\n", i, cub.len, cub.par.map[i]);
 			i++;
 		}
 		cub.col = i;
 		cub.width = cub.max_row * 64 * 1.5;
-		cub.height = cub.col * 64 * 2;
+		cub.height = cub.col * 64 * 1.25;
+		// printf("%d/%d [] %d/%d\n", cub.height, cub.win_y, cub.width, cub.win_x);
+		// cub.img = mlx_new_image(cub.mlx, cub.win_x, cub.win_y);
 		cub.img = mlx_new_image(cub.mlx, cub.width, cub.height);
-
 		if (!cub.img)
 			printf("Failed!!\n");
 		cub.addr = (int *)mlx_get_data_addr(cub.img, &cub.bits_per_pixel, &cub.line_length, &cub.endian);
 		init_player(&cub);
 		mlx_loop_hook(cub.mlx, mlx_windows, &cub);
-		mlx_key_hook(cub.win, advance_keys, &cub);
+		// mlx_key_hook(cub.win, advance_keys, &cub);
+		mlx_hook(cub.win, 2, 0, advance_keys, &cub);
 		mlx_hook(cub.win, 17, 0, ft_close, &cub);
 		mlx_loop(cub.mlx);
 	}

@@ -4,7 +4,9 @@ SRC = 	main.c keys_mlx.c\
 		squares_borders.c\
 		my_mlx_px.c DDA.c\
 		check_hor.c check_ver.c\
-		tools.c background.c
+		tools.c background.c\
+        shortest.c mini_map.c
+
 PARSING = libft/ft_strlen.c \
         libft/ft_atoi.c \
         libft/ft_strchr.c \
@@ -40,7 +42,9 @@ PARSING = libft/ft_strlen.c \
 		libft/ft_putendl_fd.c \
 		libft/ft_putnbr_fd.c \
         get_next_line/get_next_line.c \
-        cub3d_pars.c \
+        cub3d_pars.c
+
+RCAST = raycasting/ceilling_flooring.c raycasting/vision_field.c
 
 PARSE = $(addprefix parsing/, $(PARSING))
         
@@ -48,6 +52,7 @@ NAME = cub3d
 
 OBJ = $(SRC:.c=.o)
 PRS = $(PARSE:.c=.o)
+RC = $(RCAST:.c=.o)
 
 CC = gcc -g -Wall -Wextra -Werror
 
@@ -56,8 +61,8 @@ all: ${NAME}
 %.o: %.c
 	$(CC) -c -g $< -o $@
 
-$(NAME): $(SRC)  $(PARSE) $(OBJ) $(PRS)
-	$(CC) $(OBJ) $(PRS) -lmlx -framework OpenGL -fsanitize=address -framework AppKit -o $(NAME) 
+$(NAME): $(SRC) $(PARSE) $(RCAST) $(RC) $(OBJ) $(PRS)
+	$(CC) $(OBJ) $(PRS) $(RC) -lmlx -framework OpenGL -fsanitize=address -framework AppKit -o $(NAME) 
 
 clean:
 	rm -rf $(OBJ)

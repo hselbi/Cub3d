@@ -61,3 +61,65 @@ void    hor_ray(t_cub *cub, float ra)
     cub->p.hy = ry;
 }
 
+
+void    bi_hor_ray(t_cub *cub, float ra)
+{
+    float   rx, ry, xo, yo;
+    int mx, my, mp, dof;
+
+    ra = ra + cub->p.p_angle;
+    if (ra >= PI * 2)
+        ra -= PI * 2;
+    if (ra <= 0)
+        ra += PI * 2;
+    dof = 0;
+    float atan = -1/tan(ra);
+    xo = 0.0;
+    yo = 0.0;
+    rx = 0.0;
+    ry = 0.0;
+    if (ra > PI && ra <= PI * 2)
+    {
+        ry = (int)(cub->mini.y/16) * 16 - 0.001;
+        rx = (cub->mini.y - ry) * atan + cub->mini.x;
+        yo = -16;
+        xo = -yo * atan;
+    }
+    else if (ra && ra < PI)
+    {
+        ry = (int)(cub->mini.y/16) * 16 + 16;
+        rx = (cub->mini.y - ry) * atan + cub->mini.x;
+        yo = 16;
+        xo = -yo * atan;
+    }
+    else if (ra == 0.0 || ra == PI)
+    {
+        ry = cub->mini.y;
+        rx = cub->mini.x;
+        if(ra == 0.0)
+            xo = 16;
+        else
+            xo = -16;
+        yo = 0.0;
+        dof = 18;
+    }
+    while (dof < 18)
+    {
+        mx = (int)(rx)/16;
+        my = (int)(ry)/16;
+        mp = my * cub->col + mx;
+      if (my < 0 || my >= cub->col || mx < 0 || mx >= cub->max_row)
+            break;
+        if (mp > 0 && mp < cub->max_row * cub->col && cub->par.map[my][mx] == 1)
+            break;
+        else
+        {
+            rx += xo;
+            ry += yo;
+            dof += 1;
+        }
+    }
+    cub->mini.rx = rx;
+    cub->mini.ry = ry;
+}
+

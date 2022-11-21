@@ -6,8 +6,8 @@
 
 int ft_close(t_cub *cub)
 {
-	mlx_destroy_window(cub->mlx, cub->win);
-	exit(0);
+	if(!mlx_destroy_window(cub->mlx, cub->win))
+		exit(0);
 	return (0);
 }
 
@@ -17,6 +17,7 @@ int ft_close(t_cub *cub)
 
 int advance_keys(int key, t_cub *cub)
 {
+	// printf("%d\n", key);
 	if (key == ESC)
 		ft_close(cub);
 	else if (key == W)
@@ -47,7 +48,7 @@ int advance_keys(int key, t_cub *cub)
 	{
 		cub->p.prev_x = cub->p.x;
 		cub->p.prev_y = cub->p.y;
-		if (cub->p.p_angle == 0.0)
+		if (cub->p.p_angle == 0.0 || cub->p.p_angle == PI || cub->p.p_angle == PI/2 || cub->p.p_angle == (3 * PI)/2)
 			cub->p.x -= 5;
 		else
 		{
@@ -59,7 +60,7 @@ int advance_keys(int key, t_cub *cub)
 	{
 		cub->p.prev_x = cub->p.x;
 		cub->p.prev_y = cub->p.y;
-		if (cub->p.p_angle == 0.0)
+		if (cub->p.p_angle == 0.0 || cub->p.p_angle == PI || cub->p.p_angle == PI/2 || cub->p.p_angle == (3 * PI)/2)
 			cub->p.x += 5;
 		else
 		{
