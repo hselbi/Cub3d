@@ -17,7 +17,6 @@ int ft_close(t_cub *cub)
 
 int advance_keys(int key, t_cub *cub)
 {
-	// printf("%d\n", key);
 	if (key == ESC)
 		ft_close(cub);
 	else if (key == W)
@@ -48,25 +47,19 @@ int advance_keys(int key, t_cub *cub)
 	{
 		cub->p.prev_x = cub->p.x;
 		cub->p.prev_y = cub->p.y;
-		if (cub->p.p_angle == 0.0 || cub->p.p_angle == PI || cub->p.p_angle == PI/2 || cub->p.p_angle == (3 * PI)/2)
-			cub->p.x -= 5;
-		else
-		{
-			cub->p.x += cub->p.dem_x;
-			cub->p.y -= cub->p.dem_y;
-		}
+		cub->p.dm_x = cos(cub->p.p_angle + PI/2) * 5;
+		cub->p.dm_y = sin(cub->p.p_angle + PI/2) * 5;
+		cub->p.x += cub->p.dm_x;
+		cub->p.y += cub->p.dm_y;	
 	}
 	else if (key == A)
 	{
 		cub->p.prev_x = cub->p.x;
 		cub->p.prev_y = cub->p.y;
-		if (cub->p.p_angle == 0.0 || cub->p.p_angle == PI || cub->p.p_angle == PI/2 || cub->p.p_angle == (3 * PI)/2)
-			cub->p.x += 5;
-		else
-		{
-			cub->p.x -= cub->p.dem_x;
-			cub->p.y += cub->p.dem_y;
-		}
+		cub->p.dm_x = cos(cub->p.p_angle + PI/2) * 5;
+		cub->p.dm_y = sin(cub->p.p_angle + PI/2) * 5;
+		cub->p.x -= cub->p.dm_x;
+		cub->p.y -= cub->p.dm_y;
 	}
 	if (key == RIGHT)
 	{

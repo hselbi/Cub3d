@@ -6,20 +6,28 @@ void	shortest(t_player *pl)
 	pl->dist = 0.0;
 	float h = sqrt(pow((pl->x - pl->hx), 2.0) + pow((pl->y - pl->hy), 2.0));
 	float v = sqrt(pow((pl->x - pl->vx), 2.0) + pow((pl->vy - pl->y), 2.0));
+	if (pl->f_ver == 0)
+	{
+		v = 12212155.00;
+	}
+	if (pl->f_hor == 0)
+	{
+		h = 12212155.00;
+	}
 	pl->colors = 0x6E6259;
-	if (v < h || pl->p_angle == 0.0)
+	if (v < h)
 	{
 		pl->rx = pl->vx;
 		pl->ry = pl->vy;
 		pl->dist = v;
-		pl->colors = 0xE74C3C;
+		pl->colors = 0x000000;
 	}
-	else if (v > h || pl->p_angle == (3 * PI) / 2)
+	else
 	{
 		pl->rx = pl->hx;
 		pl->ry = pl->hy;
 		pl->dist = h;
-		pl->colors = 0xF1948A;
+		pl->colors = 0x0000FF;
 	}
 }
 

@@ -7,13 +7,11 @@
 
 void    v_field(t_cub *cub, int x, float ra)
 {
-    (void)x;
-    float dis_angle = cub->p.p_angle - ra;
-    if (dis_angle < 0)
-        dis_angle += (PI * 2);
-    if (dis_angle > 2 * PI)
-        dis_angle += (PI * 2);
-    // cub->p.dist *= cos(dis_angle);
+    if (ra >= PI * 2)
+        ra -= PI * 2;
+    if (ra <= 0)
+        ra += PI * 2;
+    cub->p.dist = cub->p.dist * cos(ra);
     float dplan = 64 * cub->height / cub->p.dist;
     if (dplan > (float)cub->height)
         dplan = cub->height;
@@ -27,11 +25,8 @@ void    v_field(t_cub *cub, int x, float ra)
 
     int i = (int)cub->t_wall;
     int j = (int)cub->b_wall;
-    // printf("%d->%d\n", i, j);
     while(i < j)
     {
-        // printf("==> %d / %d\n", i, j);
-        // cub->addr[cub->width * i + x] = 0x0000FF00;
         cub->addr[cub->width * i + x] = cub->p.colors;
         i++;
     }

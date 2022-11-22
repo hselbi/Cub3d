@@ -73,9 +73,22 @@ int mlx_windows(t_cub *cub)
 
 	float ra = - PI / 6; // -30
 	int x = 0;
-	while (ra < PI / 6) // +30
+	int tmp_i = 0;
+	int tmp_j = 0;
+	while (x < cub->width) // +30
 	{
 		// dplayer(cub);
+		if (ra > 2 * PI)
+			ra -= 2 * PI;
+		if(ra < 0)
+			ra += 2*PI;
+		tmp_i = (int)(cub->p.x / 64);
+		tmp_j = (int)(cub->p.y / 64);
+		if(cub->par.map[tmp_j][tmp_i] == '1')
+		{
+			cub->p.x = cub->p.prev_x;
+			cub->p.y = cub->p.prev_y;
+		}
 		hor_ray(cub, ra);
 		ver_ray(cub, ra);
 		shortest(&cub->p);
@@ -83,9 +96,9 @@ int mlx_windows(t_cub *cub)
 		// mini_draw_sqs(cub);
 		// mini_dplayer(cub);
 		// mini_bisector(cub);
-		// dda_line2((int)cub->p.x + 2, (int)cub->p.rx, (int)cub->p.y + 2, (int)cub->p.ry, cub);
+		// dda_line2((int)cub->p.x, (int)cub->p.rx, (int)cub->p.y, (int)cub->p.ry, cub);
 		x += 1;
-		ra += ((PI / 6) / cub->width);
+		ra += ((PI / 3) / cub->width);
 	}
 	mlx_put_image_to_window(cub->mlx, cub->win, cub->img, 0, 0);
 	return (0);
@@ -183,22 +196,18 @@ int main(int ac, char **av)
 			cub.len = (int)ft_strlen(cub.par.map[i]);
 			if (cub.max_row < cub.len)
 				cub.max_row = cub.len;
-			// printf("%d -> %d ==> %s\n", i, cub.len, cub.par.map[i]);
 			i++;
 		}
 		cub.col = i;
 		cub.width = cub.max_row * 64 * 1.5;
 		cub.height = cub.col * 64 * 1.25;
-		// printf("%d/%d [] %d/%d\n", cub.height, cub.win_y, cub.width, cub.win_x);
-		// cub.img = mlx_new_image(cub.mlx, cub.win_x, cub.win_y);
 		cub.img = mlx_new_image(cub.mlx, cub.width, cub.height);
 		if (!cub.img)
 			printf("Failed!!\n");
 		cub.addr = (int *)mlx_get_data_addr(cub.img, &cub.bits_per_pixel, &cub.line_length, &cub.endian);
 		init_player(&cub);
 		mlx_loop_hook(cub.mlx, mlx_windows, &cub);
-		// mlx_key_hook(cub.win, advance_keys, &cub);
-		mlx_hook(cub.win, 2, 0, advance_keys, &cub);
+		mlx_hook(cub.win, 2, (1L<<0), advance_keys, &cub);
 		mlx_hook(cub.win, 17, 0, ft_close, &cub);
 		mlx_loop(cub.mlx);
 	}

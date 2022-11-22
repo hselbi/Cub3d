@@ -18,7 +18,7 @@ void dda_line2(int start_x, int end_x, int start_y, int end_y, t_cub *cub)
 	int i = 0;
 	while (i <= step)
 	{
-		cub->addr[cub->width *  (int)y +  (int)x] = 0x000000;
+		cub->addr[cub->width *  (int)y +  (int)x] = cub->p.colors;
 		x += xinc;
 		y += yinc;
 		i++;

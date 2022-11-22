@@ -53,6 +53,8 @@ typedef struct s_player
 	
 	double	dem_x;
 	double	dem_y;
+	double	dm_x;
+	double	dm_y;
 
 	float	hx;
 	float	vx;
@@ -62,6 +64,8 @@ typedef struct s_player
 	float	ry;
 	float	dist;
 	int		dist_plan;
+	int		f_hor;
+	int		f_ver;
 	
 	double	p_angle;
 	unsigned int		colors;
