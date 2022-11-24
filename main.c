@@ -63,14 +63,14 @@ int mlx_windows(t_cub *cub)
 {
 	cub->flag_x = 0;
 	cub->flag_y = 0;
-	background(cub);
-	// ceilling_floor_min(cub);
-	// ceilling_floor_max(cub);
+	// background(cub);
+	// mlx
+	ceilling_floor_max(cub);
 	// draw_sqs(cub);
 	// mini_dplayer(cub);
 	// bisector(cub);
 	// float height_line = 0.0;
-
+	// cub->par.
 	float ra = - PI / 6; // -30
 	int x = 0;
 	int tmp_i = 0;
@@ -78,13 +78,14 @@ int mlx_windows(t_cub *cub)
 	while (x < cub->width) // +30
 	{
 		// dplayer(cub);
+		
 		if (ra > 2 * PI)
 			ra -= 2 * PI;
 		if(ra < 0)
 			ra += 2*PI;
 		tmp_i = (int)(cub->p.x / 64);
 		tmp_j = (int)(cub->p.y / 64);
-		if(cub->par.map[tmp_j][tmp_i] == '1')
+		if (cub->par.map[tmp_j][tmp_i] == '1')
 		{
 			cub->p.x = cub->p.prev_x;
 			cub->p.y = cub->p.prev_y;

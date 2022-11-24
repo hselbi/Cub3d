@@ -140,6 +140,10 @@ int		ft_close(t_cub *cub);
 void    background(t_cub *cub);
 void	bi_shortest(t_cub *cub);
 
+/*		celling		*/
+
+unsigned long createRGB(int r, int g, int b);
+
 /*		square		*/
 
 void    draw_sq(t_cub *cub, int x, int y, int color);
@@ -154,6 +158,7 @@ int	player_pos(char c);
 int	pl_pos(char c);
 
 /* second version ==> ok */
+
 void dda_line2(int start_x, int end_x, int start_y, int end_y, t_cub *cub);
 
 void my_mlx_pixel(t_cub *data, int x, int y, int color);
@@ -164,6 +169,7 @@ void    bi_ver_ray(t_cub *cub, float ra);
 void    bi_hor_ray(t_cub *cub, float ra);
 
 /*******************************/
+
 int check_cor(int mx, int my);
 
 void	shortest(t_player *pl);
@@ -183,6 +189,7 @@ int sq_draw(t_cub *cub);
 /*
 * raycasting
 */
+
 void    ceilling_floor_min(t_cub *cub);
 void    ceilling_floor_max(t_cub *cub);
 void    v_field(t_cub *cub, int x, float ra);

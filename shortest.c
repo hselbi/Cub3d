@@ -3,6 +3,7 @@
 
 void	shortest(t_player *pl)
 {
+	// int	alpha = 0;
 	pl->dist = 0.0;
 	float h = sqrt(pow((pl->x - pl->hx), 2.0) + pow((pl->y - pl->hy), 2.0));
 	float v = sqrt(pow((pl->x - pl->vx), 2.0) + pow((pl->vy - pl->y), 2.0));
@@ -17,13 +18,15 @@ void	shortest(t_player *pl)
 	pl->colors = 0x6E6259;
 	if (v < h)
 	{
+		// alpha = (int)90/h;
 		pl->rx = pl->vx;
 		pl->ry = pl->vy;
 		pl->dist = v;
-		pl->colors = 0x000000;
+		pl->colors = 0xD35400;
 	}
 	else
 	{
+		// alpha = (int)90/v;
 		pl->rx = pl->hx;
 		pl->ry = pl->hy;
 		pl->dist = h;

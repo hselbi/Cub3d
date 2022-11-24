@@ -2,40 +2,40 @@
 
 void    ceilling_floor_min(t_cub *cub)
 {
-	unsigned int i = (cub->win_x / 2);
+	unsigned int i = (cub->width / 2);
 	int j = 0;
-	while (j < (cub->win_y / 4))
+	while (j < (cub->height / 4))
 	{
-		i = (cub->win_x / 2);
-		while (++i < (unsigned)cub->win_x - 1)
-			cub->addr[(cub->win_x) * j + i] = 0xFFFFFF;
+		i = (cub->width / 2);
+		while (++i < (unsigned)cub->width - 1)
+			cub->addr[(cub->width) * j + i] = 0xFFFFFF;
 		j++;
 	}
-	while (j < (cub->win_y / 2))
+	while (j < (cub->height / 2))
 	{
-		i = (cub->win_x / 2);
-		while (++i < (unsigned)cub->win_x - 1)
-			cub->addr[(cub->win_x) * j + i] = 0xFF24A4;
+		i = (cub->width / 2);
+		while (++i < (unsigned)cub->width - 1)
+			cub->addr[(cub->width) * j + i] = createRGB(cub->par.color[1][0], cub->par.color[1][0], cub->par.color[1][0]);
 		j++;
 	}
 }
 
 void    ceilling_floor_max(t_cub *cub)
 {
-	unsigned int i = (cub->win_x / 2);
+	unsigned int i = 0;
 	int j = 0;
-	while (j < (cub->win_y / 4))
+	while (j < (cub->height / 2))
 	{
-		i = (cub->win_x / 2);
-		while (++i < (unsigned)cub->win_x - 1)
-			cub->addr[(cub->win_x) * j + i] = 0xFFFFFF;
+		i = 0;
+		while (++i < (unsigned)cub->width - 1)
+			cub->addr[(cub->width) * j + i] = createRGB(cub->par.color[1][0], cub->par.color[1][1], cub->par.color[1][2]);
 		j++;
 	}
-	while (j < (cub->win_y / 2))
+	while (j < (cub->height))
 	{
-		i = (cub->win_x / 2);
-		while (++i < (unsigned)cub->win_x - 1)
-			cub->addr[(cub->win_x) * j + i] = 0xFF24A4;
+		i = 0;
+		while (++i < (unsigned)cub->width - 1)
+			cub->addr[(cub->width) * j + i] = createRGB(cub->par.color[0][0], cub->par.color[0][1], cub->par.color[0][2]);
 		j++;
 	}
 }

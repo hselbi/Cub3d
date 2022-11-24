@@ -33,15 +33,6 @@ void    v_field(t_cub *cub, int x, float ra)
 
 }
 
-void    projection_plane(t_cub *cub, double ra)
-{
-    // calculate the height of projection plane and the width of the projection plane
-    int height = cub->height / 2 * tan(ra);
-    int width = cub->width / 2;
-    (void)width;
-    (void)height;
-}    
-
 
 /*
 ! to do list

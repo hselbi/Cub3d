@@ -5,7 +5,8 @@ SRC = 	main.c keys_mlx.c\
 		my_mlx_px.c DDA.c\
 		check_hor.c check_ver.c\
 		tools.c background.c\
-        shortest.c mini_map.c
+        shortest.c mini_map.c\
+        rgb.c
 
 PARSING = libft/ft_strlen.c \
         libft/ft_atoi.c \
