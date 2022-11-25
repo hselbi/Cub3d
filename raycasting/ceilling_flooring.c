@@ -31,7 +31,7 @@ void    ceilling_floor_max(t_cub *cub)
 			cub->addr[(cub->width) * j + i] = createRGB(cub->par.color[1][0], cub->par.color[1][1], cub->par.color[1][2]);
 		j++;
 	}
-	while (j < (cub->height))
+	while (j < (cub->height - 1))
 	{
 		i = 0;
 		while (++i < (unsigned)cub->width - 1)

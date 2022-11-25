@@ -1,12 +1,44 @@
 #include "../cub3d.h"
 
 
+
+// void	put_image_wall(int x, int y, t_img *img, void *win, void *mlx)
+// {
+// 	int	img_width;
+// 	int	img_height;
+// 	img->img = mlx_xpm_file_to_image(mlx, "./textures/bricks.xpm", &img_width, &img_height);
+// 	mlx_put_image_to_window(mlx, win, img->img, x, y);
+// }
+
+// int	my_get_color(t_text *data, int x, int y)
+// {
+// 	int *dst;
+// 	dst = data->add + x * (data->bits_per_pixel / 8));
+// 	return(*(unsigned int *)dst);
+// }
+
+int get_color_xpm(t_text *tx_img, float x, float y, int h, int w)
+{
+    
+    int colors;
+    (void)w;
+    (void)h;
+    int i = ((int)x % 64);
+    // int i = 1;
+    int j = (((int)y % 64));
+    // printf("x:\t%d\n", i);
+    // printf("y:\t%d\n", j);
+    colors = tx_img->add[64 * (int)j + (int)i];
+    return (colors);
+}
+
 /*
 * distanation between the player and the project plan is 277 
 */
 
 void    v_field(t_cub *cub, int x, float ra)
 {
+    int colors = 0;
     if (ra >= PI * 2)
         ra -= PI * 2;
     if (ra <= 0)
@@ -27,7 +59,12 @@ void    v_field(t_cub *cub, int x, float ra)
     int j = (int)cub->b_wall;
     while(i < j)
     {
-        cub->addr[cub->width * i + x] = cub->p.colors;
+        // get_color_xpm(&cub->img, cub->p.rx, cub->p.ry);
+        colors = get_color_xpm(&cub->tx_img, cub->p.rx, cub->p.ry, cub->height, cub->width);
+        // printf("%d\n", colors);
+        cub->addr[cub->width * i + x] = colors;
+        // cub->addr[cub->width * i + x] = cub->p.colors;
+        // printf÷("");
         i++;
     }
 

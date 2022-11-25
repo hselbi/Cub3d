@@ -1,8 +1,9 @@
-#include "cub3d.h"
+// #include "cub3d.h"
 
 
 
 #include <mlx.h>
+#include <stdio.h>
 
 // int	main(void)
 // {
@@ -13,135 +14,176 @@
 // }
 
 
-typedef struct s_img
-{
-	int x;
-	int y;
-	void *addr;
-	void *img;
-	int		line_len;
-	int		endien;
-	int bpp;
-}t_img;
+// typedef struct s_img
+// {
+// 	int x;
+// 	int y;
+// 	void *addr;
+// 	void *img;
+// 	int		line_len;
+// 	int		endien;
+// 	int bpp;
+// }t_img;
+
+// typedef struct s_image
+// {
+// 	int x;
+// 	int y;
+// 	void *addr;
+// 	void *img;
+// 	int		line_len;
+// 	int		endien;
+// 	int bpp;
+// }t_image;
 
 
-int	my_get_color(t_img *data, int x, int y)
+// int	my_get_color(t_img *data, int x, int y)
+// {
+// 	int *dst;
+// 	// printf("@@@ %d\n", x * (data->bits_per_pixel / 8));
+// 	dst = data->addr + (y * data->line_len + x * (data->bpp / 8));
+// 	return(*(unsigned int *)dst);
+// }
+
+
+// void my_mlx_pixel(t_data *data, int x, int y, int color)
+// {
+// 	int *dst;
+// 	// printf("@@@ %d\n", x * (data->bits_per_pixel / 8));
+// 	dst = data->addr + (y * data->line_len + x * (data->bpp / 8));
+// 	*(unsigned int *)dst = color;
+// }
+
+
+// int	main(void)
+// {
+// 	// t_img	img;
+// 	t_image	image;
+// 	void	*mlx;
+// 	// char	*relative_path = "./textures/kyle-edmonds-stone-path-texture.xpm";
+// 	// void	*addr;
+// 	void	*mlx_win;
+
+// 	mlx = mlx_init();
+// 	mlx_win = mlx_new_window(mlx, 1920, 1080, "Hello world!");
+//     // image.img = mlx_new_image(mlx, 650, 650);
+// 	img.img = mlx_xpm_file_to_image(mlx, relative_path, &img.x, &img.y);
+// 	// mlx_put_image_to_window(mlx, mlx_win, img.img, x, y);
+// 	mlx_xpm_to_image(mlx, relative_path, &img_width, &img_height);
+// 	// image.addr = mlx_get_data_addr(image.img, &image.bpp, &image.line_len, &image.endien);
+// 	img.addr = mlx_get_data_addr(img.img, &img.bpp, &img.line_len, &img.endien);
+// 	printf(">>>>>>> %d\n", img.x);
+// 	printf(">>>>>>> %d\n", my_get_color(&img, 45, 2));
+// 	// int	color = 0;
+	
+	// int i = 0;
+	// int j = 0;
+	// int x = 0;
+	// int y = 0;
+	// while (i < 17)
+	// {
+	// 	j = 0;
+	// 	x = 0;
+	// 	while (j < 30)
+	// 	{
+	// 		put_image_wall(x, y, &img, mlx_win, mlx);
+	// 		// put_imag_wall();
+	// 		x += 64;
+	// 		j++;
+	// 	}
+	// 	y += 64;
+	// 	i++;
+	// }
+	
+
+
+/**************************************************************/
+
+// void	put_image_wall(int x, int y, t_img *img, void *win, void *mlx)
+// {
+// 	int	img_width;
+// 	int	img_height;
+// 	img->img = mlx_xpm_file_to_image(mlx, "./textures/bricks.xpm", &img_width, &img_height);
+// 	mlx
+// 	img.addr = mlx_get_data_addr(img.img, &img.bpp, &img.line_len, &img.endien);
+// }
+
+typedef struct	s_txt {
+	void	*img;
+	void	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+}				t_txt;
+
+
+typedef struct	s_img {
+	t_txt	txt;
+	void	*img;
+	int		*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+}				t_img;
+
+
+// void	my_mlx_pixel_put(t_img *data, int x, int y, int color)
+// {
+// 	char	*dst;
+
+// 	dst = (int *)data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
+// 	*(unsigned int*)dst = color;
+// }
+
+
+int	my_get_color(t_txt *data, int x, int y)
 {
 	int *dst;
-	// printf("@@@ %d\n", x * (data->bits_per_pixel / 8));
-	dst = data->addr + (y * data->line_len + x * (data->bpp / 8));
+	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
 	return(*(unsigned int *)dst);
 }
 
 int	main(void)
 {
-	t_img	img;
 	void	*mlx;
-	char	*relative_path = "./textures/kyle-edmonds-stone-path-texture.xpm";
 	void	*mlx_win;
+	t_img	img;
+	// t_img image;
+	char	*relative_path = "./textures/walkstone.xpm";
+	int img_height;
+	int img_width;
 
 	mlx = mlx_init();
 	mlx_win = mlx_new_window(mlx, 1920, 1080, "Hello world!");
-    // img = mlx_new_image(mlx, 1920, 1080);
-	//img = mlx_xpm_to_image(mlx, relative_path, &img_width, &img_height);
-	img.img = mlx_xpm_file_to_image(mlx, relative_path, &img.x, &img.y);
-	img.addr = mlx_get_data_addr(img.img, &img.bpp, &img.line_len, &img.endien);
-	printf(">>>>>>> %d\n", img.x);
-	printf(">>>>>>> %d\n", my_get_color(&img, 2, 2));
-
-	mlx_loop(mlx);
-}
-/*
-typedef struct s_init
-{
-    void    *ad
-}   t_init;
-
-
-int		key_event(int key_code, t_init *init)
-{
-	int img_width;
-	int img_height;
-
-	if (key_code == 53)
-	{
-		printf ("exit game\n");
-		exit(0);
-	}
-
-	if (key_code == 13)
-	{
-		if (0 <= init->map->char_pos_y - 1)
-			init->map->char_pos_y--;
-	}
-	if(key_code == 0)
-	{
-		if (0 <= init->map->char_pos_x - 1)
-			init->map->char_pos_x--;
-	}
-	if (key_code == 1)
-	{
-		if (init->map->map_y > init->map->char_pos_y + 1)
-			init->map->char_pos_y++;
-	}
-	if (key_code == 2)
-	{
-		if (init->map->map_x > init->map->char_pos_x + 1)
-			init->map->char_pos_x++;
-	}
-	mlx_destroy_image(init->mlx, init->character);
-	init->character = mlx_xpm_file_to_image(init->mlx, "./textures/kyle-edmonds-stone-path-texture.xpm", &img_width, &img_height);
-	mlx_put_image_to_window(init->mlx, init->win, init->character, 52 * init->map->char_pos_x, 52 * init->map->char_pos_y);
-
-	return (0);
-}
-
-int		main(int argc, char *argv[])
-{
-	t_init	*init;
-	int img_width;
-	int img_height;
-	int i;
-	int j;
-
-	if (argc != 2)
-		exit(1);
-	if (!(init = (t_init*)malloc(sizeof(t_init))))
-		exit(1);
-	if (!(init->map = read_map(argv[1])))
-	{
-		free(init);
-		exit(1);
-	}
-	init->mlx = mlx_init();
-
-	init->win = mlx_new_window(init->mlx, init->map->map_x * (SIZE), init->map->map_y * (SIZE), "mlx_project");
-	if (!(init->ptr_arr = (void **)malloc(sizeof(void *) * init->map->max_map)))
-	{
-		free(init);
-		exit(1);
-	}
-	i = 0;
-	while (i < init->map->map_y)
+	img.img = mlx_new_image(mlx, 1920, 1080);
+	img.addr = (int *)mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
+	
+	img.txt.img = mlx_xpm_file_to_image(mlx, relative_path, &img_width, &img_height);
+	img.txt.addr = mlx_get_data_addr(img.txt.img, &img.txt.bits_per_pixel, &img.txt.line_length, &img.txt.endian);
+	
+	fprintf(stderr, "w: %d\n", img_width);
+	fprintf(stderr, "h: %d\n", img_height);
+	// img.img =  mlx_xpm_to_image(mlx, &relative_path, &img_height, &img_width);
+	// printf("h %d\n", img_height);
+	// printf("w %d\n", img_width);
+	int i = 0;
+	int j = 0;
+	while(i < 64)
 	{
 		j = 0;
-		while (j < init->map->map_x)
+		while (j < 64)
 		{
-				init->ptr_arr[i * init->map->map_y + j] = mlx_xpm_file_to_image(init->mlx, "./textures/kyle-edmonds-stone-path-texture.xpm", &img_width, &img_height);
-			mlx_put_image_to_window(init->mlx, init->win, init->ptr_arr[i * init->map->map_y + j], j * 52,  i * 52);
+			printf("%d>>>>>>> %d\n", j, my_get_color(&img.txt, j, i));
+			img.addr[1920 * i + j] = my_get_color(&img.txt, j, i);
+			// my_mlx_pixel_put(&img, j, i, my_get_color(&img.txt, j, i));
 			j++;
 		}
 		i++;
 	}
-	init->character = malloc(sizeof(void *));
-	init->character = mlx_xpm_file_to_image(init->mlx, "./textures/kyle-edmonds-stone-path-texture.xpm", &img_width, &img_height);
-	mlx_put_image_to_window(init->mlx, init->win, init->character, 52 * init->map->char_pos_x, 52 * init->map->char_pos_y);
-
-	printf ("char pos : [%d][%d]\n", init->map->char_pos_x, init->map->char_pos_y);
-	mlx_key_hook(init->win, key_event, init);
-	mlx_loop(init->mlx);
-	return (0);
+	mlx_put_image_to_window(mlx, mlx_win, img.img, 0, 0);
+	mlx_loop(mlx);
 }
 
 
-*/
+/**************************************************************/
+

@@ -1,14 +1,14 @@
-F 220,130,0
+F 22,130,0
 
-NO ./path_to_the_north_texture
+NO ./textures/kyle-edmonds-stone-path-texture.xpm
 
-SO ./path_to_the_south_texture
+SO ./textures/stone.xpm
 
-WE ./path_to_the_west_texture
+WE ./textures/walkstone.xpm
 
-EA ./path_to_the_east_texture
+EA ./woolsnow.xpm
 
-C 255,30,33
+C 25,30,33
 
 
 1111111111111111

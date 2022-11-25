@@ -84,11 +84,25 @@ typedef struct s_minimap
 }	t_minimap;
 
 
+typedef struct s_text
+{
+	void *mlx;
+	int *add;
+	void *img;
+	int	width;
+	int height;
+	// int endian;
+	// int bpp;
+	// int line_length;
+} t_text;
+
+
 typedef struct s_cub
 {
 	t_player	p;
 	t_txt		par;
 	t_minimap	mini;
+	t_text		tx_img;
 	void	*mlx;
 	void	*win;
 	void	*img;

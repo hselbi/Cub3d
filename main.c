@@ -157,6 +157,7 @@ void	init_player(t_cub *cub)
 	cub->p.dem_x = cos(cub->p.p_angle) * 5;
 	cub->p.dem_y = sin(cub->p.p_angle) * 5;
 	cub->p.dist_plan = 277;
+
 }
 
 /*
@@ -189,7 +190,7 @@ int main(int ac, char **av)
 		int i = 0;
 		cub.max_row = 0;
 		// cub.len = 0;
-		cub.win = mlx_new_window(cub.mlx, 1920, 1080, "CUB3D");
+		cub.win = mlx_new_window(cub.mlx, 640, 480, "CUB3D");
 		if (!cub.win)
 			printf("failed!!!\n");
 		while (cub.par.map[i])
@@ -200,12 +201,15 @@ int main(int ac, char **av)
 			i++;
 		}
 		cub.col = i;
-		cub.width = cub.max_row * 64 * 1.5;
-		cub.height = cub.col * 64 * 1.25;
+		cub.width = 640;
+		cub.height = 480;
 		cub.img = mlx_new_image(cub.mlx, cub.width, cub.height);
 		if (!cub.img)
 			printf("Failed!!\n");
 		cub.addr = (int *)mlx_get_data_addr(cub.img, &cub.bits_per_pixel, &cub.line_length, &cub.endian);
+
+		cub.tx_img.img = mlx_xpm_file_to_image(cub.mlx, cub.par.text[1], &cub.tx_img.width, &cub.tx_img.height);
+		cub.tx_img.add = (int *)mlx_get_data_addr(cub.tx_img.img, &cub.bits_per_pixel, &cub.line_length, &cub.endian);
 		init_player(&cub);
 		mlx_loop_hook(cub.mlx, mlx_windows, &cub);
 		mlx_hook(cub.win, 2, (1L<<0), advance_keys, &cub);
