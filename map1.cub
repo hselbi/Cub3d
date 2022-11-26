@@ -6,7 +6,7 @@ SO ./textures/stone.xpm
 
 WE ./textures/walkstone.xpm
 
-EA ./woolsnow.xpm
+EA ./textures/woolsnow.xpm
 
 C 25,30,33
 

@@ -17,20 +17,20 @@
 // 	return(*(unsigned int *)dst);
 // }
 
-int get_color_xpm(t_text *tx_img, float x, float y, int h, int w)
-{
+// int get_color_xpm(t_text *tx_img, float x, float y, int h, int w)
+// {
     
-    int colors;
-    (void)w;
-    (void)h;
-    int i = ((int)x % 64);
-    // int i = 1;
-    int j = (((int)y % 64));
-    // printf("x:\t%d\n", i);
-    // printf("y:\t%d\n", j);
-    colors = tx_img->add[64 * (int)j + (int)i];
-    return (colors);
-}
+//     int colors;
+//     (void)w;
+//     (void)h;
+//     int i = ((int)x % 64);
+//     // int i = 1;
+//     int j = (((int)y % 64));
+//     // printf("x:\t%d\n", i);
+//     // printf("y:\t%d\n", j);
+//     colors = tx_img->add[64 * (int)j + (int)i];
+//     return (colors);
+// }
 
 /*
 * distanation between the player and the project plan is 277 
@@ -38,7 +38,7 @@ int get_color_xpm(t_text *tx_img, float x, float y, int h, int w)
 
 void    v_field(t_cub *cub, int x, float ra)
 {
-    int colors = 0;
+    // int colors = 0;
     if (ra >= PI * 2)
         ra -= PI * 2;
     if (ra <= 0)
@@ -60,9 +60,9 @@ void    v_field(t_cub *cub, int x, float ra)
     while(i < j)
     {
         // get_color_xpm(&cub->img, cub->p.rx, cub->p.ry);
-        colors = get_color_xpm(&cub->tx_img, cub->p.rx, cub->p.ry, cub->height, cub->width);
+        // colors = get_color_xpm(&cub->tx_img, cub->p.rx, cub->p.ry, cub->height, cub->width);
         // printf("%d\n", colors);
-        cub->addr[cub->width * i + x] = colors;
+        cub->addr[cub->width * i + x] = cub->p.colors;
         // cub->addr[cub->width * i + x] = cub->p.colors;
         // printf÷("");
         i++;

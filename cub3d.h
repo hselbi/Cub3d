@@ -91,9 +91,9 @@ typedef struct s_text
 	void *img;
 	int	width;
 	int height;
-	// int endian;
-	// int bpp;
-	// int line_length;
+	int endian;
+	int bpp;
+	int line_length;
 } t_text;
 
 
@@ -136,6 +136,16 @@ typedef struct s_cub
 	float	t_wall;
 	float	b_wall;
 	float	c_plan;
+
+	// int	*texture[5];
+	int	*no;
+	int	no_width;
+	int	*so;
+	int	so_width;
+	int	*we;
+	int	we_width;
+	int	*ea;
+	int	ea_width;
 
 }			t_cub;
 
@@ -188,6 +198,7 @@ int check_cor(int mx, int my);
 
 void	shortest(t_player *pl);
 
+void    init_texture(t_cub *cub);
 
 void drawing_palyer(t_cub *cub);
 void angle_fov(t_cub *cub);
