@@ -207,10 +207,12 @@ int main(int ac, char **av)
 		if (!cub.img)
 			printf("Failed!!\n");
 		cub.addr = (int *)mlx_get_data_addr(cub.img, &cub.bits_per_pixel, &cub.line_length, &cub.endian);
+		printf("%s\n", cub.par.text[1]);
 
-		cub.tx_img.img = mlx_xpm_file_to_image(cub.mlx, cub.par.text[0], &cub.tx_img.width, &cub.tx_img.height);
+		cub.tx_img.img = mlx_xpm_file_to_image(cub.mlx, cub.par.text[1], &cub.tx_img.width, &cub.tx_img.height);
 		cub.tx_img.add = (int *)mlx_get_data_addr(cub.tx_img.img, &cub.bits_per_pixel, &cub.line_length, &cub.endian);
 		init_player(&cub);
+		init_texture(&cub);
 		mlx_loop_hook(cub.mlx, mlx_windows, &cub);
 		mlx_hook(cub.win, 2, (1L<<0), advance_keys, &cub);
 		mlx_hook(cub.win, 17, 0, ft_close, &cub);

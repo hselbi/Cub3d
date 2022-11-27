@@ -17,20 +17,22 @@
 // 	return(*(unsigned int *)dst);
 // }
 
-// int get_color_xpm(t_text *tx_img, float x, float y, int h, int w)
-// {
+int get_color_xpm(t_text *tx_img, float x, float y, int h, int w)
+{
     
-//     int colors;
-//     (void)w;
-//     (void)h;
-//     int i = ((int)x % 64);
-//     // int i = 1;
-//     int j = (((int)y % 64));
-//     // printf("x:\t%d\n", i);
-//     // printf("y:\t%d\n", j);
-//     colors = tx_img->add[64 * (int)j + (int)i];
-//     return (colors);
-// }
+    int colors;
+    (void)w;
+    // (void)h;
+    int i = ((int)x % 64);
+    // int i = 1;
+    int j = ((int)y * 64) / h;
+    printf("w %d\n", tx_img->width);
+    printf("h %d\n", tx_img->height);
+    // printf("x: %f\bi: %d\n", x, i);
+    // printf("y: %f\bj: %d\n", y, j);
+    colors = tx_img->add[tx_img->width * (int)j + (int)i];
+    return (colors);
+}
 
 /*
 * distanation between the player and the project plan is 277 
@@ -45,26 +47,41 @@ void    v_field(t_cub *cub, int x, float ra)
         ra += PI * 2;
     cub->p.dist = cub->p.dist * cos(ra);
     float dplan = 64 * cub->height / cub->p.dist;
-    if (dplan > (float)cub->height)
-        dplan = cub->height;
+    // if (dplan > (float)cub->height)
+    //     dplan = cub->height;
     cub->c_plan = cub->height/2 - dplan/2;
     cub->b_wall = cub->c_plan + dplan;
     cub->t_wall = cub->c_plan;
-    if (cub->b_wall >= cub->height)
-        cub->b_wall = cub->height;
-    if (cub->t_wall < 0)
-        cub->t_wall = 0;
+    // if (cub->b_wall >= cub->height)
+    //     cub->b_wall = cub->height;
+    // if (cub->t_wall < 0)
+    //     cub->t_wall = 0;
 
+    int tx;
+    if (cub->p.f_ver == 1) 
+        tx = ((int)cub->p.vy % 64) * (cub->so_width / 64);
+    else 
+        tx = ((int)cub->p.hx % 64) * (cub->so_width / 64);
+    // if (cub->p.f_ver == 1) 
+    //     tx = ((int)cub->p.ry % 64) * (cub->no_width / 64);
+    // else
+    //     tx = ((int)cub->p.rx % 64) * (cub->no_width / 64);
+    // int ty;
     int i = (int)cub->t_wall;
     int j = (int)cub->b_wall;
+    // double step = 1.0 * cub->so_width/dplan;
+    // double texpos = (j - cub->height/2 + dplan/2) * step;
     while(i < j)
     {
-        // get_color_xpm(&cub->img, cub->p.rx, cub->p.ry);
-        // colors = get_color_xpm(&cub->tx_img, cub->p.rx, cub->p.ry, cub->height, cub->width);
-        // printf("%d\n", colors);
-        cub->addr[cub->width * i + x] = cub->p.colors;
-        // cub->addr[cub->width * i + x] = cub->p.colors;
-        // printf÷("");
+        // int ty = (int)texpos & (cub->so_width - 1);
+        // texpos += step;
+        int dist = i + (dplan / 2) - (cub->height / 2);
+        int ty = dist * (cub->so_width / dplan);
+        if (tx > cub->so_width)
+            break;
+            // printf("%d / %d\n", ty, cub->so_width);
+        int texel = cub->so[(cub->so_width * ty) + tx];
+        cub->addr[cub->width * i + x] = texel;
         i++;
     }
 

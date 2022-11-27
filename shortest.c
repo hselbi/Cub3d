@@ -9,15 +9,20 @@ void	shortest(t_player *pl)
 	float v = sqrt(pow((pl->x - pl->vx), 2.0) + pow((pl->vy - pl->y), 2.0));
 	if (pl->f_ver == 0)
 	{
+		//that's mean we took the horizontal
+		// mean that f_hor = 1;
 		v = 12212155.00;
 	}
 	if (pl->f_hor == 0)
 	{
+		//that's mean we took the vertical
+		// mean that f_ver = 1;
 		h = 12212155.00;
 	}
 	pl->colors = 0x6E6259;
 	if (v < h)
 	{
+		// mean that f_ver = 1;
 		// alpha = (int)90/h;
 		pl->rx = pl->vx;
 		pl->ry = pl->vy;
@@ -26,6 +31,7 @@ void	shortest(t_player *pl)
 	}
 	else
 	{
+		// mean that f_hor = 1;
 		// alpha = (int)90/v;
 		pl->rx = pl->hx;
 		pl->ry = pl->hy;

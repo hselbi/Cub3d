@@ -40,13 +40,14 @@ int *fill_texture(t_cub *cub, int red)
         i = 0;
         while (i < cub->tx_img.width)
         {
-            res[cub->tx_img.width * j + i] = cub->tx_img.add[cub->tx_img.width * j + i];
+
+            res[(cub->tx_img.width * j) + i] = cub->tx_img.add[cub->tx_img.width * j + i];
             // printf("x : %d = %d\n", i, cub->tx_img.add[cub->tx_img.width * j + i]);
             i++;
         }
         j++;
     }
-    // mlx_destroy_image(cub->mlx, cub->tx_img.img);
+    mlx_destroy_image(cub->mlx, cub->tx_img.img);
     return (res);
 }
 
