@@ -41,6 +41,7 @@ int get_color_xpm(t_text *tx_img, float x, float y, int h, int w)
 void    v_field(t_cub *cub, int x, float ra)
 {
     // int colors = 0;
+    // ra = ra + cub->p.p_angle;
     if (ra >= PI * 2)
         ra -= PI * 2;
     if (ra <= 0)
@@ -56,26 +57,83 @@ void    v_field(t_cub *cub, int x, float ra)
         cub->b_wall = cub->height;
     if (cub->t_wall < 0)
         cub->t_wall = 0;
-    int tx = 64 * cub->so_width;
-    /*
-    * when we this two condition  "East and West" works fine
-    !   ray it's verticall
-    !   vy > 0
-    * when we this two condition  "South and North" works fine
-    !   ray it's horisontal
-    !   hy > 0
-    */
+    int flag_h = -1;
+    int flag_v = -1;
+    int ver = 0;
+    int tx = 64 * cub->we_width;
     if ((cub->p.f_hor == 1 && cub->p.hx > 0 && cub->p.hx == cub->p.rx)) 
-        tx = ((int)cub->p.hx % 64) * (cub->no_width / 64);
+    {
+        if (cub->p.p_angle >= PI && cub->p.p_angle <= 2 * PI)
+        {
+            tx = ((int)cub->p.hx % 64) * (cub->no_width / 64);
+            flag_h = 2;
+        }
+        else
+        {
+            tx = ((int)cub->p.hx % 64) * (cub->so_width / 64);
+            flag_h = 1;
+        }
+    }
     else if ((cub->p.f_ver == 1 && cub->p.vy > 0 && cub->p.vy == cub->p.ry)) 
-        tx = ((int)cub->p.vy % 64) * (cub->no_width / 64);
+    {
+        ver = 1;
+        if (cub->p.p_angle >= PI / 2 && cub->p.p_angle < (3 * PI) / 2)
+        {
+            flag_v = 1;
+            tx = ((int)cub->p.vy % 64) * (cub->ea_width / 64);
+        }
+        else
+        {
+            flag_v = 2;
+            tx = ((int)cub->p.vy % 64) * (cub->we_width / 64);
+        }
+    }
     int i = (int)cub->t_wall;
     int j = (int)cub->b_wall;
     while(i < j)
     {
         int dist = i + (dplan / 2) - (cub->height / 2);
-        int ty = dist * (cub->no_width / dplan);
-        int texel = cub->no[(cub->no_width * ty) + tx];
+        int ty = 0;
+        int texel = 0;
+        if (ver == 0)
+        {
+            if (flag_h == 2)
+            {
+                ty = dist * (cub->no_width / dplan);
+                texel = cub->no[(cub->no_width * ty) + tx];
+            }
+            else
+            {
+                ty = dist * (cub->so_width / dplan);
+                texel = cub->so[(cub->so_width * ty) + tx];
+            }
+        }
+        else
+        {
+            if (flag_v == 2)
+            {
+                ty = dist * (cub->we_width / dplan);
+                texel = cub->we[(cub->we_width * ty) + tx];
+            }
+            else
+            {
+                ty = dist * (cub->ea_width / dplan);
+                texel = cub->ea[(cub->ea_width * ty) + tx];
+            }
+        }
+    
+        // int ty = dist * (width_text / dplan);
+        // int texel = texture[width_text * ty + tx];
+    
+        // if(flag == 0)
+        //     texel = cub->no[(width_text * ty) + tx];
+        // else if(flag == 1)
+        //     texel = cub->so[(width_text * ty) + tx];
+        // else if(flag == 2)
+        //     texel = cub->we[(width_text * ty) + tx];
+        // else if(flag == 3)
+        //     texel = cub->we[(width_text * ty) + tx];
+    
         cub->addr[cub->width * i + x] = texel;
         i++;
     }
