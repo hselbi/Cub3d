@@ -52,39 +52,33 @@ void    v_field(t_cub *cub, int x, float ra)
     cub->c_plan = cub->height/2 - dplan/2;
     cub->b_wall = cub->c_plan + dplan;
     cub->t_wall = cub->c_plan;
-    // if (cub->b_wall >= cub->height)
-    //     cub->b_wall = cub->height;
-    // if (cub->t_wall < 0)
-    //     cub->t_wall = 0;
-
-    int tx;
-    if (cub->p.f_ver == 1) 
-        tx = ((int)cub->p.vy % 64) * (cub->so_width / 64);
-    else 
-        tx = ((int)cub->p.hx % 64) * (cub->so_width / 64);
-    // if (cub->p.f_ver == 1) 
-    //     tx = ((int)cub->p.ry % 64) * (cub->no_width / 64);
-    // else
-    //     tx = ((int)cub->p.rx % 64) * (cub->no_width / 64);
-    // int ty;
+    if (cub->b_wall >= cub->height)
+        cub->b_wall = cub->height;
+    if (cub->t_wall < 0)
+        cub->t_wall = 0;
+    int tx = 64 * cub->so_width;
+    /*
+    * when we this two condition  "East and West" works fine
+    !   ray it's verticall
+    !   vy > 0
+    * when we this two condition  "South and North" works fine
+    !   ray it's horisontal
+    !   hy > 0
+    */
+    if ((cub->p.f_hor == 1 && cub->p.hx > 0 && cub->p.hx == cub->p.rx)) 
+        tx = ((int)cub->p.hx % 64) * (cub->no_width / 64);
+    else if ((cub->p.f_ver == 1 && cub->p.vy > 0 && cub->p.vy == cub->p.ry)) 
+        tx = ((int)cub->p.vy % 64) * (cub->no_width / 64);
     int i = (int)cub->t_wall;
     int j = (int)cub->b_wall;
-    // double step = 1.0 * cub->so_width/dplan;
-    // double texpos = (j - cub->height/2 + dplan/2) * step;
     while(i < j)
     {
-        // int ty = (int)texpos & (cub->so_width - 1);
-        // texpos += step;
         int dist = i + (dplan / 2) - (cub->height / 2);
-        int ty = dist * (cub->so_width / dplan);
-        if (tx > cub->so_width)
-            break;
-            // printf("%d / %d\n", ty, cub->so_width);
-        int texel = cub->so[(cub->so_width * ty) + tx];
+        int ty = dist * (cub->no_width / dplan);
+        int texel = cub->no[(cub->no_width * ty) + tx];
         cub->addr[cub->width * i + x] = texel;
         i++;
     }
-
 }
 
 
