@@ -34,7 +34,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
-# include <mlx.h>
+# include "./minilibx_opengl_20191021/mlx.h"
 # include <unistd.h>
 # include <math.h>
 # include <limits.h>
@@ -146,6 +146,9 @@ typedef struct s_cub
 	int	we_width;
 	int	*ea;
 	int	ea_width;
+	// mouse
+	int	mouse_x;
+	int	mouse_y;
 
 }			t_cub;
 
@@ -218,5 +221,7 @@ int sq_draw(t_cub *cub);
 void    ceilling_floor_min(t_cub *cub);
 void    ceilling_floor_max(t_cub *cub);
 void    v_field(t_cub *cub, int x, float ra);
+
+int		func(int x, int y, t_cub *cub);
 
 #endif
