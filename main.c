@@ -211,9 +211,12 @@ int main(int ac, char **av)
 
 		cub.tx_img.img = mlx_xpm_file_to_image(cub.mlx, cub.par.text[1], &cub.tx_img.width, &cub.tx_img.height);
 		cub.tx_img.add = (int *)mlx_get_data_addr(cub.tx_img.img, &cub.bits_per_pixel, &cub.line_length, &cub.endian);
+		mlx_mouse_get_pos(cub.win, &cub.mouse_x, &cub.mouse_y);
 		init_player(&cub);
 		init_texture(&cub);
 		mlx_loop_hook(cub.mlx, mlx_windows, &cub);
+		mlx_mouse_hide();
+		mlx_hook(cub.win, 6, 0, func, &cub);
 		mlx_hook(cub.win, 2, (1L<<0), advance_keys, &cub);
 		mlx_hook(cub.win, 17, 0, ft_close, &cub);
 		mlx_loop(cub.mlx);

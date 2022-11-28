@@ -6,7 +6,14 @@ SRC = 	main.c keys_mlx.c\
 		check_hor.c check_ver.c\
 		tools.c background.c\
         shortest.c mini_map.c\
-        rgb.c init_texture.c
+        rgb.c init_texture.c \
+        mouse_mv.c \
+        # minilibx_opengl_20191021/front.c \
+        # minilibx_opengl_20191021/mlx_int_str_to_wordtab.c \
+        # minilibx_opengl_20191021/mlx_png.c \
+        # minilibx_opengl_20191021/mlx_rgb.c \
+        # minilibx_opengl_20191021/mlx_shaders.c \
+        # minilibx_opengl_20191021/mlx_xpm.c \
 
 PARSING = libft/ft_strlen.c \
         libft/ft_atoi.c \
@@ -51,6 +58,8 @@ PARSE = $(addprefix parsing/, $(PARSING))
         
 NAME = cub3d
 
+ARCH = minilibx_opengl_20191021/libmlx.a
+
 OBJ = $(SRC:.c=.o)
 PRS = $(PARSE:.c=.o)
 RC = $(RCAST:.c=.o)
@@ -63,7 +72,7 @@ all: ${NAME}
 	$(CC) -c -g $< -o $@
 
 $(NAME): $(SRC) $(PARSE) $(RCAST) $(RC) $(OBJ) $(PRS)
-	$(CC) $(OBJ) $(PRS) $(RC) -lmlx -framework OpenGL -fsanitize=address -framework AppKit -o $(NAME) 
+	$(CC) $(OBJ) $(PRS) $(RC) $(ARCH) -lmlx -framework OpenGL -fsanitize=address -framework AppKit -o $(NAME)
 
 clean:
 	rm -rf $(OBJ)
