@@ -6,7 +6,6 @@ void    hor_ray(t_cub *cub, float ra)
     int mx, my, mp, dof;
 
     cub->p.f_hor = 0;
-    ra = ra + cub->p.p_angle;
     if (ra >= PI * 2)
         ra -= PI * 2;
     else if (ra <= 0)
@@ -17,7 +16,7 @@ void    hor_ray(t_cub *cub, float ra)
     yo = 0.0;
     rx = 0.0;
     ry = 0.0;
-    if (ra > PI && ra <= PI * 2)
+    if (ra > PI && ra < PI * 2)
     {
         ry = (int)(cub->p.y/64) * 64 - 0.001;
         rx = (cub->p.y - ry) * atan + cub->p.x;

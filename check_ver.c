@@ -5,14 +5,14 @@ void    ver_ray(t_cub *cub, float ra)
     float   rx, ry, xo, yo;
     int mx, my, mp, dof;
     cub->p.f_ver = 0;
-    ra = ra + cub->p.p_angle;
+    // ra = ra + cub->p.p_angle;
     if (ra >= PI * 2)
         ra -= PI * 2;
      if (ra <= 0)
         ra += PI * 2;
     dof = 0;
-    double P1 = PI/2;
-    double P2 = (3 * PI)/2;
+    // double P1 = PI/2;
+    // double P2 = (3 * PI)/2;
     float ntan = -tan(ra);
     xo = 0.0;
     yo = 0.0;
@@ -27,7 +27,7 @@ void    ver_ray(t_cub *cub, float ra)
         xo = 0.0;
         dof = 18;
     }
-    else if (ra > P1 && ra < P2)
+    else if (ra > P1 && ra < P2) // 90 < ra < 270
     {
         rx = (int)(cub->p.x)/64 * 64 - 0.001;
         ry = (cub->p.x - rx) * ntan + cub->p.y;
@@ -72,14 +72,13 @@ void    bi_ver_ray(t_cub *cub, float ra)
     float   rx, ry, xo, yo;
     int mx, my, mp, dof;
 
-    ra = ra + cub->p.p_angle;
     if (ra >= PI * 2)
         ra -= PI * 2;
      if (ra <= 0)
         ra += PI * 2;
     dof = 0;
-    double P1 = PI/2;
-    double P2 = (3 * PI)/2;
+    // double P1 = PI/2;
+    // double P2 = (3 * PI)/2;
     float ntan = -tan(ra);
     xo = 0.0;
     yo = 0.0;

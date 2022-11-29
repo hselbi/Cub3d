@@ -64,14 +64,21 @@ int mlx_windows(t_cub *cub)
 	cub->flag_x = 0;
 	cub->flag_y = 0;
 	// background(cub);
-	// mlx
 	ceilling_floor_max(cub);
 	// draw_sqs(cub);
 	// mini_dplayer(cub);
 	// bisector(cub);
 	// float height_line = 0.0;
 	// cub->par.
-	float ra = - PI / 6; // -30
+	/*
+	* fov = 60 (pi/3)
+	* angl_p - fov/2(pi/6)
+	*/
+	float ra = cub->p.p_angle -  (PI / 6); // -30
+
+	// int dg = 180/PI;
+	// printf("degree %fº\n", cub->p.p_angle * 180/PI);
+	// float ra = - (PI / 6); // - 30
 	int x = 0;
 	int tmp_i = 0;
 	int tmp_j = 0;
@@ -93,6 +100,7 @@ int mlx_windows(t_cub *cub)
 		hor_ray(cub, ra);
 		ver_ray(cub, ra);
 		shortest(&cub->p);
+		// printf("\t\tdegree %fº\n", ra * 180/PI);
 		v_field(cub, x, ra);
 		// mini_draw_sqs(cub);
 		// mini_dplayer(cub);
@@ -147,13 +155,25 @@ void	init_player(t_cub *cub)
 	}
 	cub->p.p_angle = 0.0;
 	if (stop && cub->par.map[j - 1][i] == 'N')
+	{
 		cub->p.p_angle = (3 * PI) / 2;
+		cub->side = 'N';
+	}
 	else if (stop && cub->par.map[j - 1][i] == 'S')
+	{
+		cub->side = 'S';
 		cub->p.p_angle = PI / 2;
+	}
 	else if (stop && cub->par.map[j - 1][i] == 'W')
+	{
+		cub->side = 'W';
 		cub->p.p_angle = PI;
+	}
 	else if (stop && cub->par.map[j - 1][i] == 'E')
+	{
+		cub->side = 'E';
 		cub->p.p_angle = 0.0;
+	}
 	cub->p.dem_x = cos(cub->p.p_angle) * 5;
 	cub->p.dem_y = sin(cub->p.p_angle) * 5;
 	cub->p.dist_plan = 277;
@@ -186,6 +206,8 @@ int main(int ac, char **av)
 	{
 		cub.mlx = mlx_init();
 		int fd = open_fd(av[1]);
+		// cub.file_out = open("angles.txt", O_CREAT | O_WRONLY | O_APPEND , 0777);
+		cub.file_out = fopen("file.txt", "w+");
 		cub.par = fill_struct(fd);
 		int i = 0;
 		cub.max_row = 0;
@@ -215,8 +237,8 @@ int main(int ac, char **av)
 		init_player(&cub);
 		init_texture(&cub);
 		mlx_loop_hook(cub.mlx, mlx_windows, &cub);
-		mlx_mouse_hide();
-		mlx_hook(cub.win, 6, 0, func, &cub);
+		// mlx_mouse_hide();
+		// mlx_hook(cub.win, 6, 0, func, &cub);
 		mlx_hook(cub.win, 2, (1L<<0), advance_keys, &cub);
 		mlx_hook(cub.win, 17, 0, ft_close, &cub);
 		mlx_loop(cub.mlx);

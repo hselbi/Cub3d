@@ -24,7 +24,8 @@
 
 // define π value
 # define PI 3.141592653589793238
-
+# define P1 PI/2
+# define P2 3*PI/2
 # define FOV PI/2.0
 
 # define ROW 11
@@ -137,6 +138,9 @@ typedef struct s_cub
 	float	b_wall;
 	float	c_plan;
 
+
+	FILE	*file_out;
+	char	side;
 	// int	*texture[5];
 	int	*no;
 	int	no_width;
