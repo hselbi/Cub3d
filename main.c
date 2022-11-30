@@ -27,27 +27,6 @@ void    dplayer(t_cub *cub)
 }
 
 /*
-*	function that create a bisector
-*/
-
-
-
-
-/*
-*	function that gives the shortest line to the wall
-*/
-
-
-
-// void	ft_minimap(t_cub *cub)
-// {
-// 	dplayer(cub);
-// 	dda_line2((int)cub->p.x + 2, (int)cub->p.rx, (int)cub->p.y + 2, (int)cub->p.ry, cub);
-
-	
-// }
-
-/*
 *	function that we loop for every change
 		^	draw background
 		^	draw squares
@@ -66,26 +45,15 @@ int mlx_windows(t_cub *cub)
 	// background(cub);
 	ceilling_floor_max(cub);
 	// draw_sqs(cub);
-	// mini_dplayer(cub);
-	// bisector(cub);
-	// float height_line = 0.0;
-	// cub->par.
-	/*
-	* fov = 60 (pi/3)
-	* angl_p - fov/2(pi/6)
-	*/
 	float ra = cub->p.p_angle -  (PI / 6); // -30
-
-	// int dg = 180/PI;
-	// printf("degree %fº\n", cub->p.p_angle * 180/PI);
-	// float ra = - (PI / 6); // - 30
 	int x = 0;
 	int tmp_i = 0;
 	int tmp_j = 0;
+	cub->p.mini_x = cub->p.x / 4;
+	cub->p.mini_y = cub->p.y / 4;
 	while (x < cub->width) // +30
 	{
-		// dplayer(cub);
-		
+		// mini_dplayer(cub);
 		if (ra > 2 * PI)
 			ra -= 2 * PI;
 		if(ra < 0)
@@ -97,18 +65,23 @@ int mlx_windows(t_cub *cub)
 			cub->p.x = cub->p.prev_x;
 			cub->p.y = cub->p.prev_y;
 		}
+
+		/****************************************/
+		/****************************************/
 		hor_ray(cub, ra);
 		ver_ray(cub, ra);
 		shortest(&cub->p);
-		// printf("\t\tdegree %fº\n", ra * 180/PI);
 		v_field(cub, x, ra);
 		// mini_draw_sqs(cub);
 		// mini_dplayer(cub);
 		// mini_bisector(cub);
-		// dda_line2((int)cub->p.x, (int)cub->p.rx, (int)cub->p.y, (int)cub->p.ry, cub);
+		// dda_line((int)cub->p.x, (int)cub->p.rx, (int)cub->p.y, (int)cub->p.ry, cub);
 		x += 1;
 		ra += ((PI / 3) / cub->width);
 	}
+	mini_draw_sqs(cub);
+	player_minimap(cub);
+	mini_bisector(cub);
 	mlx_put_image_to_window(cub->mlx, cub->win, cub->img, 0, 0);
 	return (0);
 }
@@ -153,7 +126,9 @@ void	init_player(t_cub *cub)
 		}
 		j++;
 	}
-	cub->p.p_angle = 0.0;
+	cub->p.mini_x = cub->p.x / 16;
+	cub->p.mini_y = cub->p.y / 16;
+	cub->p.p_angle = (3 * PI) / 2;
 	if (stop && cub->par.map[j - 1][i] == 'N')
 	{
 		cub->p.p_angle = (3 * PI) / 2;
@@ -193,8 +168,8 @@ int main(int ac, char **av)
 {
 	t_cub cub;
 
-	cub.win_x = 1920;
-	cub.win_y = 1080;
+	cub.win_x = 960;
+	cub.win_y = 720;
 	cub.mid_x = 0;
 	cub.mid_y = 0;
 	cub.pos_x = 30;
@@ -212,7 +187,7 @@ int main(int ac, char **av)
 		int i = 0;
 		cub.max_row = 0;
 		// cub.len = 0;
-		cub.win = mlx_new_window(cub.mlx, 640, 480, "CUB3D");
+		cub.win = mlx_new_window(cub.mlx, cub.win_x, cub.win_y, "CUB3D");
 		if (!cub.win)
 			printf("failed!!!\n");
 		while (cub.par.map[i])
@@ -223,16 +198,14 @@ int main(int ac, char **av)
 			i++;
 		}
 		cub.col = i;
-		cub.width = 640;
-		cub.height = 480;
+		cub.width = cub.win_x;
+		cub.height = cub.win_y;
 		cub.img = mlx_new_image(cub.mlx, cub.width, cub.height);
 		if (!cub.img)
 			printf("Failed!!\n");
 		cub.addr = (int *)mlx_get_data_addr(cub.img, &cub.bits_per_pixel, &cub.line_length, &cub.endian);
-		printf("%s\n", cub.par.text[1]);
-
-		cub.tx_img.img = mlx_xpm_file_to_image(cub.mlx, cub.par.text[1], &cub.tx_img.width, &cub.tx_img.height);
-		cub.tx_img.add = (int *)mlx_get_data_addr(cub.tx_img.img, &cub.bits_per_pixel, &cub.line_length, &cub.endian);
+		// cub.tx_img.img = mlx_xpm_file_to_image(cub.mlx, cub.par.text[1], &cub.tx_img.width, &cub.tx_img.height);
+		// cub.tx_img.add = (int *)mlx_get_data_addr(cub.tx_img.img, &cub.bits_per_pixel, &cub.line_length, &cub.endian);
 		mlx_mouse_get_pos(cub.win, &cub.mouse_x, &cub.mouse_y);
 		init_player(&cub);
 		init_texture(&cub);

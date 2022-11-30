@@ -82,9 +82,13 @@ void    v_field(t_cub *cub, int x, float ra)
     int j = (int)cub->b_wall;
     while(i < j)
     {
+        if (tx > width_text)
+            tx = width_text;
         int dist = i + (dplan / 2) - (cub->height / 2);
         int ty = dist * (width_text / dplan);
         int texel = 0;
+        // if (ty > width_text)
+        //     ty = width_text;
         if (a == 1)
         {
             if (flag_h == 2)

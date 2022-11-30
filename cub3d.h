@@ -74,6 +74,8 @@ typedef struct s_player
 
 typedef struct s_minimap
 {
+	float	mini_x;
+	float	mini_y;
 	float	x;
 	float	y;
 	int		width;
@@ -183,14 +185,15 @@ void    mini_draw_sq(t_cub *cub, int x, int y, int color);
 void	mini_draw_sqs(t_cub *cub);
 void    ceilling_floor(t_cub *cub);
 
-void    mini_dplayer(t_cub *cub);
+// void    mini_dplayer(t_cub *cub);
+void	player_minimap(t_cub *cub);
 
 int	player_pos(char c);
 int	pl_pos(char c);
 
 /* second version ==> ok */
 
-void dda_line2(int start_x, int end_x, int start_y, int end_y, t_cub *cub);
+void dda_line(int start_x, int end_x, int start_y, int end_y, t_cub *cub);
 
 void my_mlx_pixel(t_cub *data, int x, int y, int color);
 

@@ -4,7 +4,7 @@
 * this is for drawing line from player to the wall
 */
 
-void dda_line2(int start_x, int end_x, int start_y, int end_y, t_cub *cub)
+void dda_line(int start_x, int end_x, int start_y, int end_y, t_cub *cub)
 {
 	int dx = end_x - start_x;
 	int dy = end_y - start_y;
@@ -18,7 +18,7 @@ void dda_line2(int start_x, int end_x, int start_y, int end_y, t_cub *cub)
 	int i = 0;
 	while (i <= step)
 	{
-		cub->addr[cub->width *  (int)y +  (int)x] = cub->p.colors;
+		cub->addr[cub->width *  (int)y +  (int)x] = 0x00FF00;
 		x += xinc;
 		y += yinc;
 		i++;

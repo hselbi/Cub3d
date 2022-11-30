@@ -7,9 +7,9 @@ int	*load_image(t_cub *cub, char *path, t_text *img)
 
 	img->img = mlx_xpm_file_to_image(cub->mlx, path, &img->width, &img->height);
 	img->add = (int *)mlx_get_data_addr(img->img, &img->bpp, &img->line_length, &img->endian);
-    fprintf(stderr, "line %d\n", img->line_length);
-    fprintf(stderr, "bpp %d\n", img->bpp);
-    fprintf(stderr, "endian %d\n", img->endian);
+    // fprintf(stderr, "line %d\n", img->line_length);
+    // fprintf(stderr, "bpp %d\n", img->bpp);
+    // fprintf(stderr, "endian %d\n", img->endian);
 	res = (int *)malloc(sizeof(int) * (img->width * img->height));
 	for (int y = 0; y < img->height; y++)
 	{
