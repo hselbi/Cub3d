@@ -29,7 +29,7 @@ void    ceilling_floor_max(t_cub *cub)
 		i = 0;
 		while (++i < (unsigned)cub->width - 1)
 		{
-			// printf("this is i = %d\t\tthis is j = %d\n", i, j);
+			// printf("%d\n"÷, i);
 			cub->addr[(cub->width) * j + i] = createRGB(cub->par.color[1][0], cub->par.color[1][1], cub->par.color[1][2]);
 		}
 		j++;

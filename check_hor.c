@@ -87,22 +87,22 @@ void    bi_hor_ray(t_cub *cub, float ra)
     ry = 0.0;
     if (ra > PI && ra <= PI * 2)
     {
-        ry = (int)(cub->mini.y/64) * 64 - 0.001;
-        rx = (cub->mini.y - ry) * atan + cub->mini.x;
+        ry = (int)(cub->mmap.y/64) * 64 - 0.001;
+        rx = (cub->mmap.y - ry) * atan + cub->mmap.x;
         yo = -64;
         xo = -yo * atan;
     }
     else if (ra && ra < PI)
     {
-        ry = (int)(cub->mini.y/64) * 64 + 64;
-        rx = (cub->mini.y - ry) * atan + cub->mini.x;
+        ry = (int)(cub->mmap.y/64) * 64 + 64;
+        rx = (cub->mmap.y - ry) * atan + cub->mmap.x;
         yo = 64;
         xo = -yo * atan;
     }
     else if (ra == 0.0 || ra == PI)
     {
-        ry = cub->mini.y;
-        rx = cub->mini.x;
+        ry = cub->mmap.y;
+        rx = cub->mmap.x;
 
         if(ra == 0.0)
             xo = 64;
@@ -127,7 +127,7 @@ void    bi_hor_ray(t_cub *cub, float ra)
             dof += 1;
         }
     }
-    cub->mini.rx = rx;
-    cub->mini.ry = ry;
+    cub->mmap.rx = rx;
+    cub->mmap.ry = ry;
 }
 

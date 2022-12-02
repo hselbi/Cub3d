@@ -7,13 +7,8 @@ SRC = 	main.c keys_mlx.c\
 		tools.c background.c\
         shortest.c mini_map.c\
         rgb.c init_texture.c \
-        mouse_mv.c \
-        # minilibx_opengl_20191021/front.c \
-        # minilibx_opengl_20191021/mlx_int_str_to_wordtab.c \
-        # minilibx_opengl_20191021/mlx_png.c \
-        # minilibx_opengl_20191021/mlx_rgb.c \
-        # minilibx_opengl_20191021/mlx_shaders.c \
-        # minilibx_opengl_20191021/mlx_xpm.c \
+        mouse_mv.c minimap.c\
+        render.c
 
 PARSING = libft/ft_strlen.c \
         libft/ft_atoi.c \

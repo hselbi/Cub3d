@@ -110,7 +110,7 @@
 
 typedef struct	s_txt {
 	void	*img;
-	void	*addr;
+	int	*addr;
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
@@ -149,38 +149,54 @@ int	main(void)
 	void	*mlx_win;
 	t_img	img;
 	// t_img image;
-	char	*relative_path = "./textures/walkstone.xpm";
-	int img_height;
-	int img_width;
+	// char	*relative_path = "./textures/walkstone.xpm";
+	// int img_height;
+	// int img_width;
 
 	mlx = mlx_init();
 	mlx_win = mlx_new_window(mlx, 1920, 1080, "Hello world!");
 	img.img = mlx_new_image(mlx, 1920, 1080);
 	img.addr = (int *)mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
 	
-	img.txt.img = mlx_xpm_file_to_image(mlx, relative_path, &img_width, &img_height);
-	img.txt.addr = mlx_get_data_addr(img.txt.img, &img.txt.bits_per_pixel, &img.txt.line_length, &img.txt.endian);
+	int i = 0;
+	int j = 0;
+	while(i < 1080)
+	{
+		j = 0;
+		while (j < 1920)
+		{
+			// printf("%d>>>>>>> %d\n", j, my_get_color(&img.txt, j, i));
+			img.addr[1920 * i + j] = 0xA2FF00;
+			// my_mlx_pixel_put(&img, j, i, my_get_color(&img.txt, j, i));
+			j++;
+		}
+		i++;
+	}
+	// img.txt.img = mlx_xpm_file_to_image(mlx, relative_path, &img_width, &img_height);
+	img.txt.img = mlx_new_image(mlx, 200, 200);
+	img.txt.addr = (int *)mlx_get_data_addr(img.txt.img, &img.txt.bits_per_pixel, &img.txt.line_length, &img.txt.endian);
 	
-	fprintf(stderr, "w: %d\n", img_width);
-	fprintf(stderr, "h: %d\n", img_height);
+	// fprintf(stderr, "w: %d\n", img_width);
+	// fprintf(stderr, "h: %d\n", img_height);
 	// img.img =  mlx_xpm_to_image(mlx, &relative_path, &img_height, &img_width);
 	// printf("h %d\n", img_height);
 	// printf("w %d\n", img_width);
-	int i = 0;
-	int j = 0;
+	i = 0;
+	j = 0;
 	while(i < 64)
 	{
 		j = 0;
 		while (j < 64)
 		{
-			printf("%d>>>>>>> %d\n", j, my_get_color(&img.txt, j, i));
-			img.addr[1920 * i + j] = my_get_color(&img.txt, j, i);
+			// printf("%d>>>>>>> %d\n", j, my_get_color(&img.txt, j, i));
+			img.txt.addr[200 * i + j] = 0x00FF00;
 			// my_mlx_pixel_put(&img, j, i, my_get_color(&img.txt, j, i));
 			j++;
 		}
 		i++;
 	}
 	mlx_put_image_to_window(mlx, mlx_win, img.img, 0, 0);
+	mlx_put_image_to_window(mlx, mlx_win, img.txt.img, 0, 0);
 	mlx_loop(mlx);
 }
 

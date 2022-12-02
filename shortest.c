@@ -43,8 +43,8 @@ void	shortest(t_player *pl)
 void	bi_shortest(t_cub *cub)
 {
 	cub->p.dist = 0.0;
-	float h = sqrt(pow((cub->mini.x - cub->p.vx), 2.0) + pow((cub->mini.y - cub->p.vy), 2.0));
-	float v = sqrt(pow((cub->mini.x - cub->p.vx), 2.0) + pow((cub->p.vy - cub->mini.y), 2.0));
+	float h = sqrt(pow((cub->mmap.x - cub->p.vx), 2.0) + pow((cub->mmap.y - cub->p.vy), 2.0));
+	float v = sqrt(pow((cub->mmap.x - cub->p.vx), 2.0) + pow((cub->p.vy - cub->mmap.y), 2.0));
 	cub->p.colors = 0x6E6259;
 	if (v < h || cub->p.p_angle == 0.0)
 	{

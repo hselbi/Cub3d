@@ -27,66 +27,6 @@ void    dplayer(t_cub *cub)
 }
 
 /*
-*	function that we loop for every change
-		^	draw background
-		^	draw squares
-		^	a loop for rays
-			&	draw player
-			&	check horizontale lines
-			&	check vertical lines
-			&	choose the shortest to the wall
-			&	draw the shortest line
-*/
-
-int mlx_windows(t_cub *cub)
-{
-	cub->flag_x = 0;
-	cub->flag_y = 0;
-	// background(cub);
-	ceilling_floor_max(cub);
-	// draw_sqs(cub);
-	float ra = cub->p.p_angle -  (PI / 6); // -30
-	int x = 0;
-	int tmp_i = 0;
-	int tmp_j = 0;
-	cub->p.mini_x = cub->p.x / 4;
-	cub->p.mini_y = cub->p.y / 4;
-	while (x < cub->width) // +30
-	{
-		// mini_dplayer(cub);
-		if (ra > 2 * PI)
-			ra -= 2 * PI;
-		if(ra < 0)
-			ra += 2*PI;
-		tmp_i = (int)(cub->p.x / 64);
-		tmp_j = (int)(cub->p.y / 64);
-		if (cub->par.map[tmp_j][tmp_i] == '1')
-		{
-			cub->p.x = cub->p.prev_x;
-			cub->p.y = cub->p.prev_y;
-		}
-
-		/****************************************/
-		/****************************************/
-		hor_ray(cub, ra);
-		ver_ray(cub, ra);
-		shortest(&cub->p);
-		v_field(cub, x, ra);
-		// mini_draw_sqs(cub);
-		// mini_dplayer(cub);
-		// mini_bisector(cub);
-		// dda_line((int)cub->p.x, (int)cub->p.rx, (int)cub->p.y, (int)cub->p.ry, cub);
-		x += 1;
-		ra += ((PI / 3) / cub->width);
-	}
-	mini_draw_sqs(cub);
-	player_minimap(cub);
-	mini_bisector(cub);
-	mlx_put_image_to_window(cub->mlx, cub->win, cub->img, 0, 0);
-	return (0);
-}
-
-/*
 *	check player if it's exist or not
 */
 
@@ -117,6 +57,8 @@ void	init_player(t_cub *cub)
 		{
 			if (check_player(cub->par.map[j][i]))
 			{
+				cub->p.i = i;
+				cub->p.j = j;
 				cub->p.x = i * 64 + (64 / 2);
 				cub->p.y = j * 64 + (64 / 2);
 				stop = 1;
@@ -126,8 +68,8 @@ void	init_player(t_cub *cub)
 		}
 		j++;
 	}
-	cub->p.mini_x = cub->p.x / 16;
-	cub->p.mini_y = cub->p.y / 16;
+	cub->p.mini_x = (cub->p.x / (16/5));
+	cub->p.mini_y = (cub->p.y / (16/5));
 	cub->p.p_angle = (3 * PI) / 2;
 	if (stop && cub->par.map[j - 1][i] == 'N')
 	{
@@ -170,6 +112,8 @@ int main(int ac, char **av)
 
 	cub.win_x = 960;
 	cub.win_y = 720;
+	cub.mini_h = 180;
+	cub.mini_w = 180;
 	cub.mid_x = 0;
 	cub.mid_y = 0;
 	cub.pos_x = 30;
@@ -200,20 +144,53 @@ int main(int ac, char **av)
 		cub.col = i;
 		cub.width = cub.win_x;
 		cub.height = cub.win_y;
+		
 		cub.img = mlx_new_image(cub.mlx, cub.width, cub.height);
 		if (!cub.img)
 			printf("Failed!!\n");
 		cub.addr = (int *)mlx_get_data_addr(cub.img, &cub.bits_per_pixel, &cub.line_length, &cub.endian);
-		// cub.tx_img.img = mlx_xpm_file_to_image(cub.mlx, cub.par.text[1], &cub.tx_img.width, &cub.tx_img.height);
-		// cub.tx_img.add = (int *)mlx_get_data_addr(cub.tx_img.img, &cub.bits_per_pixel, &cub.line_length, &cub.endian);
+		if (!cub.addr)
+			printf("Failed!!\n");
+		cub.mmap.img = mlx_new_image(cub.mlx, cub.mini_w, cub.mini_h);
+		cub.mmap.add = (int *)mlx_get_data_addr(cub.mmap.img, &cub.bits_per_pixel, &cub.line_length, &cub.endian);
+		// i = 0;
+		// int j = 0;
+		// while(i < 64)
+		// {
+		// 	j = 0;
+		// 	while (j < 64)
+		// 	{
+		// 		// printf("%d>>>>>>> %d\n", j, my_get_color(&img.txt, j, i));
+		// 		cub.mmap.add[200 * i + j] = 0x00FF00;
+		// 		// my_mlx_pixel_put(&img, j, i, my_get_color(&img.txt, j, i));
+		// 		j++;
+		// 	}
+		// 	i++;
+		// }
+		// i = 0;
+		// j = 0;
+		// while(i < cub.height)
+		// {
+		// 	j = 0;
+		// 	while (j < cub.width)
+		// 	{
+		// 		// printf("%d>>>>>>> %d\n", j, my_get_color(&img.txt, j, i));
+		// 		cub.addr[cub.width * i + j] = 0xA2FF00;
+		// 		// my_mlx_pixel_put(&img, j, i, my_get_color(&img.txt, j, i));
+		// 		j++;
+		// 	}
+		// 	i++;
+		// }
 		mlx_mouse_get_pos(cub.win, &cub.mouse_x, &cub.mouse_y);
 		init_player(&cub);
 		init_texture(&cub);
 		mlx_loop_hook(cub.mlx, mlx_windows, &cub);
-		// mlx_mouse_hide();
-		// mlx_hook(cub.win, 6, 0, func, &cub);
-		mlx_hook(cub.win, 2, (1L<<0), advance_keys, &cub);
+		mlx_mouse_hide();
+		mlx_hook(cub.win, 6, 0, func, &cub);
+		mlx_hook(cub.win, 2, 0, advance_keys, &cub);
 		mlx_hook(cub.win, 17, 0, ft_close, &cub);
+		printf("test\n");
+		printf("test\n");
 		mlx_loop(cub.mlx);
 	}
 	return 0;

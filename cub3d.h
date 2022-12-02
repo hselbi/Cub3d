@@ -44,6 +44,8 @@
 
 typedef struct s_player
 {
+	int		i;
+	int		j;
 	double	x;
 	double	y;
 	double	mini_x;
@@ -74,6 +76,8 @@ typedef struct s_player
 
 typedef struct s_minimap
 {
+	void	*img;
+	int		*add;
 	float	mini_x;
 	float	mini_y;
 	float	x;
@@ -104,7 +108,7 @@ typedef struct s_cub
 {
 	t_player	p;
 	t_txt		par;
-	t_minimap	mini;
+	t_minimap	mmap;
 	t_text		tx_img;
 	void	*mlx;
 	void	*win;
@@ -120,6 +124,8 @@ typedef struct s_cub
 	int		max_row;
 	int		col;
 
+	int		mini_w;
+	int		mini_h;
 	int		win_x;
 	int		win_y;
 	int		width;
@@ -187,13 +193,17 @@ void    ceilling_floor(t_cub *cub);
 
 // void    mini_dplayer(t_cub *cub);
 void	player_minimap(t_cub *cub);
-
+void mini_bg(t_cub *cub);
+void    minimap(t_cub *cub);
 int	player_pos(char c);
 int	pl_pos(char c);
 
 /* second version ==> ok */
 
+void	draw_minimap(t_cub *cub);
+
 void dda_line(int start_x, int end_x, int start_y, int end_y, t_cub *cub);
+void mini_dda_line(int start_x, int end_x, int start_y, int end_y, t_cub *cub);
 
 void my_mlx_pixel(t_cub *data, int x, int y, int color);
 

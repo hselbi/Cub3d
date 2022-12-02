@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mouse_mv.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adbaich <adbaich@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hselbi <hselbi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 17:36:14 by adbaich           #+#    #+#             */
-/*   Updated: 2022/11/27 22:09:41 by adbaich          ###   ########.fr       */
+/*   Updated: 2022/12/02 22:33:15 by hselbi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	func(int x, int y, t_cub *cub)
 	// printf("x: %d\n", x);
 	if (old_x - x < 0)
 	{
-		cub->p.p_angle += 0.05;
+		cub->p.p_angle += 0.08;
 		if (cub->p.p_angle > 2 * PI)
 			cub->p.p_angle -= 2 * PI;
 		cub->p.dem_x = cos(cub->p.p_angle) * 5;
@@ -29,7 +29,7 @@ int	func(int x, int y, t_cub *cub)
 	}
 	else if (old_x - x > 0)
 	{
-		cub->p.p_angle -= 0.05;
+		cub->p.p_angle -= 0.08;
 		if (cub->p.p_angle < 0)
 			cub->p.p_angle += 2 * PI;
 		cub->p.dem_x = cos(cub->p.p_angle) * 5;

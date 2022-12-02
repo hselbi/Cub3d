@@ -95,15 +95,15 @@ void    bi_ver_ray(t_cub *cub, float ra)
     }
     else if (ra > P1 && ra < P2)
     {
-        rx = (int)(cub->mini.x)/16 * 16 - 0.001;
-        ry = (cub->mini.x - rx) * ntan + cub->mini.y;
+        rx = (int)(cub->mmap.x)/16 * 16 - 0.001;
+        ry = (cub->mmap.x - rx) * ntan + cub->mmap.y;
         xo = -16;
         yo = -xo * ntan;
     }
     else if (ra < P1 || ra > P2)
     {
-        rx = (int)(cub->mini.x/16) * 16 + 16;
-        ry = (cub->mini.x - rx) * ntan + cub->mini.y;
+        rx = (int)(cub->mmap.x/16) * 16 + 16;
+        ry = (cub->mmap.x - rx) * ntan + cub->mmap.y;
         xo = 16;
         yo = -xo * ntan;
     }
