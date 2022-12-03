@@ -70,7 +70,7 @@ $(NAME): $(SRC) $(PARSE) $(RCAST) $(RC) $(OBJ) $(PRS)
 	$(CC) $(OBJ) $(PRS) $(RC) $(ARCH) -lmlx -framework OpenGL -framework AppKit -o $(NAME)
 
 clean:
-	rm -rf $(OBJ)
+	rm -rf $(OBJ) $(PRS) $(RC)
 
 fclean: clean
 	rm -rf $(NAME)
