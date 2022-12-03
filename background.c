@@ -1,27 +1,9 @@
 #include "cub3d.h"
 
-// void    background(t_cub *cub)
-// {
-//     int i;
-// 	int j;
-
-// 	j = 0;
-// 	while (j < cub->win_y - 1)
-// 	{
-// 		i = 0;
-// 		while (i < cub->win_x - 1)
-// 		{
-// 			cub->addr[(cub->win_x) * j + i] = 0x6e6259;
-// 			i++;
-// 		}
-// 		j++;
-// 	}
-// }
-
-void    background(t_cub *cub)
+void	background(t_cub *cub)
 {
-    int i;
-	int j;
+	int	i;
+	int	j;
 
 	j = 0;
 	while (j < cub->height - 1)
@@ -33,5 +15,28 @@ void    background(t_cub *cub)
 			i++;
 		}
 		j++;
+	}
+}
+
+void	mini_bg(t_cub *cub)
+{
+	int	start_y;
+	int	start_x;
+	int	end_y;
+	int	end_x;
+
+	start_x = 0;
+	start_y = 0;
+	end_y = cub->mini_w;
+	end_x = cub->mini_h;
+	while (start_y < end_y)
+	{
+		start_x = 0;
+		while (start_x < end_x)
+		{
+			cub->mmap.add[(cub->mini_w) * start_y + start_x] = 0x6E6259;
+			start_x++;
+		}
+		start_y++;
 	}
 }

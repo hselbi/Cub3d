@@ -1,47 +1,17 @@
 #include "../cub3d.h"
 
-int get_color_xpm(t_text *tx_img, float x, float y, int h, int w)
-{
-    
-    int colors;
-    (void)w;
-    // (void)h;
-    int i = ((int)x % 64);
-    int j = ((int)y * 64) / h;
-    printf("w %d\n", tx_img->width);
-    printf("h %d\n", tx_img->height);
-    colors = tx_img->add[tx_img->width * (int)j + (int)i];
-    return (colors);
-}
-
-/*
-* distanation between the player and the project plan is 277 
-*/
 
 void    v_field(t_cub *cub, int x, float ra)
 {
-	// printf("\ndegree %fº\n\n", ra * 180/PI);
-    // if (ra >= PI * 2)
-    //     ra -= PI * 2;
-    // if (ra <= 0)
-    //     ra += PI * 2;
-    // cub->p.dist = cub->p.dist * cos(ra - cub->p.p_angle);
-    // int dis_plan = (cub->width/2) / tan(PI/6);
-	// printf("\ndegree %fº\n\n", ra * 180/PI);
-    // float dplan = (64 / cub->p.dist) * dis_plan;
-
     cub->p.dist = cub->p.dist * cos(ra - cub->p.p_angle);
     float dplan = 64 * cub->height / cub->p.dist;
-    
     cub->c_plan = cub->height/2 - dplan/2;
     cub->b_wall = cub->c_plan + dplan;
     cub->t_wall = cub->c_plan;
-    
     if (cub->b_wall >= cub->height)
         cub->b_wall = cub->height;
     if (cub->t_wall < 0)
         cub->t_wall = 0;
-    
     int a = 0;
     int width_text = 0;
     int flag_v = -1;
@@ -50,7 +20,6 @@ void    v_field(t_cub *cub, int x, float ra)
     if ((cub->p.f_hor == 1  && cub->p.hx == cub->p.rx))
     {
         a = 1;
-       
         if (ra > PI && ra < 2 * PI)
         {
             width_text = cub->no_width;
@@ -107,20 +76,3 @@ void    v_field(t_cub *cub, int x, float ra)
         i++;
     }
 }
-
-
-/*
-! to do list
-    * need to have the  distance from the player to plan
-    * need to split the upper screen with 
-*/
-
-/*
-* var projectedWallHeight=(this.WALL_HEIGHT*this.fPlayerDistanceToTheProjectionPlane/dist);
-*			bottomOfWall = this.fProjectionPlaneYCenter+(projectedWallHeight*0.5);
-*			topOfWall = this.fProjectionPlaneYCenter-(projectedWallHeight*0.5);
-*			if (topOfWall<0)
-*				topOfWall=0;
-*			if (bottomOfWall>=this.PROJECTIONPLANEHEIGHT)
-*				bottomOfWall=this.PROJECTIONPLANEHEIGHT-1;
-*/

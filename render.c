@@ -1,37 +1,11 @@
 #include "cub3d.h"
 
-void    test(t_cub *cub)
+void	rand_wall(t_cub *cub, float ra, int tmp_j, int tmp_i)
 {
+	int	x;
 
-    int i = 0;
-    int j = 0;
-    while(i < 64)
-    {
-    	j = 0;
-    	while (j < 64)
-    	{
-    		cub->mmap.add[200 * i + j] = 0x00FFA1;
-    		j++;
-    	}
-    	i++;
-    }
-    i = 0;
-    j = 0;
-}
-
-int mlx_windows(t_cub *cub)
-{
-	ceilling_floor_max(cub);
-
-	float ra = cub->p.p_angle -  (PI / 6); // -30
-	int x = 0;
-	int tmp_i = 0;
-	int tmp_j = 0;
-	cub->p.mini_x = cub->p.x / (3.2);
-	cub->p.mini_y = cub->p.y / (3.2);
-	cub->p.i = (int)((cub->p.x - 32) / 64);
-	cub->p.j = (int)((cub->p.y - 32) / 64);
-	while (x < cub->width) // +30
+	x = 0;
+	while (x < cub->width)
 	{
 		if (ra > 2 * PI)
 			ra -= 2 * PI;
@@ -51,6 +25,20 @@ int mlx_windows(t_cub *cub)
 		x += 1;
 		ra += ((PI / 3) / cub->width);
 	}
+}
+
+int mlx_windows(t_cub *cub)
+{
+	float ra = cub->p.p_angle -  (PI / 6);
+	int tmp_i = 0;
+	int tmp_j = 0;
+
+	ceilling_floor_max(cub);
+	cub->p.mini_x = cub->p.x / (3.2);
+	cub->p.mini_y = cub->p.y / (3.2);
+	cub->p.i = (int)((cub->p.x - 32) / 64);
+	cub->p.j = (int)((cub->p.y - 32) / 64);
+	rand_wall(cub, ra, tmp_j, tmp_i);
 	draw_minimap(cub);
 	mlx_put_image_to_window(cub->mlx, cub->win, cub->img, 0, 0);
     mlx_put_image_to_window(cub->mlx, cub->win, cub->mmap.img, 0, 0);

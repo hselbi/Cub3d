@@ -1,9 +1,5 @@
 #include "cub3d.h"
 
-/*
-*	drawing a square
-*/
-
 void    draw_sq(t_cub *cub, int x, int y, int color)
 {
 	int i;
@@ -26,10 +22,6 @@ void    draw_sq(t_cub *cub, int x, int y, int color)
 		i++;
 	}
 }
-
-/*
-*	drawing squares (64 * 64)
-*/
 
 void	draw_sqs(t_cub *cub)
 {

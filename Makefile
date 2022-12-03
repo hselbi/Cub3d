@@ -2,13 +2,11 @@
 
 SRC = 	main.c keys_mlx.c\
 		squares_borders.c\
-		my_mlx_px.c DDA.c\
-		check_hor.c check_ver.c\
+        DDA.c rgb.c\
 		tools.c background.c\
-        shortest.c mini_map.c\
-        rgb.c init_texture.c \
+        init_texture.c render.c\
         mouse_mv.c minimap.c\
-        render.c
+        $(addprefix intersection/, check_hor.c check_ver.c shortest.c)
 
 PARSING = libft/ft_strlen.c \
         libft/ft_atoi.c \
@@ -47,6 +45,7 @@ PARSING = libft/ft_strlen.c \
         get_next_line/get_next_line.c \
         cub3d_pars.c
 
+
 RCAST = raycasting/ceilling_flooring.c raycasting/vision_field.c
 
 PARSE = $(addprefix parsing/, $(PARSING))
@@ -63,11 +62,13 @@ CC = gcc -g -Wall -Wextra -Werror
 
 all: ${NAME}
 
+bonus: ${NAME}
+
 %.o: %.c
 	$(CC) -c -g $< -o $@
 
 $(NAME): $(SRC) $(PARSE) $(RCAST) $(RC) $(OBJ) $(PRS)
-	$(CC) $(OBJ) $(PRS) $(RC) $(ARCH) -lmlx -framework OpenGL -fsanitize=address -framework AppKit -o $(NAME)
+	$(CC) $(OBJ) $(PRS) $(RC) $(ARCH) -lmlx -framework OpenGL -framework AppKit -o $(NAME)
 
 clean:
 	rm -rf $(OBJ)
