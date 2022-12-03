@@ -199,7 +199,6 @@ unsigned long	createRGB(int r, int g, int b);
 
 /*		square		*/
 
-void			draw_sq(t_cub *cub, int x, int y, int color);
 void			ceilling_floor(t_cub *cub);
 
 void			player_minimap(t_cub *cub);

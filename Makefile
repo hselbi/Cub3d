@@ -1,7 +1,6 @@
 .PHONY = all clean fclean re
 
 SRC = 	main.c keys_mlx.c\
-		squares_borders.c\
         DDA.c rgb.c\
 		tools.c background.c\
         init_texture.c render.c\
