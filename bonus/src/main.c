@@ -150,6 +150,7 @@ int	main(int ac, char **av)
 		init_texture(&cub);
 		mlx_loop_hook(cub.mlx, mlx_windows, &cub);
 		mlx_mouse_hide();
+		mlx_key_hook(cub.win, mouse_btn, &cub);
 		// mlx_mouse_hook(cub.win, mouse_hook, &cub);
 		mlx_hook(cub.win, 6, 0, func, &cub);
 		mlx_hook(cub.win, 2, 0, advance_keys, &cub);

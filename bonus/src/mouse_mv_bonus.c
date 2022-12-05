@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mouse_mv_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hselbi <hselbi@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adbaich <adbaich@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 17:36:14 by adbaich           #+#    #+#             */
-/*   Updated: 2022/12/05 13:37:41 by hselbi           ###   ########.fr       */
+/*   Updated: 2022/12/05 20:39:11 by adbaich          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	func(int x, int y, t_cub *cub)
 {
-	static int	old_x;
+    int	old_x = (cub->width / 2);
 
 	(void)y;
 	if (old_x - x < 0)
@@ -33,6 +33,12 @@ int	func(int x, int y, t_cub *cub)
 		cub->p.dem_x = cos(cub->p.p_angle) * 5;
 		cub->p.dem_y = sin(cub->p.p_angle) * 5;
 	}
-	old_x = x;
+	mlx_mouse_move(cub->win, (cub->width / 2), (cub->height / 2));
+	return (0);
+}
+
+int	mouse_btn(int key_code, void *cub)
+{
+	printf("the key's code is : %d\n", key_code);
 	return (0);
 }

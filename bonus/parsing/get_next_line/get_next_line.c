@@ -6,7 +6,7 @@
 /*   By: adbaich <adbaich@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 17:09:33 by adbaich           #+#    #+#             */
-/*   Updated: 2022/10/31 16:00:07 by adbaich          ###   ########.fr       */
+/*   Updated: 2022/11/28 16:48:52 by adbaich          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,21 @@ void	ft_free(char **s)
 {
 	free(*s);
 	*s = NULL;
+}
+
+char	*ft_reading_helper(char *d_main, char *buff)
+{
+	char	*tmp;
+	
+	if (!d_main)
+	{
+		d_main = malloc(1 * sizeof(char));
+		d_main[0] = '\0';
+	}
+	tmp = d_main;
+	d_main = ft_strjoin(d_main, buff);
+	free(tmp);
+	return (d_main);
 }
 
 char	*ft_reading(int fd, char *d_main)
@@ -37,12 +52,7 @@ char	*ft_reading(int fd, char *d_main)
 			return (NULL);
 		}
 		buff[rd_bytes] = '\0';
-		if (!d_main)
-		{
-			d_main = malloc(1 * sizeof(char));
-			d_main[0] = '\0';
-		}
-		d_main = ft_strjoin(d_main, buff);
+		d_main = ft_reading_helper(d_main, buff);
 	}
 	ft_free(&buff);
 	return (d_main);

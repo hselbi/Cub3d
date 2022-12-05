@@ -220,6 +220,7 @@ unsigned long	create_yrgb(int t, int r, int g, int b);
 /*		square		*/
 
 void			ceilling_floor(t_cub *cub);
+int				mouse_btn(int key_code, void *cub);
 
 void			player_minimap(t_cub *cub);
 void			mini_bg(t_cub *cub);
