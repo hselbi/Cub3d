@@ -99,33 +99,33 @@ void	init_img_win(t_cub *cub)
 }
 
 
-// int mouse_hook(int button, int x, int y, t_cub *cub)
-// {
-// 	// static int	old_x;
+int mouse_hook(int button, int x, int y, t_cub *cub)
+{
+	// static int	old_x;
 
-// 	(void)cub;
-// 	(void)y;
-// 	(void)x;
-// 	printf("%d\n", button);
-// 	// if (old_x - x < 0)
-// 	// {
-// 	// 	cub->p.p_angle += 0.1;
-// 	// 	if (cub->p.p_angle > 2 * PI)
-// 	// 		cub->p.p_angle -= 2 * PI;
-// 	// 	cub->p.dem_x = cos(cub->p.p_angle) * 5;
-// 	// 	cub->p.dem_y = sin(cub->p.p_angle) * 5;
-// 	// }
-// 	// else if (old_x - x > 0)
-// 	// {
-// 	// 	cub->p.p_angle -= 0.1;
-// 	// 	if (cub->p.p_angle < 0)
-// 	// 		cub->p.p_angle += 2 * PI;
-// 	// 	cub->p.dem_x = cos(cub->p.p_angle) * 5;
-// 	// 	cub->p.dem_y = sin(cub->p.p_angle) * 5;
-// 	// }
-// 	// old_x = x;
-// 	return (0);
-// }
+	(void)cub;
+	(void)y;
+	(void)x;
+	printf("%d\n", button);
+	// if (old_x - x < 0)
+	// {
+	// 	cub->p.p_angle += 0.1;
+	// 	if (cub->p.p_angle > 2 * PI)
+	// 		cub->p.p_angle -= 2 * PI;
+	// 	cub->p.dem_x = cos(cub->p.p_angle) * 5;
+	// 	cub->p.dem_y = sin(cub->p.p_angle) * 5;
+	// }
+	// else if (old_x - x > 0)
+	// {
+	// 	cub->p.p_angle -= 0.1;
+	// 	if (cub->p.p_angle < 0)
+	// 		cub->p.p_angle += 2 * PI;
+	// 	cub->p.dem_x = cos(cub->p.p_angle) * 5;
+	// 	cub->p.dem_y = sin(cub->p.p_angle) * 5;
+	// }
+	// old_x = x;
+	return (0);
+}
 
 int	main(int ac, char **av)
 {
@@ -149,9 +149,8 @@ int	main(int ac, char **av)
 		init_player(&cub);
 		init_texture(&cub);
 		mlx_loop_hook(cub.mlx, mlx_windows, &cub);
-		mlx_mouse_hide();
-		mlx_key_hook(cub.win, mouse_btn, &cub);
-		// mlx_mouse_hook(cub.win, mouse_hook, &cub);
+		// mlx_mouse_hide();
+		mlx_mouse_hook(cub.win, mouse_hook, &cub);
 		mlx_hook(cub.win, 6, 0, func, &cub);
 		mlx_hook(cub.win, 2, 0, advance_keys, &cub);
 		mlx_hook(cub.win, 17, 0, ft_close, &cub);

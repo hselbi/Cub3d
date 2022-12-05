@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mouse_mv_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adbaich <adbaich@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hselbi <hselbi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 17:36:14 by adbaich           #+#    #+#             */
-/*   Updated: 2022/12/05 20:39:11 by adbaich          ###   ########.fr       */
+/*   Updated: 2022/12/05 21:13:54 by hselbi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,9 @@ int	func(int x, int y, t_cub *cub)
 	return (0);
 }
 
-int	mouse_btn(int key_code, void *cub)
+int	mouse_btn(int key_code, t_cub *cub)
 {
+	printf("%d\n", cub->col);
 	printf("the key's code is : %d\n", key_code);
 	return (0);
 }
