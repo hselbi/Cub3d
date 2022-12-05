@@ -66,6 +66,18 @@ void	init_player(t_cub *cub)
 	player_side(cub, stop, i, j);
 }
 
+void	sprite_frames(t_cub *cub)
+{
+	cub->sprite.farme_one = mlx_xpm_file_to_image(cub->mlx, \
+	"./gun_shot/1.xpm", &cub->sprite.width_one, &cub->sprite.height_one);
+	cub->sprite.farme_two = mlx_xpm_file_to_image(cub->mlx, \
+	"./gun_shot/4.xpm", &cub->sprite.width_two, &cub->sprite.height_two);
+	cub->sprite.farme_three = mlx_xpm_file_to_image(cub->mlx, \
+	"./gun_shot/3.xpm", &cub->sprite.width_three, &cub->sprite.height_three);
+	cub->sprite.farme_four = mlx_xpm_file_to_image(cub->mlx, \
+	"./gun_shot/2.xpm", &cub->sprite.width_four, &cub->sprite.height_four);
+}
+
 void	init_img_win(t_cub *cub)
 {
 	int	i;
@@ -92,40 +104,8 @@ void	init_img_win(t_cub *cub)
 	cub->mmap.img = mlx_new_image(cub->mlx, cub->mini_w, cub->mini_h);
 	cub->mmap.add = (int *)mlx_get_data_addr(cub->mmap.img, \
 		&cub->bits_per_pixel, &cub->line_length, &cub->endian);
-	cub->sprite.farme_one = mlx_xpm_file_to_image(cub->mlx, "./gun_shot/1.xpm", &cub->sprite.width_one, &cub->sprite.height_one);
-	cub->sprite.farme_two = mlx_xpm_file_to_image(cub->mlx, "./gun_shot/4.xpm", &cub->sprite.width_two, &cub->sprite.height_two);
-	cub->sprite.farme_three = mlx_xpm_file_to_image(cub->mlx, "./gun_shot/3.xpm", &cub->sprite.width_three, &cub->sprite.height_three);
-	cub->sprite.farme_four = mlx_xpm_file_to_image(cub->mlx, "./gun_shot/2.xpm", &cub->sprite.width_four, &cub->sprite.height_four);
+	sprite_frames(cub);
 }
-
-
-// int mouse_hook(int button, int x, int y, t_cub *cub)
-// {
-// 	// static int	old_x;
-
-// 	(void)cub;
-// 	(void)y;
-// 	(void)x;
-// 	printf("%d\n", button);
-// 	// if (old_x - x < 0)
-// 	// {
-// 	// 	cub->p.p_angle += 0.1;
-// 	// 	if (cub->p.p_angle > 2 * PI)
-// 	// 		cub->p.p_angle -= 2 * PI;
-// 	// 	cub->p.dem_x = cos(cub->p.p_angle) * 5;
-// 	// 	cub->p.dem_y = sin(cub->p.p_angle) * 5;
-// 	// }
-// 	// else if (old_x - x > 0)
-// 	// {
-// 	// 	cub->p.p_angle -= 0.1;
-// 	// 	if (cub->p.p_angle < 0)
-// 	// 		cub->p.p_angle += 2 * PI;
-// 	// 	cub->p.dem_x = cos(cub->p.p_angle) * 5;
-// 	// 	cub->p.dem_y = sin(cub->p.p_angle) * 5;
-// 	// }
-// 	// old_x = x;
-// 	return (0);
-// }
 
 int	main(int ac, char **av)
 {

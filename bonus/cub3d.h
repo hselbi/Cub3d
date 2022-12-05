@@ -23,20 +23,32 @@
 // define π value
 # define PI 3.141592653589793238
 
-# define ROW 11
-# define COL 15
+// define space
+# define SPACE 49
 
 # include <stdbool.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
 # include "./minilibx/mlx.h"
-// # include <mlx.h>
+# include <mlx.h>
 # include <unistd.h>
 # include <math.h>
 # include <limits.h>
 # include "parsing/cub3d_pars.h"
 # include "parsing/libft/libft.h"
+
+typedef struct s_dda
+{
+	int		dx;
+	int		dy;
+	int		i;
+	int		step;
+	float	xinc;
+	float	yinc;
+	float	x;
+	float	y;
+}	t_dda;
 
 typedef struct s_hor
 {
@@ -145,7 +157,6 @@ typedef struct s_sprite
 	int		height_four;
 }	t_sprite;
 
-
 typedef struct s_cub
 {
 	t_player	p;
@@ -161,7 +172,6 @@ typedef struct s_cub
 	int			bits_per_pixel;
 	int			line_length;
 	int			endian;
-	int			map[ROW][COL];
 	int			mp;
 	int			len;
 	int			row;
@@ -229,12 +239,10 @@ int				pl_pos(char c);
 /* minimap */
 
 void			draw_minimap(t_cub *cub);
-void			mini_dda_line(int start_x, int end_x, int start_y, \
-				int end_y, t_cub *cub);
+void			mini_dda_line(int end_x, int end_y, t_cub *cub);
 
 void			hor_ray(t_cub *cub, float ra);
 void			ver_ray(t_cub *cub, float ra);
-
 
 void			shortest(t_player *pl);
 

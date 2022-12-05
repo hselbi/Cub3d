@@ -29,7 +29,7 @@ bonus: ${NAME}
 	$(CC) -c -g $< -o $@
 
 $(NAME): $(SRC) $(OBJ)
-	$(CC) $(OBJ) $(ARCH) -lmlx -framework OpenGL -framework AppKit -o $(NAME)
+	$(CC) $(OBJ) $(ARCH) -lmlx -framework OpenGL -fsanitize=address -framework AppKit -o $(NAME)
 
 clean:
 	rm -rf $(OBJ)
