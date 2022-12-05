@@ -1,0 +1,21 @@
+F 227,130,0
+
+NO ./textures/kyle-edmonds-stone-path-texture.xpm
+
+SO ./textures/stone.xpm
+
+WE ./textures/walkstone.xpm
+
+EA ./woolsnow.xpm
+
+C 255,30,33
+
+11111111111
+10000N00001
+10000000001111111
+10000000001
+10000000001111111
+10000000001
+10000000001
+10000000001
+11111111111
