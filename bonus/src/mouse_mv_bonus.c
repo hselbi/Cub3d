@@ -6,7 +6,7 @@
 /*   By: hselbi <hselbi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 17:36:14 by adbaich           #+#    #+#             */
-/*   Updated: 2022/12/05 02:37:57 by hselbi           ###   ########.fr       */
+/*   Updated: 2022/12/05 13:37:41 by hselbi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 int	func(int x, int y, t_cub *cub)
 {
-    static int	old_x;
+	static int	old_x;
 
 	(void)y;
 	if (old_x - x < 0)
 	{
-		cub->p.p_angle += 0.1;
+		cub->p.p_angle += 0.05;
 		if (cub->p.p_angle > 2 * PI)
 			cub->p.p_angle -= 2 * PI;
 		cub->p.dem_x = cos(cub->p.p_angle) * 5;
@@ -27,7 +27,7 @@ int	func(int x, int y, t_cub *cub)
 	}
 	else if (old_x - x > 0)
 	{
-		cub->p.p_angle -= 0.1;
+		cub->p.p_angle -= 0.05;
 		if (cub->p.p_angle < 0)
 			cub->p.p_angle += 2 * PI;
 		cub->p.dem_x = cos(cub->p.p_angle) * 5;

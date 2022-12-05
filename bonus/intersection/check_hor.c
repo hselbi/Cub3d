@@ -36,7 +36,7 @@ void	coord_hwall(t_hor *hor, t_cub *cub, float ra)
 
 void	init_hor(t_cub *cub, t_hor *hor, float ra)
 {
-	if (ra > PI && ra < PI * 2)
+	if (ra > PI && ra < (PI * 2))
 	{
 		hor->ry = (int)(cub->p.y / 64) * 64 - 0.001;
 		hor->rx = (cub->p.y - hor->ry) * hor->atan + cub->p.x;
@@ -68,10 +68,10 @@ void	hor_ray(t_cub *cub, float ra)
 	t_hor	hor;
 
 	cub->p.f_hor = 0;
-	if (ra >= PI * 2)
-		ra -= PI * 2;
+	if (ra >= (PI * 2))
+		ra -= (PI * 2);
 	else if (ra <= 0)
-		ra += PI * 2;
+		ra += (PI * 2);
 	hor.dof = 0;
 	hor.atan = -1 / tan(ra);
 	hor.xo = 0.0;

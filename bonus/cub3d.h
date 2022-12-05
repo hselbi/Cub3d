@@ -22,9 +22,6 @@
 
 // define π value
 # define PI 3.141592653589793238
-# define P1 (PI / 2)
-# define P2 (3 * PI / 2)
-# define FOV (PI / 2.0)
 
 # define ROW 11
 # define COL 15
@@ -34,6 +31,7 @@
 # include <stdlib.h>
 # include <string.h>
 # include "./minilibx/mlx.h"
+// # include <mlx.h>
 # include <unistd.h>
 # include <math.h>
 # include <limits.h>
@@ -128,20 +126,20 @@ typedef struct s_text
 	int		line_length;
 }	t_text;
 
-typedef	struct s_sprite
+typedef struct s_sprite
 {
 	void	*farme_one;
 	int		width_one;
 	int		height_one;
-	
+
 	void	*farme_two;
 	int		width_two;
 	int		height_two;
-	
+
 	void	*farme_three;
 	int		width_three;
 	int		height_three;
-	
+
 	void	*farme_four;
 	int		width_four;
 	int		height_four;
@@ -232,7 +230,7 @@ int				pl_pos(char c);
 
 void			draw_minimap(t_cub *cub);
 void			mini_dda_line(int start_x, int end_x, int start_y, \
-					int end_y, t_cub *cub);
+				int end_y, t_cub *cub);
 
 void			hor_ray(t_cub *cub, float ra);
 void			ver_ray(t_cub *cub, float ra);
