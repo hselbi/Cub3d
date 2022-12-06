@@ -32,7 +32,8 @@ void	player_side(t_cub *cub, int stop, int i, int j)
 	}
 	cub->p.dem_x = cos(cub->p.p_angle) * 5;
 	cub->p.dem_y = sin(cub->p.p_angle) * 5;
-	cub->p.dist_plan = 277;
+	// cub->p.dist_plan = 277;
+	cub->gun_shot = FALSE;
 }
 
 void	init_player(t_cub *cub)
@@ -69,13 +70,15 @@ void	init_player(t_cub *cub)
 void	sprite_frames(t_cub *cub)
 {
 	cub->sprite.farme_one = mlx_xpm_file_to_image(cub->mlx, \
-	"./gun_shot/1.xpm", &cub->sprite.width_one, &cub->sprite.height_one);
+	"./gun/1.xpm", &cub->sprite.width_one, &cub->sprite.height_one);
 	cub->sprite.farme_two = mlx_xpm_file_to_image(cub->mlx, \
-	"./gun_shot/4.xpm", &cub->sprite.width_two, &cub->sprite.height_two);
+	"./gun/2.xpm", &cub->sprite.width_two, &cub->sprite.height_two);
 	cub->sprite.farme_three = mlx_xpm_file_to_image(cub->mlx, \
-	"./gun_shot/3.xpm", &cub->sprite.width_three, &cub->sprite.height_three);
+	"./gun/3.xpm", &cub->sprite.width_three, &cub->sprite.height_three);
 	cub->sprite.farme_four = mlx_xpm_file_to_image(cub->mlx, \
-	"./gun_shot/2.xpm", &cub->sprite.width_four, &cub->sprite.height_four);
+	"./gun/4.xpm", &cub->sprite.width_four, &cub->sprite.height_four);
+	cub->sprite.farme_five = mlx_xpm_file_to_image(cub->mlx, \
+	"./gun/5.xpm", &cub->sprite.width_five, &cub->sprite.height_five);
 }
 
 void	init_img_win(t_cub *cub)
@@ -107,6 +110,40 @@ void	init_img_win(t_cub *cub)
 	sprite_frames(cub);
 }
 
+
+int mouse_hook(int button, int x, int y, t_cub *cub)
+{
+	// static int	old_x;
+
+	(void)cub;
+	(void)y;
+	(void)x;
+	if (button == 1 && cub->gun_shot == FALSE)
+	{
+		cub->gun_shot = TRUE;
+		cub->sprite.ind = 0;
+	}
+	// printf("%d\n", button);
+	// if (old_x - x < 0)
+	// {
+	// 	cub->p.p_angle += 0.1;
+	// 	if (cub->p.p_angle > 2 * PI)
+	// 		cub->p.p_angle -= 2 * PI;
+	// 	cub->p.dem_x = cos(cub->p.p_angle) * 5;
+	// 	cub->p.dem_y = sin(cub->p.p_angle) * 5;
+	// }
+	// else if (old_x - x > 0)
+	// {
+	// 	cub->p.p_angle -= 0.1;
+	// 	if (cub->p.p_angle < 0)
+	// 		cub->p.p_angle += 2 * PI;
+	// 	cub->p.dem_x = cos(cub->p.p_angle) * 5;
+	// 	cub->p.dem_y = sin(cub->p.p_angle) * 5;
+	// }
+	// old_x = x;
+	return (0);
+}
+
 int	main(int ac, char **av)
 {
 	t_cub	cub;
@@ -129,8 +166,8 @@ int	main(int ac, char **av)
 		init_player(&cub);
 		init_texture(&cub);
 		mlx_loop_hook(cub.mlx, mlx_windows, &cub);
-		mlx_mouse_hide();
-		// mlx_mouse_hook(cub.win, mouse_hook, &cub);
+		// mlx_mouse_hide();
+		mlx_mouse_hook(cub.win, mouse_hook, &cub);
 		mlx_hook(cub.win, 6, 0, func, &cub);
 		mlx_hook(cub.win, 2, 0, advance_keys, &cub);
 		mlx_hook(cub.win, 17, 0, ft_close, &cub);

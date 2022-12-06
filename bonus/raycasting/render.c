@@ -49,28 +49,26 @@ void	rand_wall(t_cub *cub, float ra)
 
 void	frames_sprite(t_cub *cub)
 {
-	// void	*img;
-	// int		width_img;
-	// int		height_img;
-	// img = mlx_xpm_file_to_image(cub->mlx, "./gun_shot/1.xpm", &width_img, &height_img);
-	// printf("%d, %d\n", cub->sprite.width_two, cub->win_x);
-	// printf("%d, %d\n", cub->sprite.height_two, cub->win_y);
-	/*
-	* 1st one
-	*/
-	mlx_put_image_to_window(cub->mlx, cub->win, cub->sprite.farme_one, 315, 520);
-	/*
-	* last one
-	*/
-	// mlx_put_image_to_window(cub->mlx, cub->win, cub->sprite.farme_three, 340, 410);
-	// mlx_put_image_to_window(cub->mlx, cub->win, cub->sprite.farme_two, 345, 485);
-	/*
-	* 3rd one
-	*/
-	/*
-	* 2nd one
-	*/
-	// mlx_put_image_to_window(cub->mlx, cub->win, cub->sprite.farme_four, 345, 430);
+	if (cub->sprite.ind < 5)
+	{
+		mlx_put_image_to_window(cub->mlx, cub->win, cub->sprite.farme_one, 350, 470);
+	}
+	else if (cub->sprite.ind < 10)
+	{
+		mlx_put_image_to_window(cub->mlx, cub->win, cub->sprite.farme_two, 350, 470);
+	}
+	else if (cub->sprite.ind < 15)
+	{
+		mlx_put_image_to_window(cub->mlx, cub->win, cub->sprite.farme_three, 350, 470);
+	}
+	else if (cub->sprite.ind < 20)
+	{
+		mlx_put_image_to_window(cub->mlx, cub->win, cub->sprite.farme_four, 350, 470);
+	}
+	else if (cub->sprite.ind < 25)
+	{
+		mlx_put_image_to_window(cub->mlx, cub->win, cub->sprite.farme_five, 350, 470);
+	}
 }
 
 int	mlx_windows(t_cub *cub)
@@ -87,6 +85,15 @@ int	mlx_windows(t_cub *cub)
 	draw_minimap(cub);
 	mlx_put_image_to_window(cub->mlx, cub->win, cub->img, 0, 0);
 	mlx_put_image_to_window(cub->mlx, cub->win, cub->mmap.img, 0, 0);
-	frames_sprite(cub);
+	if (cub->gun_shot == TRUE)
+	{
+		frames_sprite(cub);
+		cub->sprite.ind++;
+	}
+	if (cub->sprite.ind >= 25)
+	{
+		cub->gun_shot = FALSE;
+	}
+	// frames_sprite(cub);
 	return (0);
 }

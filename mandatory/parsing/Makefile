@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: hselbi <hselbi@student.42.fr>              +#+  +:+       +#+         #
+#    By: adbaich <adbaich@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/30 20:17:07 by adbaich           #+#    #+#              #
-#    Updated: 2022/11/15 13:15:58 by hselbi           ###   ########.fr        #
+#    Updated: 2022/12/05 20:23:13 by adbaich          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,7 +45,16 @@ SRCS = libft/ft_strlen.c \
 		libft/ft_putendl_fd.c \
 		libft/ft_putnbr_fd.c \
         get_next_line/get_next_line.c \
-        cub3d_pars.c \
+        check_id.c \
+        path_rgb.c \
+        color.c \
+        utils.c \
+        utils1.c \
+        utils2.c \
+        fill_struct.c \
+        fill_struct_body.c \
+        fill_struct_end.c \
+        fill_rgb.c \
         
 
 OBJS = ${SRCS:.c=.o}
@@ -59,7 +68,7 @@ CFLAGS = -Wall -Wextra -Werror
 all: ${NAME}
 
 ${NAME}: ${OBJS}
-	@${CC} ${CFLAGS} ${OBJS} -o ${NAME}
+	${CC} ${CFLAGS} ${OBJS} -o ${NAME}
 
 clean:
 	${RM} ${OBJS}

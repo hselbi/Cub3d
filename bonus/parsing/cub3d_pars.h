@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_pars.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hselbi <hselbi@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adbaich <adbaich@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 18:40:24 by adbaich           #+#    #+#             */
-/*   Updated: 2022/12/03 19:08:08 by hselbi           ###   ########.fr       */
+/*   Updated: 2022/12/05 20:12:19 by adbaich          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,27 +23,36 @@
 typedef struct texture
 {
 	char	*text[4];
+	int		*txt_index;
 	int		position;
 	int		color[2][3];
 	char	**map;
 	char	*mini_map;
 }	t_txt;
 
-t_txt	fill_struct(int fd);
-void	valid_map(char **map);
-int		included(char *str, char c);
-void	first_last_line(char *str);
-size_t	ft_strlen_2d(char **str);
-void	fill_map(char *line, t_txt *toto);
-int		player_position(char c, t_txt *toto);
-int		strat_map(int *txt_index);
-void	fill_RGB(char *str, t_txt *toto, int id_index);
-void	get_color(char *path, t_txt *toto, int id_index);
-void	valid_color_range(int *arr);
-void	len_of_num(char *num);
+int		check_id(char *str, int **txt_index);
+void	ft_error(void);
+void	fill_id(char *id, char *str, int len);
 void	valid_path_rgb(char *path);
-
+void	get_color(char *path, t_txt *toto, int id_index);
+void	ft_error(void);
+size_t	max_len(char *s1, char *s2);
+void	fill_id(char *id, char *str, int len);
+void	fill_path(char *str, char *path, int i);
+int		check_ext(char *file);
+void	fill_path(char *str, char *path, int i);
+int		check_path(char *str);
+int		strat_map(int *txt_index);
+int		player_position(char c, t_txt *toto);
+void	fill_map_helper(char *line, t_txt *toto, int i, int count);
+size_t	ft_strlen_2d(char **str);
+void	first_last_line(char *str);
+int		included(char *str, char c);
+void	fill_struct_end(t_txt *toto);
+void	fill_struct_body(t_txt *toto, int fd);
+t_txt	fill_struct(int fd);
+char	*get_path(char *str);
+void	fill_rgb(char *str, t_txt *toto, int id_index);
 int		open_fd(char *file);
-void	print_infos(t_txt toto);
 
 #endif

@@ -26,6 +26,9 @@
 // define space
 # define SPACE 49
 
+# define TRUE 1
+# define FALSE 0
+
 # include <stdbool.h>
 # include <stdio.h>
 # include <stdlib.h>
@@ -140,6 +143,8 @@ typedef struct s_text
 
 typedef struct s_sprite
 {
+
+	int		ind;
 	void	*farme_one;
 	int		width_one;
 	int		height_one;
@@ -155,6 +160,10 @@ typedef struct s_sprite
 	void	*farme_four;
 	int		width_four;
 	int		height_four;
+
+	void	*farme_five;
+	int		width_five;
+	int		height_five;
 }	t_sprite;
 
 typedef struct s_cub
@@ -205,6 +214,7 @@ typedef struct s_cub
 	int			*ea;
 	int			ea_width;
 
+	bool		gun_shot;
 	int			mouse_x;
 	int			mouse_y;
 
@@ -230,6 +240,7 @@ unsigned long	create_yrgb(int t, int r, int g, int b);
 /*		square		*/
 
 void			ceilling_floor(t_cub *cub);
+int				mouse_btn(int key_code, t_cub *cub);
 
 void			player_minimap(t_cub *cub);
 void			mini_bg(t_cub *cub);
