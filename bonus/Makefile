@@ -2,7 +2,7 @@ RCAST = $(addprefix raycasting/, ceilling_flooring.c vision_field.c render.c dda
         minimap_bonus.c)
 
 SRC =	$(RCAST) $(addprefix src/, main.c keys_mlx.c rgb.c background_bonus.c init_texture.c\
-        mouse_mv_bonus.c) $(addprefix intersection/, check_hor.c check_ver.c shortest.c)
+        mouse_mv_bonus.c sprite_bonus.c init_bonus.c) $(addprefix intersection/, check_hor.c check_ver.c shortest.c)
 
 PARSING = 	$(addprefix libft/, ft_atoi.c ft_bzero.c ft_calloc.c ft_isalnum.c ft_isalpha.c\
 			ft_isascii.c ft_isdigit.c ft_isprint.c ft_itoa.c ft_memchr.c ft_memcmp.c ft_memcpy.c\

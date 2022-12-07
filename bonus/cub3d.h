@@ -41,6 +41,21 @@
 # include "parsing/cub3d_pars.h"
 # include "parsing/libft/libft.h"
 
+typedef struct s_field
+{
+	float	dist_plan;
+	int		width_text;
+	int		texel;
+	int		h;
+	int		tx;
+	int		ty;
+	int		flag_h;
+	int		flag_v;
+	int		i;
+	int		j;
+	int		dist;
+}	t_field;
+
 typedef struct s_dda
 {
 	int		dx;
@@ -143,7 +158,6 @@ typedef struct s_text
 
 typedef struct s_sprite
 {
-
 	int		ind;
 	void	*farme_one;
 	int		width_one;
@@ -220,6 +234,9 @@ typedef struct s_cub
 
 }	t_cub;
 
+void			init_wind(t_cub *cub);
+void			init_img_win(t_cub *cub);
+void			init_player(t_cub *cub);
 int				mlx_windows(t_cub *cub);
 
 /*		keys		*/
@@ -240,8 +257,7 @@ unsigned long	create_yrgb(int t, int r, int g, int b);
 /*		square		*/
 
 void			ceilling_floor(t_cub *cub);
-int				mouse_btn(int key_code, t_cub *cub);
-
+int				mouse_hook(int button, int x, int y, t_cub *cub);
 void			player_minimap(t_cub *cub);
 void			mini_bg(t_cub *cub);
 void			minimap(t_cub *cub);
@@ -249,6 +265,7 @@ int				pl_pos(char c);
 
 /* minimap */
 
+void			sprite_frames(t_cub *cub);
 void			draw_minimap(t_cub *cub);
 void			mini_dda_line(int end_x, int end_y, t_cub *cub);
 

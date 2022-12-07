@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   keys_mlx.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hselbi <hselbi@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/12/07 01:00:26 by hselbi            #+#    #+#             */
+/*   Updated: 2022/12/07 01:00:27 by hselbi           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../cub3d.h"
 
 int	ft_close(t_cub *cub)
@@ -57,56 +69,8 @@ void	mv_rl(t_cub *cub, int key)
 	}
 }
 
-
-// void	cpy_frames(t_cub *cub)
-// {
-
-// }
-
-// void	frames(t_cub *cub)
-// {
-// 	void	*img;
-// 	// int		width_img;
-// 	// int		height_img;
-// 	// static int i = 0;
-// 	// img = mlx_xpm_file_to_image(cub->mlx, \
-// 	// "./gun/2.xpm", &cub->sprite.width_two, &cub->sprite.height_two);
-// 	// // printf("%d, %d\n", cub->sprite.width_two, cub->win_x);
-// 	// while (i < 40)
-// 	// {
-// 	// 	mlx_put_image_to_window(cub->mlx, cub->win, img, 353, 470);
-// 	// 	i++;
-// 	// }
-// 	// // mlx_destroy_image(cub->mlx, img);
-// 	// img = mlx_xpm_file_to_image(cub->mlx, \
-// 	// "./gun/3.xpm", &cub->sprite.width_three, &cub->sprite.height_three);
-// 	// while (i < 80)
-// 	// {
-// 	// 	mlx_put_image_to_window(cub->mlx, cub->win, img, 353, 470);
-// 	// 	i++;
-// 	// }
-// 	// // mlx_destroy_image(cub->mlx, img);
-// 	// img = mlx_xpm_file_to_image(cub->mlx, \
-// 	// "./gun/4.xpm", &cub->sprite.width_four, &cub->sprite.height_four);
-// 	// while (i < 120)
-// 	// {
-// 	// 	mlx_put_image_to_window(cub->mlx, cub->win, img, 353, 470);
-// 	// 	i++;
-// 	// }
-// 	// // mlx_destroy_image(cub->mlx, img);
-// 	// img = mlx_xpm_file_to_image(cub->mlx, \
-// 	// "./gun/5.xpm", &cub->sprite.width_four, &cub->sprite.height_four);
-// 	// while (i < 120)
-// 	// {
-// 	// 	mlx_put_image_to_window(cub->mlx, cub->win, img, 353, 470);
-// 	// 	i++;
-// 	// }
-// }
-
 int	advance_keys(int key, t_cub *cub)
 {
-	// if (key == SPACE)
-	// 	frames(cub);
 	if (key == ESC)
 		ft_close(cub);
 	mv_fb(cub, key);

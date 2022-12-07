@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   render.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hselbi <hselbi@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/12/07 01:03:19 by hselbi            #+#    #+#             */
+/*   Updated: 2022/12/07 01:03:20 by hselbi           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../cub3d.h"
 
 int	wall_checker(t_cub *cub)
@@ -50,25 +62,20 @@ void	rand_wall(t_cub *cub, float ra)
 void	frames_sprite(t_cub *cub)
 {
 	if (cub->sprite.ind < 5)
-	{
-		mlx_put_image_to_window(cub->mlx, cub->win, cub->sprite.farme_one, 350, 470);
-	}
+		mlx_put_image_to_window(cub->mlx, cub->win, \
+			cub->sprite.farme_one, 350, 470);
 	else if (cub->sprite.ind < 10)
-	{
-		mlx_put_image_to_window(cub->mlx, cub->win, cub->sprite.farme_two, 350, 470);
-	}
+		mlx_put_image_to_window(cub->mlx, cub->win, \
+			cub->sprite.farme_two, 350, 470);
 	else if (cub->sprite.ind < 15)
-	{
-		mlx_put_image_to_window(cub->mlx, cub->win, cub->sprite.farme_three, 350, 470);
-	}
+		mlx_put_image_to_window(cub->mlx, cub->win, \
+			cub->sprite.farme_three, 350, 470);
 	else if (cub->sprite.ind < 20)
-	{
-		mlx_put_image_to_window(cub->mlx, cub->win, cub->sprite.farme_four, 350, 470);
-	}
+		mlx_put_image_to_window(cub->mlx, cub->win, \
+			cub->sprite.farme_four, 350, 470);
 	else if (cub->sprite.ind < 25)
-	{
-		mlx_put_image_to_window(cub->mlx, cub->win, cub->sprite.farme_five, 350, 470);
-	}
+		mlx_put_image_to_window(cub->mlx, cub->win, \
+			cub->sprite.farme_five, 350, 470);
 }
 
 int	mlx_windows(t_cub *cub)
@@ -91,9 +98,6 @@ int	mlx_windows(t_cub *cub)
 		cub->sprite.ind++;
 	}
 	if (cub->sprite.ind >= 25)
-	{
 		cub->gun_shot = FALSE;
-	}
-	// frames_sprite(cub);
 	return (0);
 }

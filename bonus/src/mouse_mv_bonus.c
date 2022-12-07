@@ -6,7 +6,7 @@
 /*   By: hselbi <hselbi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 17:36:14 by adbaich           #+#    #+#             */
-/*   Updated: 2022/12/05 21:13:54 by hselbi           ###   ########.fr       */
+/*   Updated: 2022/12/07 01:09:34 by hselbi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,10 @@
 
 int	func(int x, int y, t_cub *cub)
 {
-    int	old_x = (cub->width / 2);
+	int	old_x;
 
 	(void)y;
+	old_x = (cub->width / 2);
 	if (old_x - x < 0)
 	{
 		cub->p.p_angle += 0.05;
@@ -37,9 +38,15 @@ int	func(int x, int y, t_cub *cub)
 	return (0);
 }
 
-int	mouse_btn(int key_code, t_cub *cub)
+int	mouse_hook(int button, int x, int y, t_cub *cub)
 {
-	printf("%d\n", cub->col);
-	printf("the key's code is : %d\n", key_code);
+	(void)cub;
+	(void)y;
+	(void)x;
+	if (button == 1 && cub->gun_shot == FALSE)
+	{
+		cub->gun_shot = TRUE;
+		cub->sprite.ind = 0;
+	}
 	return (0);
 }
