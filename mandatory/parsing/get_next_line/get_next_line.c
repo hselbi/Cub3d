@@ -6,18 +6,12 @@
 /*   By: hselbi <hselbi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 17:09:33 by adbaich           #+#    #+#             */
-/*   Updated: 2022/12/07 00:08:47 by hselbi           ###   ########.fr       */
+/*   Updated: 2022/12/07 20:45:42 by hselbi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 #include "../libft/libft.h"
-
-void	ft_free(char **s)
-{
-	free(*s);
-	*s = NULL;
-}
 
 char	*ft_reading_helper(char *d_main, char *buff)
 {
