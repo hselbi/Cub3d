@@ -9,8 +9,8 @@ PARSING = 	$(addprefix libft/, ft_atoi.c ft_bzero.c ft_calloc.c ft_isalnum.c ft_
 			ft_memmove.c ft_memset.c ft_putchar_fd.c ft_putendl_fd.c ft_putnbr_fd.c ft_putstr_fd.c\
 			ft_split.c ft_strchr.c ft_strdup.c ft_striteri.c ft_strjoin.c ft_strlcat.c ft_strlcpy.c\
 			ft_strlen.c ft_strmapi.c ft_strncmp.c ft_strnstr.c ft_strrchr.c ft_strtrim.c ft_substr.c\
-			ft_tolower.c ft_toupper.c) get_next_line/get_next_line.c check_id.c path_rgb.c color.c \
-			utils.c utils1.c utils2.c fill_struct.c fill_struct_body.c fill_struct_end.c fill_rgb.c
+			ft_tolower.c ft_toupper.c) get_next_line/get_next_line.c get_next_line/utils_gnl.c check_id.c \
+			path_rgb.c color.c utils.c utils1.c utils2.c fill_struct.c fill_struct_body.c fill_struct_end.c fill_rgb.c
 
 PARSE = $(addprefix parsing/, $(PARSING))
 		
