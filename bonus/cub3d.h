@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3d.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hselbi <hselbi@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/12/07 20:10:11 by hselbi            #+#    #+#             */
+/*   Updated: 2022/12/07 20:10:19 by hselbi           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CUB3D_H
 # define CUB3D_H
 
@@ -33,7 +45,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
-# include "./minilibx/mlx.h"
+# include "../minilibx/mlx.h"
 # include <mlx.h>
 # include <unistd.h>
 # include <math.h>
@@ -280,5 +292,7 @@ void			ceilling_floor_max(t_cub *cub);
 void			v_field(t_cub *cub, int x, float ra);
 
 int				func(int x, int y, t_cub *cub);
+
+void			ft_perror(char *msg);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: hselbi <hselbi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 02:22:43 by hselbi            #+#    #+#             */
-/*   Updated: 2022/12/07 02:29:52 by hselbi           ###   ########.fr       */
+/*   Updated: 2022/12/07 17:27:02 by hselbi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,12 +92,12 @@ void	init_img_win(t_cub *cub)
 	cub->height = cub->win_y;
 	cub->img = mlx_new_image(cub->mlx, cub->width, cub->height);
 	if (!cub->img)
-		printf("Failed!!\n");
+		ft_perror("Failed Created image\n");
 	cub->addr = (int *)mlx_get_data_addr(cub->img, &cub->bits_per_pixel, \
 		&cub->line_length, &cub->endian);
-	if (!cub->addr)
-		printf("Failed!!\n");
 	cub->mmap.img = mlx_new_image(cub->mlx, cub->mini_w, cub->mini_h);
+	if (!cub->img)
+		ft_perror("Failed Created image for minimap\n");
 	cub->mmap.add = (int *)mlx_get_data_addr(cub->mmap.img, \
 		&cub->bits_per_pixel, &cub->line_length, &cub->endian);
 	sprite_frames(cub);

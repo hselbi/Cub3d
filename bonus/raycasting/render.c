@@ -6,7 +6,7 @@
 /*   By: hselbi <hselbi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 01:03:19 by hselbi            #+#    #+#             */
-/*   Updated: 2022/12/07 01:03:20 by hselbi           ###   ########.fr       */
+/*   Updated: 2022/12/07 20:02:08 by hselbi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,10 @@ void	rand_wall(t_cub *cub, float ra)
 
 void	frames_sprite(t_cub *cub)
 {
+	if (!cub->sprite.farme_one || !cub->sprite.farme_two || \
+		!cub->sprite.farme_three || !cub->sprite.farme_four \
+		|| !cub->sprite.farme_five)
+		return ;
 	if (cub->sprite.ind < 5)
 		mlx_put_image_to_window(cub->mlx, cub->win, \
 			cub->sprite.farme_one, 350, 470);
