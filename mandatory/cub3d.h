@@ -6,7 +6,7 @@
 /*   By: hselbi <hselbi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 00:52:06 by hselbi            #+#    #+#             */
-/*   Updated: 2022/12/07 17:58:11 by hselbi           ###   ########.fr       */
+/*   Updated: 2022/12/07 20:33:07 by hselbi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -207,6 +207,6 @@ void			v_field(t_cub *cub, int x, float ra);
 unsigned long	create_rgb(int r, int g, int b);
 unsigned long	create_trgb(int t, int r, int g, int b);
 
-void	ft_perror(char *msg);
+void			ft_perror(char *msg);
 
 #endif

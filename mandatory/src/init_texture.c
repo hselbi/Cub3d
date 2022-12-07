@@ -6,11 +6,29 @@
 /*   By: hselbi <hselbi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 23:44:25 by hselbi            #+#    #+#             */
-/*   Updated: 2022/12/07 17:55:11 by hselbi           ###   ########.fr       */
+/*   Updated: 2022/12/07 20:31:35 by hselbi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
+
+void	fill_arr(t_cub *cub, int *res)
+{
+	int	i;
+	int	j;
+
+	i = -1;
+	j = -1;
+	while (++j < cub->tx_img.height)
+	{
+		i = -1;
+		while (++i < cub->tx_img.width)
+		{
+			res[(cub->tx_img.width * j) + i] = \
+				cub->tx_img.add[cub->tx_img.width * j + i];
+		}
+	}
+}
 
 int	*fill_texture(t_cub *cub, int red)
 {
@@ -29,15 +47,7 @@ int	*fill_texture(t_cub *cub, int red)
 	res = (int *)malloc(sizeof(int) * (cub->tx_img.height * cub->tx_img.width));
 	if (!res)
 		return (0);
-	while (++j < cub->tx_img.height)
-	{
-		i = -1;
-		while (++i < cub->tx_img.width)
-		{
-			res[(cub->tx_img.width * j) + i] = \
-				cub->tx_img.add[cub->tx_img.width * j + i];
-		}
-	}
+	fill_arr(cub, res);
 	mlx_destroy_image(cub->mlx, cub->tx_img.img);
 	return (res);
 }
