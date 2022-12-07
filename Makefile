@@ -43,6 +43,8 @@ BONUS_PARSE = $(addprefix bonus/parsing/, $(BONUS_PARSING))
 
 NAME_BONUS = cub3d_bonus
 
+#hsdgjdhs#
+
 OBJ_BONUS = $(BONUS_SRC:.c=.o) $(BONUS_PARSE:.c=.o)
 
 ARCH = minilibx/libmlx.a
