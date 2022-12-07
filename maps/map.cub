@@ -9,8 +9,8 @@ WE ./textures/walkstone.xpm
 EA ./textures/woolsnow.xpm
 
 C 255,30,33
-
-11111111111
+     1
+11111011111
 10000N00001
 10000000001111111
 10000000001
