@@ -1,12 +1,12 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
-#    makefile                                           :+:      :+:    :+:    #
+#    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: adbaich <marvin@42.fr>                     +#+  +:+       +#+         #
+#    By: hselbi <hselbi@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/09 16:50:01 by adbaich           #+#    #+#              #
-#    Updated: 2021/11/16 15:01:20 by adbaich          ###   ########.fr        #
+#    Updated: 2022/12/07 21:13:49 by hselbi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,11 +56,11 @@ FLAGS = -Wall -Wextra -Werror
 all: ${NAME}
 
 ${NAME}: ${OBJS}
-	${CC} ${FLAGS} -c ${SRCS}
-	ar rc ${NAME} ${OBJS}
+	@${CC} ${FLAGS} -c ${SRCS}
+	@ar rc ${NAME} ${OBJS}
 
 clean:
-	${RM} ${OBJS}
+	@${RM} ${OBJS}
 
 fclean: clean
 	${RM} ${NAME}

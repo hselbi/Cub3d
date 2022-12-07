@@ -6,7 +6,7 @@
 #    By: hselbi <hselbi@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/09 16:50:01 by adbaich           #+#    #+#              #
-#    Updated: 2022/12/07 21:13:25 by hselbi           ###   ########.fr        #
+#    Updated: 2022/12/07 21:23:43 by hselbi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,18 +51,18 @@ NAME = libft.a
 CC = gcc
 RM = rm -f
 
-FLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror
 
 all: ${NAME}
 
 ${NAME}: ${OBJS}
-	@${CC} ${FLAGS} -c ${SRCS}
+	${CC} ${CFLAGS} -c ${SRCS}
 	@ar rc ${NAME} ${OBJS}
 
 clean:
 	@${RM} ${OBJS}
 
 fclean: clean
-	@${RM} ${NAME}
+	${RM} ${NAME}
 
 re: fclean all
