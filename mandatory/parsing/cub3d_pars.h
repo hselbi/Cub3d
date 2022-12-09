@@ -6,7 +6,7 @@
 /*   By: adbaich <adbaich@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 18:40:24 by adbaich           #+#    #+#             */
-/*   Updated: 2022/12/05 20:12:19 by adbaich          ###   ########.fr       */
+/*   Updated: 2022/12/08 15:45:13 by adbaich          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,8 @@ void	get_color(char *path, t_txt *toto, int id_index);
 void	ft_error(void);
 size_t	max_len(char *s1, char *s2);
 void	fill_id(char *id, char *str, int len);
-void	fill_path(char *str, char *path, int i);
+char	*fill_path(char *str, char *path, int i);
 int		check_ext(char *file);
-void	fill_path(char *str, char *path, int i);
 int		check_path(char *str);
 int		strat_map(int *txt_index);
 int		player_position(char c, t_txt *toto);

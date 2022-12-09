@@ -6,7 +6,7 @@
 /*   By: adbaich <adbaich@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 13:55:34 by adbaich           #+#    #+#             */
-/*   Updated: 2022/12/05 20:12:09 by adbaich          ###   ########.fr       */
+/*   Updated: 2022/12/08 13:08:28 by adbaich          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ char	*get_path(char *str)
 	path = malloc(sizeof(char) * len + 1);
 	if (!path)
 		return (NULL);
-	fill_path(str, path, i);
+	path = fill_path(str, path, i);
 	return (path);
 }
 

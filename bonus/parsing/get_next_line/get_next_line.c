@@ -6,7 +6,7 @@
 /*   By: adbaich <adbaich@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 17:09:33 by adbaich           #+#    #+#             */
-/*   Updated: 2022/12/07 12:06:01 by adbaich          ###   ########.fr       */
+/*   Updated: 2022/12/07 11:32:06 by adbaich          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 char	*ft_reading_helper(char *d_main, char *buff)
 {
 	char	*tmp;
-	
+
 	if (!d_main)
 	{
 		d_main = malloc(1 * sizeof(char));

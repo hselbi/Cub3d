@@ -6,7 +6,7 @@
 /*   By: adbaich <adbaich@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 14:04:17 by adbaich           #+#    #+#             */
-/*   Updated: 2022/12/05 19:27:38 by adbaich          ###   ########.fr       */
+/*   Updated: 2022/12/08 15:15:20 by adbaich          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,7 @@ void	fill_map_helper(char *line, t_txt *toto, int i, int count)
 
 	if (line[i] || !count)
 		ft_error();
-	if (count)
-	{
-		tmp = toto->mini_map;
-		toto->mini_map = ft_strjoin(toto->mini_map, line);
-		free(tmp);
-	}
+	tmp = toto->mini_map;
+	toto->mini_map = ft_strjoin(toto->mini_map, line);
+	free(tmp);
 }

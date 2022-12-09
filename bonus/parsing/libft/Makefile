@@ -1,12 +1,12 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
-#    makefile                                           :+:      :+:    :+:    #
+#    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: adbaich <marvin@42.fr>                     +#+  +:+       +#+         #
+#    By: adbaich <adbaich@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/09 16:50:01 by adbaich           #+#    #+#              #
-#    Updated: 2021/11/16 15:01:20 by adbaich          ###   ########.fr        #
+#    Updated: 2022/12/08 12:55:49 by adbaich          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,12 +51,12 @@ NAME = libft.a
 CC = gcc
 RM = rm -f
 
-FLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror
 
 all: ${NAME}
 
 ${NAME}: ${OBJS}
-	${CC} ${FLAGS} -c ${SRCS}
+	${CC} ${CFLAGS} -c ${SRCS}
 	ar rc ${NAME} ${OBJS}
 
 clean:

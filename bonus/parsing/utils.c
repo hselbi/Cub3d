@@ -6,7 +6,7 @@
 /*   By: adbaich <adbaich@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 13:58:55 by adbaich           #+#    #+#             */
-/*   Updated: 2022/12/05 14:04:05 by adbaich          ###   ########.fr       */
+/*   Updated: 2022/12/08 15:44:55 by adbaich          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	fill_id(char *id, char *str, int len)
 	id[len - 1] = '\0';
 }
 
-void	fill_path(char *str, char *path, int i)
+char	*fill_path(char *str, char *path, int i)
 {
 	int	j;
 
@@ -57,6 +57,7 @@ void	fill_path(char *str, char *path, int i)
 		i++;
 	}
 	path[j] = '\0';
+	return (path);
 }
 
 int	check_ext(char *file)

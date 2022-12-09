@@ -6,7 +6,7 @@
 #    By: adbaich <adbaich@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/30 20:17:07 by adbaich           #+#    #+#              #
-#    Updated: 2022/12/05 20:23:13 by adbaich          ###   ########.fr        #
+#    Updated: 2022/12/07 11:32:45 by adbaich          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,6 +45,8 @@ SRCS = libft/ft_strlen.c \
 		libft/ft_putendl_fd.c \
 		libft/ft_putnbr_fd.c \
         get_next_line/get_next_line.c \
+        get_next_line/utils_gnl.c \
+        cub3d_pars.c \
         check_id.c \
         path_rgb.c \
         color.c \
