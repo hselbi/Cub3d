@@ -6,11 +6,11 @@
 /*   By: hselbi <hselbi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 01:00:57 by hselbi            #+#    #+#             */
-/*   Updated: 2022/12/07 01:28:29 by hselbi           ###   ########.fr       */
+/*   Updated: 2022/12/09 20:31:18 by hselbi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d.h"
+#include "../cub3d_bonus.h"
 
 void	player_minimap(t_cub *cub)
 {

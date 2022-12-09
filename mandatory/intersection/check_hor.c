@@ -6,7 +6,7 @@
 /*   By: hselbi <hselbi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 00:08:29 by hselbi            #+#    #+#             */
-/*   Updated: 2022/12/07 00:08:30 by hselbi           ###   ########.fr       */
+/*   Updated: 2022/12/09 20:58:15 by hselbi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	pl_pos(char c)
 
 void	coord_hwall(t_hor *hor, t_cub *cub, float ra)
 {
-	while (hor->dof < 18)
+	while (1)
 	{
 		hor->mx = (int)(hor->rx) / 64;
 		hor->my = (int)(hor->ry) / 64;
@@ -35,7 +35,7 @@ void	coord_hwall(t_hor *hor, t_cub *cub, float ra)
 			&& !pl_pos(cub->par.map[hor->my][hor->mx]))
 		{
 			cub->p.f_hor = 1;
-			hor->dof = 18;
+			break ;
 		}
 		else
 		{
@@ -50,7 +50,7 @@ void	init_hor(t_cub *cub, t_hor *hor, float ra)
 {
 	if (ra > PI && ra < PI * 2)
 	{
-		hor->ry = (int)(cub->p.y / 64) * 64 - 0.001;
+		hor->ry = (int)(cub->p.y / 64) * 64 - 0.0001;
 		hor->rx = (cub->p.y - hor->ry) * hor->atan + cub->p.x;
 		hor->yo = -64;
 		hor->xo = -hor->yo * hor->atan;

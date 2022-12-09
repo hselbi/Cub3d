@@ -6,11 +6,11 @@
 /*   By: hselbi <hselbi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 01:00:43 by hselbi            #+#    #+#             */
-/*   Updated: 2022/12/07 01:00:44 by hselbi           ###   ########.fr       */
+/*   Updated: 2022/12/09 20:31:46 by hselbi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d.h"
+#include "../cub3d_bonus.h"
 
 void	background(t_cub *cub)
 {

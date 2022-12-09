@@ -6,11 +6,11 @@
 /*   By: hselbi <hselbi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 01:00:53 by hselbi            #+#    #+#             */
-/*   Updated: 2022/12/07 01:00:54 by hselbi           ###   ########.fr       */
+/*   Updated: 2022/12/09 20:31:10 by hselbi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d.h"
+#include "../cub3d_bonus.h"
 
 void	mini_dda_line(int end_x, int end_y, t_cub *cub)
 {

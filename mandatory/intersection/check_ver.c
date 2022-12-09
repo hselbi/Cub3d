@@ -6,7 +6,7 @@
 /*   By: hselbi <hselbi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 00:08:32 by hselbi            #+#    #+#             */
-/*   Updated: 2022/12/07 00:30:34 by hselbi           ###   ########.fr       */
+/*   Updated: 2022/12/09 20:58:42 by hselbi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	coor_vwall(t_ver *ver, t_cub *cub, float ra)
 {
-	while (ver->dof < 18)
+	while (1)
 	{
 		ver->mx = (floor)(ver->rx) / 64;
 		if (ra > (PI / 2) && ra < (3 * PI / 2))
@@ -23,12 +23,12 @@ void	coor_vwall(t_ver *ver, t_cub *cub, float ra)
 		ver->mp = ver->my * cub->col + ver->mx;
 		if (ver->my < 0 || ver->my >= cub->col || ver->mx < 0 \
 			|| ver->mx >= cub->row)
-			ver->dof = 18;
+			break ;
 		else if (ver->mp > 0 && ver->mp < cub->row * cub->col \
 			&& cub->par.map[ver->my][ver->mx] == '1')
 		{
 			cub->p.f_ver = 1;
-			ver->dof = 18;
+			break ;
 		}
 		else
 		{
@@ -54,7 +54,7 @@ void	init_ver(t_cub *cub, t_ver *ver, float ra)
 	}
 	else if (ra > (PI / 2) && ra < (3 * PI / 2))
 	{
-		ver->rx = (int)(cub->p.x) / 64 * 64 - 0.001;
+		ver->rx = (int)(cub->p.x) / 64 * 64 - 0.0001;
 		ver->ry = (cub->p.x - ver->rx) * ver->atan + cub->p.y;
 		ver->xo = -64;
 		ver->yo = -ver->xo * ver->atan;

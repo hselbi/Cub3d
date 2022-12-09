@@ -20,12 +20,13 @@ OBJ = $(MAN_SRC:.c=.o) $(PARSE:.c=.o)
 
 ####		bonus		####
 
-BONUS_RCAST = $(addprefix raycasting/, ceilling_flooring.c vision_field.c render.c dda_line_bonus.c \
-        	minimap_bonus.c)
+BONUS_RCAST = $(addprefix raycasting/, ceilling_flooring_bonus.c vision_field_bonus.c \
+			render_bonus.c dda_line_bonus.c minimap_bonus.c)
 
-BONUS_SRC =	$(addprefix bonus/, $(BONUS_RCAST) $(addprefix src/, main.c keys_mlx.c rgb.c \
-			background_bonus.c init_texture.c mouse_mv_bonus.c sprite_bonus.c init_bonus.c \
-			errors.c) $(addprefix intersection/, check_hor.c check_ver.c shortest.c))
+BONUS_SRC =	$(addprefix bonus/, $(BONUS_RCAST) $(addprefix src/, main_bonus.c keys_mlx_bonus.c \
+			rgb_bonus.c background_bonus.c init_texture_bonus.c mouse_mv_bonus.c \
+			sprite_bonus.c init_bonus.c errors_bonus.c) $(addprefix intersection/, check_hor_bonus.c \
+			check_ver_bonus.c shortest_bonus.c))
 
 NAME_BONUS = cub3D_bonus
 
@@ -49,7 +50,7 @@ bonus: ${NAME_BONUS}
 $(NAME): $(OBJ)
 	@echo "\033[0;93mMake $(NAME) ..."
 	@$(MAKE) -s -C parsing/libft
-	@$(CC) $(OBJ) $(LIBFT) -lmlx -framework OpenGL -framework AppKit -o $(NAME)
+	@$(CC) $(OBJ) $(LIBFT) -fsanitize=address  -lmlx -framework OpenGL -framework AppKit -o $(NAME)
 	@echo "\033[1;92m$(NAME) is Done\033[0m"
 
 $(NAME_BONUS): $(OBJ_BONUS)

@@ -6,11 +6,11 @@
 /*   By: hselbi <hselbi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 01:11:41 by hselbi            #+#    #+#             */
-/*   Updated: 2022/12/07 20:07:00 by hselbi           ###   ########.fr       */
+/*   Updated: 2022/12/09 20:32:15 by hselbi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d.h"
+#include "../cub3d_bonus.h"
 
 void	sprite_frames(t_cub *cub)
 {

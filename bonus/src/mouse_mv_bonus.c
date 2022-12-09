@@ -6,11 +6,11 @@
 /*   By: hselbi <hselbi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 17:36:14 by adbaich           #+#    #+#             */
-/*   Updated: 2022/12/07 20:03:25 by hselbi           ###   ########.fr       */
+/*   Updated: 2022/12/09 20:32:09 by hselbi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d.h"
+#include "../cub3d_bonus.h"
 
 int	func(int x, int y, t_cub *cub)
 {

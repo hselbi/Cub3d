@@ -6,7 +6,7 @@
 /*   By: hselbi <hselbi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 00:52:06 by hselbi            #+#    #+#             */
-/*   Updated: 2022/12/07 20:33:07 by hselbi           ###   ########.fr       */
+/*   Updated: 2022/12/09 15:22:00 by hselbi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@
 # include <mlx.h>
 # include <math.h>
 # include <limits.h>
-# include "parsing/cub3d_pars.h"
-# include "parsing/libft/libft.h"
+# include "../parsing/cub3d_pars.h"
+# include "../parsing/libft/libft.h"
 
 typedef struct s_hor
 {
