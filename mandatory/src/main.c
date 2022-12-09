@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: adbaich <adbaich@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/12/07 00:01:43 by hselbi            #+#    #+#             */
+/*   Updated: 2022/12/09 13:13:58 by adbaich          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../cub3d.h"
 
 int	check_player(char c)
@@ -10,6 +22,9 @@ int	check_player(char c)
 
 void	player_side(t_cub *cub, int stop, int i, int j)
 {
+	cub->p.prev_x = cub->p.x;
+	cub->p.prev_y = cub->p.y;
+	cub->p.p_angle = (3 * PI) / 2;
 	if (stop && cub->par.map[j - 1][i] == 'N')
 		cub->p.p_angle = (3 * PI) / 2;
 	else if (stop && cub->par.map[j - 1][i] == 'S')
@@ -17,7 +32,6 @@ void	player_side(t_cub *cub, int stop, int i, int j)
 	else if (stop && cub->par.map[j - 1][i] == 'W')
 		cub->p.p_angle = PI;
 	else if (stop && cub->par.map[j - 1][i] == 'E')
-
 		cub->p.p_angle = 0.0;
 	cub->p.dem_x = cos(cub->p.p_angle) * 5;
 	cub->p.dem_y = sin(cub->p.p_angle) * 5;
@@ -49,9 +63,6 @@ void	init_player(t_cub *cub)
 	}
 	cub->p.mini_x = (cub->p.x / (16 / 5));
 	cub->p.mini_y = (cub->p.y / (16 / 5));
-	cub->p.prev_x = cub->p.x;
-	cub->p.prev_y = cub->p.y;
-	cub->p.p_angle = (3 * PI) / 2;
 	player_side(cub, stop, i, j);
 }
 
@@ -73,13 +84,12 @@ void	init_img_win(t_cub *cub)
 	cub->height = cub->win_y;
 	cub->img = mlx_new_image(cub->mlx, cub->width, cub->height);
 	if (!cub->img)
-		printf("Failed!!\n");
+		ft_perror("Failed!!\n");
 	cub->addr = (int *)mlx_get_data_addr(cub->img, &cub->bits_per_pixel, \
 		&cub->line_length, &cub->endian);
 	if (!cub->addr)
 		printf("Failed!!\n");
 }
-
 
 int	main(int ac, char **av)
 {
@@ -90,9 +100,9 @@ int	main(int ac, char **av)
 	cub.win_y = 720;
 	if (ac > 1)
 	{
-		cub.mlx = mlx_init();
 		fd = open_fd(av[1]);
 		cub.par = fill_struct(fd);
+		cub.mlx = mlx_init();
 		cub.win = mlx_new_window(cub.mlx, cub.win_x, cub.win_y, "CUB3D");
 		if (!cub.win)
 			printf("failed!!!\n");

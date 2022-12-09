@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minimap_bonus.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hselbi <hselbi@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/12/07 01:00:57 by hselbi            #+#    #+#             */
+/*   Updated: 2022/12/07 01:28:29 by hselbi           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../cub3d.h"
 
 void	player_minimap(t_cub *cub)
@@ -18,8 +30,8 @@ void	player_minimap(t_cub *cub)
 
 void	mini_bisector(t_cub *cub)
 {
-	mini_dda_line(cub->mini_w / 2, (int)(cub->mini_w / 2 + cub->p.dem_x * 2.5), \
-	cub->mini_h / 2, (int)(cub->mini_h / 2 + cub->p.dem_y * 2.5), cub);
+	mini_dda_line((int)(cub->mini_w / 2 + cub->p.dem_x * 2.5), \
+		(int)(cub->mini_h / 2 + cub->p.dem_y * 2.5), cub);
 }
 
 static void	draw_minisq(t_cub *cub, int x, int y, int color)
@@ -52,14 +64,12 @@ void	sqrs_minimap(t_cub *cub, int p_i, int p_j)
 	int	flag_i;
 	int	flag_j;
 
-	i = 0;
-	j = 0;
-	flag_i = 0;
-	flag_j = 0;
-	while (j < 9)
+	i = -1;
+	j = -1;
+	while (++j < 9)
 	{
-		i = 0;
-		while (i < 9)
+		i = -1;
+		while (++i < 9)
 		{
 			flag_i = p_i - (4 - i);
 			flag_j = p_j - (4 - j);
@@ -71,9 +81,7 @@ void	sqrs_minimap(t_cub *cub, int p_i, int p_j)
 				draw_minisq(cub, (i), (j), 0xF8A95F);
 			else if (cub->par.map[flag_j][flag_i] == '1')
 				draw_minisq(cub, (i), (j), 0xb2a562);
-			i++;
 		}
-		j++;
 	}
 }
 

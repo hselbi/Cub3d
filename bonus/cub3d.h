@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3d.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hselbi <hselbi@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/12/07 20:10:11 by hselbi            #+#    #+#             */
+/*   Updated: 2022/12/07 20:10:19 by hselbi           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CUB3D_H
 # define CUB3D_H
 
@@ -23,20 +35,50 @@
 // define π value
 # define PI 3.141592653589793238
 
-# define ROW 11
-# define COL 15
+// define space
+# define SPACE 49
+
+# define TRUE 1
+# define FALSE 0
 
 # include <stdbool.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
-# include "./minilibx/mlx.h"
-// # include <mlx.h>
+# include "../minilibx/mlx.h"
+# include <mlx.h>
 # include <unistd.h>
 # include <math.h>
 # include <limits.h>
 # include "parsing/cub3d_pars.h"
 # include "parsing/libft/libft.h"
+
+typedef struct s_field
+{
+	float	dist_plan;
+	int		width_text;
+	int		texel;
+	int		h;
+	int		tx;
+	int		ty;
+	int		flag_h;
+	int		flag_v;
+	int		i;
+	int		j;
+	int		dist;
+}	t_field;
+
+typedef struct s_dda
+{
+	int		dx;
+	int		dy;
+	int		i;
+	int		step;
+	float	xinc;
+	float	yinc;
+	float	x;
+	float	y;
+}	t_dda;
 
 typedef struct s_hor
 {
@@ -128,6 +170,7 @@ typedef struct s_text
 
 typedef struct s_sprite
 {
+	int		ind;
 	void	*farme_one;
 	int		width_one;
 	int		height_one;
@@ -143,8 +186,11 @@ typedef struct s_sprite
 	void	*farme_four;
 	int		width_four;
 	int		height_four;
-}	t_sprite;
 
+	void	*farme_five;
+	int		width_five;
+	int		height_five;
+}	t_sprite;
 
 typedef struct s_cub
 {
@@ -161,7 +207,6 @@ typedef struct s_cub
 	int			bits_per_pixel;
 	int			line_length;
 	int			endian;
-	int			map[ROW][COL];
 	int			mp;
 	int			len;
 	int			row;
@@ -195,11 +240,15 @@ typedef struct s_cub
 	int			*ea;
 	int			ea_width;
 
+	bool		gun_shot;
 	int			mouse_x;
 	int			mouse_y;
 
 }	t_cub;
 
+void			init_wind(t_cub *cub);
+void			init_img_win(t_cub *cub);
+void			init_player(t_cub *cub);
 int				mlx_windows(t_cub *cub);
 
 /*		keys		*/
@@ -220,8 +269,7 @@ unsigned long	create_yrgb(int t, int r, int g, int b);
 /*		square		*/
 
 void			ceilling_floor(t_cub *cub);
-int				mouse_btn(int key_code, t_cub *cub);
-
+int				mouse_hook(int button, int x, int y, t_cub *cub);
 void			player_minimap(t_cub *cub);
 void			mini_bg(t_cub *cub);
 void			minimap(t_cub *cub);
@@ -229,13 +277,12 @@ int				pl_pos(char c);
 
 /* minimap */
 
+void			sprite_frames(t_cub *cub);
 void			draw_minimap(t_cub *cub);
-void			mini_dda_line(int start_x, int end_x, int start_y, \
-				int end_y, t_cub *cub);
+void			mini_dda_line(int end_x, int end_y, t_cub *cub);
 
 void			hor_ray(t_cub *cub, float ra);
 void			ver_ray(t_cub *cub, float ra);
-
 
 void			shortest(t_player *pl);
 
@@ -245,5 +292,7 @@ void			ceilling_floor_max(t_cub *cub);
 void			v_field(t_cub *cub, int x, float ra);
 
 int				func(int x, int y, t_cub *cub);
+
+void			ft_perror(char *msg);
 
 #endif

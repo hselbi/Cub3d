@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   render.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hselbi <hselbi@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/12/07 01:03:19 by hselbi            #+#    #+#             */
+/*   Updated: 2022/12/08 22:41:18 by hselbi           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../cub3d.h"
 
 int	wall_checker(t_cub *cub)
@@ -11,11 +23,13 @@ int	wall_checker(t_cub *cub)
 	tmp_j = (int)(cub->p.y / 64);
 	prev_i = (int)(cub->p.prev_x / 64);
 	prev_j = (int)(cub->p.prev_y / 64);
-	if ((prev_i < 0 && prev_i >= cub->row) || (prev_j < 0 && prev_j >= cub->col))
-		return(0);
+	if ((prev_i < 0 && prev_i >= cub->row) || (prev_j < 0 \
+		&& prev_j >= cub->col))
+		return (0);
 	if (cub->par.map[tmp_j][tmp_i] == '1')
 		return (1);
-	else if (cub->par.map[tmp_j][prev_i] == '1' && cub->par.map[prev_j][tmp_i] == '1')
+	else if (cub->par.map[tmp_j][prev_i] == '1' && \
+		cub->par.map[prev_j][tmp_i] == '1')
 		return (2);
 	return (0);
 }
@@ -29,8 +43,8 @@ void	rand_wall(t_cub *cub, float ra)
 	{
 		if (ra > 2 * PI)
 			ra -= 2 * PI;
-		if(ra < 0)
-			ra += 2*PI;
+		if (ra < 0)
+			ra += 2 * PI;
 		if (wall_checker(cub))
 		{
 			cub->p.x = cub->p.prev_x;
@@ -47,35 +61,32 @@ void	rand_wall(t_cub *cub, float ra)
 
 void	frames_sprite(t_cub *cub)
 {
-	// void	*img;
-	// int		width_img;
-	// int		height_img;
-	// img = mlx_xpm_file_to_image(cub->mlx, "./gun_shot/1.xpm", &width_img, &height_img);
-	// printf("%d, %d\n", cub->sprite.width_two, cub->win_x);
-	// printf("%d, %d\n", cub->sprite.height_two, cub->win_y);
-	/*
-	* 1st one
-	*/
-	// mlx_put_image_to_window(cub->mlx, cub->win, cub->sprite.farme_one, 305, 520);
-	/*
-	* last one
-	*/
-	mlx_put_image_to_window(cub->mlx, cub->win, cub->sprite.farme_two, 345, 490);
-	/*
-	* 3rd one
-	*/
-	// mlx_put_image_to_window(cub->mlx, cub->win, cub->sprite.farme_three, 340, 410);
-	/*
-	* 2nd one
-	*/
-	// mlx_put_image_to_window(cub->mlx, cub->win, cub->sprite.farme_four, 345, 430);
+	if (!cub->sprite.farme_one || !cub->sprite.farme_two || \
+		!cub->sprite.farme_three || !cub->sprite.farme_four \
+		|| !cub->sprite.farme_five)
+		return ;
+	if (cub->sprite.ind < 5)
+		mlx_put_image_to_window(cub->mlx, cub->win, \
+			cub->sprite.farme_one, 350, 470);
+	else if (cub->sprite.ind < 10)
+		mlx_put_image_to_window(cub->mlx, cub->win, \
+			cub->sprite.farme_two, 350, 470);
+	else if (cub->sprite.ind < 15)
+		mlx_put_image_to_window(cub->mlx, cub->win, \
+			cub->sprite.farme_three, 350, 470);
+	else if (cub->sprite.ind < 20)
+		mlx_put_image_to_window(cub->mlx, cub->win, \
+			cub->sprite.farme_four, 350, 470);
+	else if (cub->sprite.ind < 25)
+		mlx_put_image_to_window(cub->mlx, cub->win, \
+			cub->sprite.farme_five, 350, 470);
 }
 
-int mlx_windows(t_cub *cub)
+int	mlx_windows(t_cub *cub)
 {
-	float ra;
-	
-	ra = cub->p.p_angle -  (PI / 6);
+	float	ra;
+
+	ra = cub->p.p_angle - (PI / 6);
 	ceilling_floor_max(cub);
 	cub->p.mini_x = cub->p.x / (3.2);
 	cub->p.mini_y = cub->p.y / (3.2);
@@ -84,7 +95,15 @@ int mlx_windows(t_cub *cub)
 	rand_wall(cub, ra);
 	draw_minimap(cub);
 	mlx_put_image_to_window(cub->mlx, cub->win, cub->img, 0, 0);
-    mlx_put_image_to_window(cub->mlx, cub->win, cub->mmap.img, 0, 0);
-	frames_sprite(cub);
+	mlx_put_image_to_window(cub->mlx, cub->win, cub->mmap.img, 0, 0);
+	if (cub->p.dist < 40.0)
+		cub->gun_shot = FALSE;
+	if (cub->gun_shot == TRUE)
+	{
+		frames_sprite(cub);
+		cub->sprite.ind++;
+	}
+	if (cub->sprite.ind >= 25)
+		cub->gun_shot = FALSE;
 	return (0);
 }

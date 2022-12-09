@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3d.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hselbi <hselbi@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/12/07 00:52:06 by hselbi            #+#    #+#             */
+/*   Updated: 2022/12/07 20:33:07 by hselbi           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CUB3D_H
 # define CUB3D_H
 
@@ -22,19 +34,13 @@
 
 // define π value
 # define PI 3.141592653589793238
-# define P1 (PI / 2)
-# define P2 (3 * PI / 2)
-# define FOV (PI / 2.0)
-
-# define ROW 11
-# define COL 15
 
 # include <stdbool.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
-# include "./minilibx/mlx.h"
 # include <unistd.h>
+# include <mlx.h>
 # include <math.h>
 # include <limits.h>
 # include "parsing/cub3d_pars.h"
@@ -67,6 +73,21 @@ typedef struct s_ver
 	int		dof;
 
 }	t_ver;
+
+typedef struct s_field
+{
+	float	dist_plan;
+	int		width_text;
+	int		texel;
+	int		h;
+	int		tx;
+	int		ty;
+	int		flag_h;
+	int		flag_v;
+	int		i;
+	int		j;
+	int		dist;
+}	t_field;
 
 typedef struct s_player
 {
@@ -125,7 +146,6 @@ typedef struct s_cub
 	int			bits_per_pixel;
 	int			line_length;
 	int			endian;
-	int			map[ROW][COL];
 	int			mp;
 	int			len;
 	int			row;
@@ -186,5 +206,7 @@ void			v_field(t_cub *cub, int x, float ra);
 
 unsigned long	create_rgb(int r, int g, int b);
 unsigned long	create_trgb(int t, int r, int g, int b);
+
+void			ft_perror(char *msg);
 
 #endif
