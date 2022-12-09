@@ -6,7 +6,7 @@
 /*   By: hselbi <hselbi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 01:03:19 by hselbi            #+#    #+#             */
-/*   Updated: 2022/12/07 20:02:08 by hselbi           ###   ########.fr       */
+/*   Updated: 2022/12/08 22:41:18 by hselbi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,8 @@ int	mlx_windows(t_cub *cub)
 	draw_minimap(cub);
 	mlx_put_image_to_window(cub->mlx, cub->win, cub->img, 0, 0);
 	mlx_put_image_to_window(cub->mlx, cub->win, cub->mmap.img, 0, 0);
+	if (cub->p.dist < 40.0)
+		cub->gun_shot = FALSE;
 	if (cub->gun_shot == TRUE)
 	{
 		frames_sprite(cub);
