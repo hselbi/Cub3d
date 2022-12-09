@@ -6,7 +6,7 @@
 /*   By: adbaich <adbaich@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 19:11:05 by adbaich           #+#    #+#             */
-/*   Updated: 2022/12/05 20:06:57 by adbaich          ###   ########.fr       */
+/*   Updated: 2022/12/08 15:44:29 by adbaich          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	valid_map_helper(char **map, int i, int j)
 	{
 		if (j)
 		{
-			if (map[i][j + 1] == ' ' || map[i][j + 1] == '\t')
+			if (map[i][j + 1] == ' ' || map[i][j + 1] == '\t' || !map[i][j + 1])
 				ft_error();
 			else if (map[i][j - 1] == ' ' || map[i][j - 1] == '\t')
 				ft_error();

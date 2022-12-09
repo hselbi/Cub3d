@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adbaich <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: adbaich <adbaich@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/06 19:43:35 by adbaich           #+#    #+#             */
-/*   Updated: 2021/11/18 09:49:14 by adbaich          ###   ########.fr       */
+/*   Updated: 2022/12/08 15:46:21 by adbaich          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "libft.h"
 
-int	check(char const	s1, char const	*set)
+int	check(char const s1, char const	*set)
 {
 	int	i;
 

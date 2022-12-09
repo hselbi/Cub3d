@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hselbi <hselbi@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adbaich <adbaich@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 00:01:43 by hselbi            #+#    #+#             */
-/*   Updated: 2022/12/07 17:56:06 by hselbi           ###   ########.fr       */
+/*   Updated: 2022/12/09 13:13:58 by adbaich          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,9 +100,9 @@ int	main(int ac, char **av)
 	cub.win_y = 720;
 	if (ac > 1)
 	{
-		cub.mlx = mlx_init();
 		fd = open_fd(av[1]);
 		cub.par = fill_struct(fd);
+		cub.mlx = mlx_init();
 		cub.win = mlx_new_window(cub.mlx, cub.win_x, cub.win_y, "CUB3D");
 		if (!cub.win)
 			printf("failed!!!\n");

@@ -48,22 +48,22 @@ bonus: ${NAME_BONUS}
 
 $(NAME): $(OBJ)
 	@echo "\033[0;93mMake $(NAME) ..."
-	@$(MAKE) -C parsing/libft
+	@$(MAKE) -s -C parsing/libft
 	@$(CC) $(OBJ) $(LIBFT) -lmlx -framework OpenGL -framework AppKit -o $(NAME)
 	@echo "\033[1;92m$(NAME) is Done\033[0m"
 
 $(NAME_BONUS): $(OBJ_BONUS)
 	@echo "\033[0;93mMake $(NAME_BONUS) ..."
-	@$(MAKE) -C parsing/libft
-	@$(MAKE) -C minilibx
+	@$(MAKE) -s -C parsing/libft
+	@$(MAKE) -s -C minilibx
 	@$(CC) $(OBJ_BONUS) $(ARCH) $(LIBFT_BONUS) -fsanitize=address -lmlx -framework OpenGL -framework AppKit -o $(NAME_BONUS)
 	@echo "\033[1;92m$(NAME_BONUS) is Done\033[0m"
 
 clean:
 	@rm -rf $(OBJ)
 	@rm -rf $(OBJ_BONUS)
-	@$(MAKE) -C parsing/libft clean
-	@$(MAKE) -C minilibx clean
+	@$(MAKE) -s -C parsing/libft clean
+	@$(MAKE) -s -C minilibx clean
 	@echo "\033[1;91mCleaning Objects files is Done\033[0m"
 
 fclean: clean
