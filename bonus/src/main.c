@@ -6,7 +6,7 @@
 /*   By: hselbi <hselbi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 01:15:21 by hselbi            #+#    #+#             */
-/*   Updated: 2022/12/07 17:19:46 by hselbi           ###   ########.fr       */
+/*   Updated: 2022/12/08 23:21:14 by hselbi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ int	main(int ac, char **av)
 	init_wind(&cub);
 	if (ac > 1)
 	{
-		cub.mlx = mlx_init();
 		fd = open_fd(av[1]);
 		cub.par = fill_struct(fd);
+		cub.mlx = mlx_init();
 		cub.win = mlx_new_window(cub.mlx, cub.win_x, cub.win_y, "CUB3D");
 		if (!cub.win)
 			printf("failed!!!\n");

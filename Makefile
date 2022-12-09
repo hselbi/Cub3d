@@ -56,7 +56,7 @@ $(NAME_BONUS): $(OBJ_BONUS)
 	@echo "\033[0;93mMake $(NAME_BONUS) ..."
 	@$(MAKE) -C parsing/libft
 	@$(MAKE) -C minilibx
-	@$(CC) $(OBJ_BONUS) $(ARCH) $(LIBFT_BONUS) -lmlx -framework OpenGL -framework AppKit -o $(NAME_BONUS)
+	@$(CC) $(OBJ_BONUS) $(ARCH) $(LIBFT_BONUS) -fsanitize=address -lmlx -framework OpenGL -framework AppKit -o $(NAME_BONUS)
 	@echo "\033[1;92m$(NAME_BONUS) is Done\033[0m"
 
 clean:
