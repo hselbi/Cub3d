@@ -4,16 +4,28 @@
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+#    By: hselbi <hselbi@student.42.fr>              +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2021/11/09 16:50:01 by adbaich           #+#    #+#              #
+#    Updated: 2022/12/07 21:13:49 by hselbi           ###   ########.fr        #
+=======
+>>>>>>> 18069a8180dc2dd9578af720e438b98d10c436eb
 #    By: adbaich <adbaich@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/09 16:50:01 by adbaich           #+#    #+#              #
 #    Updated: 2022/12/08 12:55:49 by adbaich          ###   ########.fr        #
+<<<<<<< HEAD
 =======
 #    By: hselbi <hselbi@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/09 16:50:01 by adbaich           #+#    #+#              #
 #    Updated: 2022/12/07 21:13:49 by hselbi           ###   ########.fr        #
 >>>>>>> main
+=======
+>>>>>>> 3387e81e10c60bd540f066ffffe7d3fb2c92e4be
+>>>>>>> 18069a8180dc2dd9578af720e438b98d10c436eb
 #                                                                              #
 # **************************************************************************** #
 
@@ -64,12 +76,21 @@ all: ${NAME}
 
 ${NAME}: ${OBJS}
 <<<<<<< HEAD
+<<<<<<< HEAD
 	${CC} ${CFLAGS} -c ${SRCS}
 	ar rc ${NAME} ${OBJS}
 =======
 	@${CC} ${FLAGS} -c ${SRCS}
 	@ar rc ${NAME} ${OBJS}
 >>>>>>> main
+=======
+	@${CC} ${FLAGS} -c ${SRCS}
+	@ar rc ${NAME} ${OBJS}
+=======
+	${CC} ${CFLAGS} -c ${SRCS}
+	ar rc ${NAME} ${OBJS}
+>>>>>>> 3387e81e10c60bd540f066ffffe7d3fb2c92e4be
+>>>>>>> 18069a8180dc2dd9578af720e438b98d10c436eb
 
 clean:
 	@${RM} ${OBJS}
