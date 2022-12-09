@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isalnum.c                                       :+:      :+:    :+:   */
+/*   utils_gnl.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adbaich <adbaich@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/01 11:19:59 by adbaich           #+#    #+#             */
-/*   Updated: 2022/12/08 12:58:04 by adbaich          ###   ########.fr       */
+/*   Created: 2022/12/07 11:31:53 by adbaich           #+#    #+#             */
+/*   Updated: 2022/12/07 11:34:11 by adbaich          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <stdio.h>
+#include <stdlib.h>
 
-int	ft_isalnum(int c)
+void	ft_free(char **s)
 {
-	if (ft_isalpha(c) || ft_isdigit(c))
-		return (1);
-	return (0);
+	free(*s);
+	*s = NULL;
 }

@@ -6,7 +6,7 @@
 /*   By: hselbi <hselbi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 01:15:59 by hselbi            #+#    #+#             */
-/*   Updated: 2022/12/08 23:52:41 by hselbi           ###   ########.fr       */
+/*   Updated: 2022/12/09 13:03:48 by hselbi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ void	v_field(t_cub *cub, int x, float ra)
 	v_field.j = (int)cub->b_wall;
 	while (v_field.i < v_field.j)
 	{
-		printf("%f")
+		// printf("%f")
 		if (v_field.tx > v_field.width_text)
 			v_field.tx = v_field.width_text;
 		texel_coor(cub, &v_field);
